@@ -11,10 +11,6 @@ public class Lista_Pedidos {
         pedidos = new ArrayList();
     }
 
-    public Lista_Pedidos() {
-
-    }
-
     public ArrayList<Pedido> getPedidos() {
         return pedidos;
     }

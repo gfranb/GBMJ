@@ -19,8 +19,18 @@ public class GestionOS {
             opcio = pedirOpcion();
             switch (opcio) {
                 case '1':
-                    controlador.gestionarArticulos();
+
+                    char op;
+                    boolean salir2= false;
+                    do{
+                        System.out.println("1. Mostrar Articulo");
+                        System.out.println("2. Anadir Articulo");
+                        op = pedirOpcion();
+                        controlador.gestionarArticulos(op);
+
+                    }while(salir2);
                     break;
+
                 case '2':
                     controlador.gestionarClientes();
                     break;

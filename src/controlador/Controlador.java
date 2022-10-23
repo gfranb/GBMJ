@@ -8,8 +8,14 @@ public class Controlador {
         datos = new Datos ();
     }
 
-    public void gestionarArticulos(){ // Michael
+    public void gestionarArticulos(char op){ // Michael
+        switch (op){
+            case 1:
+                Datos.mostrarArtiuclos();
+            case 2:
 
+            break;
+        }
     }
 
     public void gestionarClientes(){// Jorge

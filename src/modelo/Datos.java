@@ -10,5 +10,8 @@ public class Datos {
             listaClientes = new ListaClientes();
             listaPedidos = new ListaPedidos ();
         }
-// TO-BE-DONE
+
+        public void eliminarArticulo(String idCodigo){
+
+        }
 }

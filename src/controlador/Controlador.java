@@ -7,5 +7,16 @@ public class Controlador {
     public Controlador() {
         datos = new Datos ();
     }
-// TO-BE-DONE
+
+    public void gestionarArticulos(){ // Michael
+
+    }
+
+    public void gestionarClientes(){// Jorge
+
+    }
+
+    public void gestionarPedidos(){// Bartomeu
+
+    }
 }

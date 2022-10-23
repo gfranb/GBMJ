@@ -19,13 +19,13 @@ public class GestionOS {
             opcio = pedirOpcion();
             switch (opcio) {
                 case '1':
-                    // TO-BE-DONE
+                    controlador.gestionarArticulos();
                     break;
                 case '2':
-                    // TO-BE-DONE
+                    controlador.gestionarClientes();
                     break;
                 case '3':
-                    // TO-BE-DONE
+                    controlador.gestionarPedidos();
                     break;
                 case '0':
                     salir = true;

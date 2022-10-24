@@ -12,16 +12,17 @@ public class Lista<T> {
         return lista.size();
     }
     public void add(T t) {
-// TO-BE-DONE
+        lista.add(t);
     }
     public void borrar(T t) {
-// TO-BE-DONE
+        int i = lista.indexOf(t);
+        lista.remove(i);
     }
     public T getAt(int position) {
         return lista.get(position);
     }
     public void clear() {
-// TO-BE-DONE
+        lista.clear();
     }
     public boolean isEmpty() {
         return lista.isEmpty();

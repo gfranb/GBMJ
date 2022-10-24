@@ -7,13 +7,12 @@ public class Controlador {
     public Controlador() {
         datos = new Datos ();
     }
-
     public void gestionarArticulos(char op){ // Michael
         switch (op){
             case 1:
-                Datos.mostrarArtiuclos();
+                datos.mostrarArticulos();
             case 2:
-
+               // datos.addArticulo(); Pasar por parametros la info necesaria
             break;
         }
     }

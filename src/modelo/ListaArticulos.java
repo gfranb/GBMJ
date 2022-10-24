@@ -3,11 +3,11 @@ package modelo;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Listar_Articulo {
+public class ListaArticulos extends Lista<Articulo>{
     private ArrayList<Articulo> articulos;
     private Map<String, Integer> stockArticulos;
 
-    Listar_Articulo(){
+    ListaArticulos(){
     }
 
     public ArrayList<Articulo> getArticulos() {

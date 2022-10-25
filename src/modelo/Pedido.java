@@ -1,5 +1,7 @@
 package modelo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Pedido {
@@ -8,9 +10,20 @@ public class Pedido {
     private Cliente cliente;
     private Articulo articulo;
     private int cantidad;
-    private Date fecha;
+    private LocalDate fecha;
 
-    Pedido(){}
+    Pedido(Cliente C, Articulo A, int nPedido, int cantidad){
+
+        this.articulo = A;
+        this.nPedido = nPedido;
+        this.cantidad = cantidad;
+        this.cliente = C;
+
+        LocalDate date= LocalDate.now();
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+        String text = date.format(formatters);
+        this.fecha = LocalDate.parse(text, formatters);
+    }
 
     public void setArticulo(Articulo articulo) {
         this.articulo = articulo;
@@ -24,7 +37,7 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -40,7 +53,7 @@ public class Pedido {
         return cliente;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 

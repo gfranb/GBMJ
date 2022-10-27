@@ -19,7 +19,6 @@ public class GestionOS {
             opcio = pedirOpcion();
             switch (opcio) {
                 case '1':
-
                     char op;
                     boolean salir2= false;
                     do{
@@ -35,6 +34,15 @@ public class GestionOS {
                     break;
                 case '3':
                     controlador.gestionarPedidos();
+=======
+// TO-BE-DONE
+                    break;
+                case '2':
+// TO-BE-DONE
+                    break;
+                case '3':
+// TO-BE-DONE
+
                     break;
                 case '0':
                     salir = true;
@@ -44,6 +52,7 @@ public class GestionOS {
     char pedirOpcion() {
         String resp;
         System.out.println("Elige una opción (1,2,3 o 0): ");
+        System.out.println("Elige una opción (1,2,3 o 0):");
                 resp = teclado.nextLine();
         if (resp.isEmpty()) {
             resp = " ";
@@ -51,3 +60,4 @@ public class GestionOS {
         return resp.charAt(0);
     }
 }
+

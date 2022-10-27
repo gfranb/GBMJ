@@ -5,5 +5,4 @@ public class OnlineStore {
         GestionOS gestion = new GestionOS();
         gestion.inicio();
     }
-
 }

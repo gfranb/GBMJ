@@ -1,6 +1,8 @@
 package modelo;
 
-public class Datos {
+import java.util.Random;
+
+public class Datos{
     private ListaArticulos listaArticulos;
     private ListaClientes listaClientes;
     private ListaPedidos listaPedidos;
@@ -10,14 +12,15 @@ public class Datos {
         listaClientes = new ListaClientes();
         listaPedidos = new ListaPedidos();
     }
-
-    public void mostrarArticulos() {
+    public String mostrarArticulos(String c) {
         for (Articulo a : listaArticulos.lista) {
-            a.toString();
+            if(a.getCodigo().equals(c)){
+                return a.toString();
+            }
         }
+        return null;
     }
-
-    public Articulo showArticulo(String idCodigo) {
+    public Articulo getArticulo(String idCodigo) {
         int cont = 0;
         Articulo sArticulo = new Articulo();
         for (Articulo articulo : listaArticulos.lista) {
@@ -28,64 +31,81 @@ public class Datos {
         }
         return sArticulo;
     }
-
     public boolean addArticulo(String c, String d, float p, float gE, int pE) {
         Articulo a = new Articulo(c, d, p, gE, pE);
-        if (listaArticulos.getArticulos().contains(a)) {
+        if (listaArticulos.getArrayList().contains(a)) {
             return false; //El articulo ya existe.
         } else {
             listaArticulos.add(a);
         }
         return true;//El articulo ha sido anadido correctamente.
     }
+    public Cliente_Premium buscarClienteP(String email){
 
-    public Cliente buscarCliente(String email){
-
-        for(Cliente C : listaClientes.getClientesE()){
-            if(C.getNif().equals(email)){
+        for(Cliente_Premium C : listaClientes.getClientesP()){
+            if(C.getEmail().equals(email)){
                 return C;
             }
         }
-        for(Cliente C : listaClientes.getClientesP()){
-            if(C.getNif().equals(email)){
-                return C;
-            }
-        }
-        Cliente C = new Cliente_Estandar();
+
+        Cliente_Premium C = new Cliente_Premium();
         return C;
     }
+    public Cliente_Estandar buscarClienteE(String email){
 
-    public void showCliente(String email){
-        Cliente c = buscarCliente(email);
-        if(c.getNif().equals(email)){
-            c.toString();
+        for(Cliente_Estandar C : listaClientes.getClientesE()){
+            if(C.getEmail().equals(email)){
+                return C;
+            }
         }
+        Cliente_Estandar C = new Cliente_Estandar();
+        return C;
     }
+    public Cliente buscarCliente(String email){
+        Cliente_Premium Cp = buscarClienteP(email);
+        Cliente_Estandar Ce = buscarClienteE(email);
 
-    public boolean addCliente(String nombre, String domicilio, String nif, String email, int tipo){
+        if(Cp.getEmail().equals(email)){
+            return Cp;
+        }
+        if(Ce.getEmail().equals(email)){
+            return Ce;
+        }
+        return null;
+    }
+    public String showCliente(String email){
+        try{
+            Cliente c = buscarCliente(email);
+            if(c.getNif().equals(email)){
+                return c.toString();
+            }
+        }catch(Exception e){
+            return "El cliente no existe";
+        }
+        return null;
+    }
+    public boolean addCliente(String nombre, String domicilio, String nif, String email, char tipo){
         switch (tipo){
-            case 1:
+            case '1':
                 // Cliente Premium
-                Cliente _cP = buscarCliente(email);
+                Cliente_Premium cP = buscarClienteP(email);
 
-                if(_cP.getNif() == ""){
-                    Cliente c = new Cliente_Premium();
-                    c.setDomicilio(domicilio);
-                    c.setEmail(email);
-                    c.setNif(nif);
-                    c.setNombre(nombre);
-                    listaClientes.add(c);
+                if(cP.getEmail() == ""){
+                    cP.setDomicilio(domicilio);
+                    cP.setEmail(email);
+                    cP.setNif(nif);
+                    cP.setNombre(nombre);
+                    cP.setDescuento(0.20);
+                    listaClientes.add(cP);
                     return true;
                 }else{
                     return false;
                 }
 
-            case 2:
+            case '2':
                 // Cliente Estandar
-                Cliente _cE = buscarCliente(email);
-                if(_cE.getNif() == ""){
-
-                    Cliente cE = new Cliente_Estandar();
+                Cliente_Estandar cE = buscarClienteE(email);
+                if(cE.getEmail() == ""){
                     cE.setDomicilio(domicilio);
                     cE.setEmail(email);
                     cE.setNif(nif);
@@ -99,12 +119,6 @@ public class Datos {
         }
         return true;
     }
-
-    public void addPedido(Cliente C, Articulo A, int cantidad, int nPedido){
-        Pedido p = new Pedido(C,A,cantidad,nPedido);
-        listaPedidos.add(p);
-    }
-
     public Pedido buscarPedido(int nPedido){
         for(Pedido p : listaPedidos.lista) {
             if (p.getnPedido() == nPedido) {
@@ -121,6 +135,52 @@ public class Datos {
         }catch (Exception e){
             return false;
         }
+    }
+    public String catalogo(){
+        String c = "";
+        for (int i = 0; i < listaArticulos.getSize();i++) {
+            c += i +"- " + listaArticulos.getArticulos().get(i).toString() + "\n";
+        }
+        return c;
+    }
+    private int generateNorder(){
+        Random rand = new Random();
+        int nPedido;
+        do{
+            nPedido = rand.nextInt(100);
+        }while(buscarPedido(nPedido).getnPedido() == nPedido);
+        return nPedido;
+    }
+    public boolean eliminarPedido(int n){
+        Pedido p = buscarPedido(n);
+        if(p != null){
+            listaPedidos.borrar(p);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public int crearPedido(String email, String idArticulo, int cantidad){
+        Cliente_Estandar Ce = buscarClienteE(email);
+        Cliente_Premium Cp = buscarClienteP(email);
+
+        if(Ce.getEmail().equals("") && Cp.getEmail().equals("")){
+            return -1;
+        }else{
+            if(!Ce.getEmail().equals("")){
+                    float p = getArticulo(idArticulo).getPrecio()*cantidad+getArticulo(idArticulo).getgEnvio();
+                    Pedido pedido = new Pedido(Ce,getArticulo(idArticulo),generateNorder(),cantidad,p);
+                    listaPedidos.add(pedido);
+                    return pedido.getnPedido();
+            }
+            if(!Cp.getEmail().equals("")){
+                double p = getArticulo(idArticulo).getPrecio()*cantidad+(getArticulo(idArticulo).getgEnvio()*0.20);
+                Pedido pedido = new Pedido(Ce,getArticulo(idArticulo),generateNorder(),cantidad,p);
+                listaPedidos.add(pedido);
+                return pedido.getnPedido();
+            }
+        }
+        return 0;
     }
 
 }

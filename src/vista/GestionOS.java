@@ -146,7 +146,7 @@ public class GestionOS {
 
         Scanner teclado = new Scanner(System.in);
 
-        System.out.println("Nombre:");
+        System.out.println("Email:");
         email = teclado.nextLine();
 
         System.out.println(controlador.mostrarCliente(email));
@@ -159,7 +159,7 @@ public class GestionOS {
             System.out.println("1. Hacer nuevo pedido");
             System.out.println("2. Mostrar Pedidos");
             System.out.println("3. Eliminar Pedido");
-            System.out.println("0. Eliminar Pedido");
+            System.out.println("0. Salir");
             opcio = pedirOpcion();
             switch (opcio) {
                 case '1':
@@ -184,10 +184,14 @@ public class GestionOS {
         System.out.println("Cantidad que se quiere pedir");
         int cantidadArticulo = teclado.nextInt();
 
-        while(controlador.crearPedido(email,idArticulo,cantidadArticulo) !=-1){
-                System.out.println("El cliente no existe, procedemos a crearlo");
-                AnadirCliente();
+        int nPedido = controlador.crearPedido(email,idArticulo,cantidadArticulo);
+
+        if( nPedido == -1) {
+            System.out.println("El cliente no existe, procedemos a crearlo");
+            AnadirCliente();
         }
+            System.out.println("El pedido fue generado con exito. Numero de pedido: " +nPedido);
+
     }
     public void mostrarPedido(){
         boolean salir = false;
@@ -227,7 +231,7 @@ public class GestionOS {
     }
     public String mostrarCatalogo(){
         System.out.println(controlador.showCatalogo());
-        System.out.println("Indica el ID de pedido");
+        System.out.println("Indica el ID del articulo");
         String id = teclado.nextLine();
         return id;
     }

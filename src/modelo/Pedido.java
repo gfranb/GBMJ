@@ -27,6 +27,7 @@ public class Pedido {
         String text = date.format(formatters);
         this.fecha = LocalDate.parse(text, formatters);
     }
+    Pedido(){}
     public void setArticulo(Articulo articulo) {
         this.articulo = articulo;
     }

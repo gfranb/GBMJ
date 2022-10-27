@@ -6,7 +6,7 @@ public class Lista<T> {
     protected ArrayList<T> lista;
 
     public Lista() {
-        lista = new ArrayList<>();
+        lista = new ArrayList<T>();
     }
     public int getSize() {
         return lista.size();

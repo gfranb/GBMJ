@@ -2,7 +2,6 @@ package vista;
 
 import controlador.Controlador;
 import java.util.Scanner;
-
 public class GestionOS {
     private Controlador controlador;
     Scanner teclado = new Scanner(System.in);
@@ -20,6 +19,22 @@ public class GestionOS {
             opcio = pedirOpcion();
             switch (opcio) {
                 case '1':
+                    char op;
+                    boolean salir2= false;
+                    do{
+                        System.out.println("1. Mostrar Articulo");
+                        System.out.println("2. Anadir Articulo");
+                        op = pedirOpcion();
+                        controlador.gestionarArticulos(op);
+                    }while(salir2);
+                    break;
+
+                case '2':
+                    controlador.gestionarClientes();
+                    break;
+                case '3':
+                    controlador.gestionarPedidos();
+=======
 // TO-BE-DONE
                     break;
                 case '2':
@@ -27,6 +42,7 @@ public class GestionOS {
                     break;
                 case '3':
 // TO-BE-DONE
+
                     break;
                 case '0':
                     salir = true;
@@ -35,6 +51,7 @@ public class GestionOS {
     }
     char pedirOpcion() {
         String resp;
+        System.out.println("Elige una opción (1,2,3 o 0): ");
         System.out.println("Elige una opción (1,2,3 o 0):");
                 resp = teclado.nextLine();
         if (resp.isEmpty()) {
@@ -42,3 +59,5 @@ public class GestionOS {
         }
         return resp.charAt(0);
     }
+}
+

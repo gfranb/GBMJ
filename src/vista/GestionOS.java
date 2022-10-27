@@ -27,7 +27,6 @@ public class GestionOS {
                         System.out.println("2. Anadir Articulo");
                         op = pedirOpcion();
                         controlador.gestionarArticulos(op);
-
                     }while(salir2);
                     break;
 

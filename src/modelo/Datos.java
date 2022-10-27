@@ -1,12 +1,15 @@
 package modelo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.Random;
 
 public class Datos{
     private ListaArticulos listaArticulos;
     private ListaClientes listaClientes;
     private ListaPedidos listaPedidos;
-
     public Datos() {
         listaArticulos = new ListaArticulos();
         listaClientes = new ListaClientes();
@@ -128,14 +131,6 @@ public class Datos{
         }
         return null;
     }
-    public boolean removerPedido(int nPedido){
-        try{
-            listaPedidos.borrar(buscarPedido((nPedido)));
-            return true;
-        }catch (Exception e){
-            return false;
-        }
-    }
     public String catalogo(){
         String c = "";
         for (int i = 0; i < listaArticulos.getSize();i++) {
@@ -153,7 +148,7 @@ public class Datos{
     }
     public boolean eliminarPedido(int n){
         Pedido p = buscarPedido(n);
-        if(p != null){
+        if(p != null && !estadoPedido(p)){
             listaPedidos.borrar(p);
             return true;
         }else{
@@ -181,6 +176,52 @@ public class Datos{
             }
         }
         return 0;
+    }
+    public boolean estadoPedido(Pedido p){
+        if(ChronoUnit.MINUTES.between(p.getFecha(),LocalDate.now())>p.getArticulo().getpEnvio()){
+            return true;
+        }
+        return false;
+    }
+    public String buscarPPCliente(String email){
+        String c = "";
+        for(Pedido p : listaPedidos.getArrayList()){
+            if(p.getCliente().getEmail().equals(email)){
+                if(!estadoPedido(p)){
+                    c = c + p.toString() + "\n";
+                }
+            }
+        }
+        return c;
+    }
+    public String buscarPP(){
+        String c = "";
+        for(Pedido p : listaPedidos.getArrayList()){
+            if(!estadoPedido(p)){
+                c = c + p.toString() + "\n";
+            }
+        }
+        return c;
+    }
+    public String buscarPECliente(String email){
+        String c = "";
+        for(Pedido p : listaPedidos.getArrayList()){
+            if(p.getCliente().getEmail().equals(email)){
+                if(estadoPedido(p)){
+                    c = c + p.toString() + "\n";
+                }
+            }
+        }
+        return c;
+    }
+    public String buscarPE(){
+        String c = "";
+        for(Pedido p : listaPedidos.getArrayList()){
+            if(estadoPedido(p)){
+                c = c + p.toString() + "\n";
+            }
+        }
+        return c;
     }
 
 }

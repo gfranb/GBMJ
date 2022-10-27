@@ -32,6 +32,18 @@ public class Controlador {
     public boolean eliminarPedido(int n){
         return datos.eliminarPedido(n);
     }
+    public String mostrarPedidosEnviados(){
+        return datos.buscarPE();
+    }
+    public String mostrarPedidosEnviados(String email){
+        return datos.buscarPECliente(email);
+    }
+    public String mostrarPedidosPendientes(String email){
+        return datos.buscarPPCliente(email);
+    }
+    public String mostrarPedidosPendientes(){
+        return datos.buscarPP();
+    }
     public void cargar(){
 
     }

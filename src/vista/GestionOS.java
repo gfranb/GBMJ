@@ -210,10 +210,30 @@ public class GestionOS {
         } while (!salir);
     }
     public void pedidosPendientes(){
-
+        System.out.println("Deseas filtrar por cliente? S/N");
+        teclado = new Scanner(System.in);
+        char op = teclado.next().charAt(0);
+        if(op=='S'){
+            System.out.println("Indica el email del cliente que deseas buscar");
+            teclado = new Scanner(System.in);
+            String email = teclado.nextLine();
+            System.out.println(controlador.mostrarPedidosPendientes(email));
+        }else{
+            System.out.println(controlador.mostrarPedidosPendientes());
+        }
     }
     public void pedidosEnviados(){
-
+        System.out.println("Deseas filtrar por cliente? S/N");
+        teclado = new Scanner(System.in);
+        char op = teclado.next().charAt(0);
+        if(op=='S'){
+            System.out.println("Indica el email del cliente que deseas buscar");
+            teclado = new Scanner(System.in);
+            String email = teclado.nextLine();
+            System.out.println(controlador.mostrarPedidosEnviados(email));
+        }else{
+            System.out.println(controlador.mostrarPedidosEnviados());
+        }
     }
     public void eliminarPedido(){
         System.out.println("Indica el numero de pedido que se quiere eliminar.");

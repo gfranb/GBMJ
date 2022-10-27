@@ -7,21 +7,32 @@ public class Controlador {
     public Controlador() {
         datos = new Datos ();
     }
-    public void gestionarArticulos(char op){ // Michael
-        switch (op){
-            case 1:
-                datos.mostrarArticulos();
-            case 2:
-               // datos.addArticulo(); Pasar por parametros la info necesaria
-            break;
+    public boolean anadirArticulo(String codigo, String descripcion, float precio, float gEnvio, int pEnvio){
+         return datos.addArticulo(codigo,descripcion,precio,gEnvio,pEnvio);
+    }
+    public String mostrarArticulo(String codigo){
+        try{
+            return datos.mostrarArticulos(codigo);
+        }catch(Exception e){
+            return "El articulo no existe";
         }
     }
-
-    public void gestionarClientes(){// Jorge
-
+    public boolean crearCliente(String n, String e, String d, String nif, char t){
+        return datos.addCliente(n,d,nif,e,t);
     }
-
-    public void gestionarPedidos(){// Bartomeu
+    public String mostrarCliente(String email){
+        return datos.showCliente(email);
+    }
+    public String showCatalogo(){
+        return datos.catalogo();
+    }
+    public int crearPedido(String email, String idArticulo, int cantidadArticulo){
+        return datos.crearPedido(email,idArticulo,cantidadArticulo);
+    }
+    public boolean eliminarPedido(int n){
+        return datos.eliminarPedido(n);
+    }
+    public void cargar(){
 
     }
 }

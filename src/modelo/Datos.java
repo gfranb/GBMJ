@@ -45,22 +45,26 @@ public class Datos{
     }
     public Cliente_Premium buscarClienteP(String email){
 
-        for(Cliente_Premium C : listaClientes.getClientesP()){
-            if(C.getEmail().equals(email)){
-                return C;
+        try{
+            for(Cliente_Premium C : listaClientes.getClientesP()){
+                if(C.getEmail().equals(email)){
+                    return C;
+                }
             }
-        }
-
+        }catch(Exception e){}
         Cliente_Premium C = new Cliente_Premium();
         return C;
     }
     public Cliente_Estandar buscarClienteE(String email){
 
-        for(Cliente_Estandar C : listaClientes.getClientesE()){
-            if(C.getEmail().equals(email)){
-                return C;
+        try{
+            for(Cliente_Estandar C : listaClientes.getClientesE()){
+                if(C.getEmail().equals(email)){
+                    return C;
+                }
             }
-        }
+        }catch (Exception e){}
+
         Cliente_Estandar C = new Cliente_Estandar();
         return C;
     }
@@ -93,13 +97,13 @@ public class Datos{
                 // Cliente Premium
                 Cliente_Premium cP = buscarClienteP(email);
 
-                if(cP.getEmail() == ""){
+                if(cP.getEmail() == null){
                     cP.setDomicilio(domicilio);
                     cP.setEmail(email);
                     cP.setNif(nif);
                     cP.setNombre(nombre);
                     cP.setDescuento(0.20);
-                    listaClientes.add(cP);
+                    listaClientes.getClientesP().add(cP);
                     return true;
                 }else{
                     return false;
@@ -108,12 +112,12 @@ public class Datos{
             case '2':
                 // Cliente Estandar
                 Cliente_Estandar cE = buscarClienteE(email);
-                if(cE.getEmail() == ""){
+                if(cE.getEmail() == null){
                     cE.setDomicilio(domicilio);
                     cE.setEmail(email);
                     cE.setNif(nif);
                     cE.setNombre(nombre);
-                    listaClientes.add(cE);
+                    listaClientes.clientesE.add(cE);
                     return true;
 
                 }else{
@@ -123,13 +127,16 @@ public class Datos{
         return true;
     }
     public Pedido buscarPedido(int nPedido){
-        for(Pedido p : listaPedidos.lista) {
-            if (p.getnPedido() == nPedido) {
-                listaPedidos.borrar(p);
-                return p;// Se borra el pedido y devuelve true
+        Pedido _p = new Pedido();
+        try{
+            for(Pedido p : listaPedidos.lista) {
+                if (p.getnPedido() == nPedido) {
+                    return p;//
+                }
             }
-        }
-        return null;
+        }catch (Exception e){}
+
+        return _p;
     }
     public String catalogo(){
         String c = "";
@@ -159,18 +166,18 @@ public class Datos{
         Cliente_Estandar Ce = buscarClienteE(email);
         Cliente_Premium Cp = buscarClienteP(email);
 
-        if(Ce.getEmail().equals("") && Cp.getEmail().equals("")){
+        if(Ce.getEmail() == null && Cp.getEmail() == null){
             return -1;
         }else{
-            if(!Ce.getEmail().equals("")){
+            if(Ce.getEmail() != null){
                     float p = getArticulo(idArticulo).getPrecio()*cantidad+getArticulo(idArticulo).getgEnvio();
                     Pedido pedido = new Pedido(Ce,getArticulo(idArticulo),generateNorder(),cantidad,p);
                     listaPedidos.add(pedido);
                     return pedido.getnPedido();
             }
-            if(!Cp.getEmail().equals("")){
+            if(Cp.getEmail() != null){
                 double p = getArticulo(idArticulo).getPrecio()*cantidad+(getArticulo(idArticulo).getgEnvio()*0.20);
-                Pedido pedido = new Pedido(Ce,getArticulo(idArticulo),generateNorder(),cantidad,p);
+                Pedido pedido = new Pedido(Cp,getArticulo(idArticulo),generateNorder(),cantidad,p);
                 listaPedidos.add(pedido);
                 return pedido.getnPedido();
             }

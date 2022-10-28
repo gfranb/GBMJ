@@ -1,6 +1,4 @@
-package controlador;
-
-import vista.GestionOS;
+package vista;
 
 public class OnlineStore {
     public static void main(String[] args) {

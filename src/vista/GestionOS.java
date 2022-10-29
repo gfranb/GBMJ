@@ -2,10 +2,6 @@ package vista;
 
 import controlador.Controlador;
 import java.util.Scanner;
-<<<<<<<<< Temporary merge branch 1
-
-=========
->>>>>>>>> Temporary merge branch 2
 public class GestionOS {
     private Controlador controlador;
     Scanner teclado = new Scanner(System.in);
@@ -25,6 +21,17 @@ public class GestionOS {
             opcio = pedirOpcion();
             switch (opcio) {
                 case '1':
+<<<<<<<<< Temporary merge branch 1
+
+                    char op;
+                    boolean salir2= false;
+                    do{
+                        System.out.println("1. Mostrar Articulo");
+                        System.out.println("2. Anadir Articulo");
+                        op = pedirOpcion();
+                        controlador.gestionarArticulos(op);
+                    }while(salir2);
+=========
                     gestionArticulo();
                     break;
                 case '2':
@@ -80,21 +87,137 @@ public class GestionOS {
         System.out.println("Tiempo de preparacion:");
         pEnvio = teclado.nextInt();
 
-                    char op;
-                    boolean salir2= false;
-                    do{
-                        System.out.println("1. Mostrar Articulo");
-                        System.out.println("2. Anadir Articulo");
-                        op = pedirOpcion();
-                        controlador.gestionarArticulos(op);
-                    }while(salir2);
-                    break;
+        if(controlador.anadirArticulo(codigo,descripcion, precio, gEnvio,pEnvio)){
+            System.out.println("Articulo ha sido creado correctamente");
+        }else{
+            System.out.println("Articulo ya existe");
+        }
 
+    }
+    public void MostrarArticulo() {
+        String codigo;
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.println("Codigo:");
+        codigo = teclado.nextLine();
+
+        System.out.println(controlador.mostrarArticulo(codigo));
+
+    }
+    public void gestionClientes(){
+        boolean salir = false;
+        char opcio;
+        while(!salir){
+            System.out.println("1. Anadir Cliente");
+            System.out.println("2. Mostrar Cliente");
+            System.out.println("0. Salir");
+            opcio = pedirOpcion();
+            switch (opcio) {
+                case '1':
+                    AnadirCliente();
+                    break;
                 case '2':
-                    controlador.gestionarClientes();
+                    MostrarCliente();
+>>>>>>>>> Temporary merge branch 2
+                    break;
+                case '0':
+                    salir = true;
+            }
+        }
+    }
+    public void AnadirCliente(){
+        String nombre, email, domicilio,nif;
+        char tipo;
+
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.println("Nombre:");
+        nombre = teclado.nextLine();
+        teclado = new Scanner(System.in);
+        System.out.println("Email:");
+        email = teclado.nextLine();
+        teclado = new Scanner(System.in);
+        System.out.println("Domicilio:");
+        domicilio = teclado.nextLine();
+        teclado = new Scanner(System.in);
+        System.out.println("NIF");
+        nif = teclado.nextLine();
+        teclado = new Scanner(System.in);
+        System.out.println("Tipo de cliente: 1 Premium || 2 Estandart");
+        tipo = teclado.next().charAt(0);
+
+        if(controlador.crearCliente(nombre,email,domicilio,nif,tipo)){
+            System.out.println("Cliente creado correctamente");
+        }else{
+            System.out.println("El cliente ya existe");
+        };
+
+    }
+    public void MostrarCliente(){
+        String email;
+
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.println("Nombre:");
+        email = teclado.nextLine();
+
+        System.out.println(controlador.mostrarCliente(email));
+
+    }
+    public void gestionPedidos(){
+        boolean salir = false;
+        char opcio;
+        while(!salir){
+            System.out.println("1. Hacer nuevo pedido");
+            System.out.println("2. Mostrar Pedidos");
+            System.out.println("3. Eliminar Pedido");
+            System.out.println("0. Eliminar Pedido");
+            opcio = pedirOpcion();
+            switch (opcio) {
+                case '1':
+                    anadirPedido();
+                    break;
+                case '2':
+                    mostrarPedido();
                     break;
                 case '3':
+<<<<<<<<< Temporary merge branch 1
                     controlador.gestionarPedidos();
+=========
+                    eliminarPedido();
+                    break;
+                case '0':
+                    salir = true;
+            }
+        }
+    }
+    public void anadirPedido(){
+
+        System.out.println("Indica tu correo electronico");
+        String email = teclado.nextLine();
+        String idArticulo = mostrarCatalogo();
+        System.out.println("Cantidad que se quiere pedir");
+        int cantidadArticulo = teclado.nextInt();
+
+        while(controlador.crearPedido(email,idArticulo,cantidadArticulo) !=-1){
+                System.out.println("El cliente no existe, procedemos a crearlo");
+                AnadirCliente();
+        }
+    }
+    public void mostrarPedido(){
+        boolean salir = false;
+        char opcio;
+        do {
+            System.out.println("1. Mostrar Pedido Pendientes");
+            System.out.println("2. Mostrar pedidos Enviados");
+            System.out.println("0. Salir");
+            opcio = pedirOpcion();
+            switch (opcio) {
+                case '1':
+                    pedidosPendientes();
+                    break;
+                case '2':
+                    pedidosEnviados();
 >>>>>>>>> Temporary merge branch 2
                     break;
                 case '0':
@@ -102,12 +225,38 @@ public class GestionOS {
             }
         } while (!salir);
     }
+    public void pedidosPendientes(){
+
+    }
+    public void pedidosEnviados(){
+
+    }
+    public void eliminarPedido(){
+        System.out.println("Indica el numero de pedido que se quiere eliminar.");
+        int nPedido = teclado.nextInt();
+        if(controlador.eliminarPedido(nPedido)){
+            System.out.println("Pedido N: " + nPedido + " eliminado correctamente.");
+        }else{
+            System.out.println("Pedido N: " + nPedido + " no existe.");
+        }
+
+    }
+    public String mostrarCatalogo(){
+        System.out.println(controlador.showCatalogo());
+        System.out.println("Indica el ID de pedido");
+        String id = teclado.nextLine();
+        return id;
+    }
+
     char pedirOpcion() {
         String resp;
-<<<<<<<<< Temporary merge branch 1
-        System.out.println("Elige una opción (1,2,3 o 0):");
-=========
         System.out.println("Elige una opción (1,2,3 o 0): ");
+<<<<<<<<< Temporary merge branch 1
+<<<<<<<<< Temporary merge branch 1
+=========
+        System.out.println("Elige una opción (1,2,3 o 0):");
+>>>>>>>>> Temporary merge branch 2
+=========
 >>>>>>>>> Temporary merge branch 2
                 resp = teclado.nextLine();
         if (resp.isEmpty()) {
@@ -115,7 +264,8 @@ public class GestionOS {
         }
         return resp.charAt(0);
     }
+}
 <<<<<<<<< Temporary merge branch 1
 =========
-}
+
 >>>>>>>>> Temporary merge branch 2

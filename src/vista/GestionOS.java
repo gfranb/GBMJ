@@ -146,7 +146,7 @@ public class GestionOS {
 
         Scanner teclado = new Scanner(System.in);
 
-        System.out.println("Nombre:");
+        System.out.println("Email:");
         email = teclado.nextLine();
 
         System.out.println(controlador.mostrarCliente(email));

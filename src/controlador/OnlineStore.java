@@ -5,5 +5,8 @@ public class OnlineStore {
         GestionOS gestion = new GestionOS();
         gestion.inicio();
     }
+<<<<<<<<< Temporary merge branch 1
 
+=========
+>>>>>>>>> Temporary merge branch 2
 }

@@ -6,8 +6,15 @@ public class Articulo {
     private String descripcion;
     private float precio;
     private float gEnvio;
-    private int pEnvio;
+    private int pEnvio; //Tiempo de preparacion de envio.
 
+    Articulo(String c, String d, float p, float gE, int pE){
+        this.codigo = c;
+        this.descripcion = d;
+        this.precio = p;
+        this.gEnvio = gE;
+        this.pEnvio = pE;
+    }
     Articulo(){
 
     }

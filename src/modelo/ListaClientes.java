@@ -2,12 +2,13 @@ package modelo;
 
 import java.util.ArrayList;
 
-public class Lista_Clientes {
+public class ListaClientes extends Lista<Cliente>{
     ArrayList<Cliente_Premium> clientesP;
     ArrayList<Cliente_Estandar> clientesE;
 
-    Lista_Clientes(){
-
+    ListaClientes(){
+        this.clientesP = new ArrayList<Cliente_Premium>();
+        this.clientesE = new ArrayList<Cliente_Estandar>();
     }
 
     public ArrayList<Cliente_Estandar> getClientesE() {

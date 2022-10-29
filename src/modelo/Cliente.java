@@ -2,13 +2,18 @@ package modelo;
 
 public abstract class Cliente {
 
-    private String nombre;
-    private String domicilio;
-    private String nif;
-    private String email;
+    protected String nombre;
+    protected String domicilio;
+    protected String nif;
+    protected String email;
 
-    public Cliente(){
+    public Cliente(String nombre, String domicilio,String nif, String email){
+        this.nombre = nombre;
+        this.domicilio = domicilio;
+        this.nif = nif;
+        this.email = email;
     }
+    public Cliente(){}
 
     public String getDomicilio() {
         return domicilio;

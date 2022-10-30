@@ -155,11 +155,11 @@ public class GestionOS {
     public void gestionPedidos(){
         boolean salir = false;
         char opcio;
-        while(!salir){
+        do{
             System.out.println("1. Hacer nuevo pedido");
             System.out.println("2. Mostrar Pedidos");
             System.out.println("3. Eliminar Pedido");
-            System.out.println("0. Eliminar Pedido");
+            System.out.println("0. Salir");
             opcio = pedirOpcion();
             switch (opcio) {
                 case '1':
@@ -174,7 +174,7 @@ public class GestionOS {
                 case '0':
                     salir = true;
             }
-        }
+        }while(!salir);
     }
     public void anadirPedido(){
 
@@ -184,9 +184,12 @@ public class GestionOS {
         System.out.println("Cantidad que se quiere pedir");
         int cantidadArticulo = teclado.nextInt();
 
-        while(controlador.crearPedido(email,idArticulo,cantidadArticulo) !=-1){
+        int nPedido = controlador.crearPedido(email,idArticulo,cantidadArticulo);
+        if( nPedido ==-1){
                 System.out.println("El cliente no existe, procedemos a crearlo");
                 AnadirCliente();
+        }else{
+            System.out.println("El pedido a sido creado con el numero: " + nPedido);
         }
     }
     public void mostrarPedido(){
@@ -210,10 +213,44 @@ public class GestionOS {
         } while (!salir);
     }
     public void pedidosPendientes(){
-
+        System.out.println("Quieres filtrar por cliente? S/N");
+        if(teclado.nextLine().charAt(0) == 'S'){
+            System.out.println("Indica el email del cliente que deseas buscar");
+            String email = teclado.nextLine();
+            String pedido = controlador.mostrarPedidosPendientes(email);
+            if(pedido == ""){
+                System.out.println("No se encuentra ningun pedido pendiente para el cliente: "+ email);
+            }else{
+                System.out.println(pedido);
+            }
+        }else{
+            String pedido = controlador.mostrarPedidosPendientes();
+            if(pedido == ""){
+                System.out.println("No se encuentra ningun pedido pendiente");
+            }else{
+                System.out.println(pedido);
+            }
+        }
     }
     public void pedidosEnviados(){
-
+        System.out.println("Quieres filtrar por cliente? S/N");
+        if(teclado.nextLine().charAt(0) == 'S'){
+            System.out.println("Indica el email del cliente que deseas buscar");
+            String email = teclado.nextLine();
+            String pedido = controlador.mostrarPedidosEnviados(email);
+            if(pedido == ""){
+                System.out.println("No se encuentra ningun pedido enviado para el cliente: "+ email);
+            }else{
+                System.out.println(pedido);
+            }
+        }else{
+            String pedido = controlador.mostrarPedidosEnviados();
+            if(pedido == ""){
+                System.out.println("No se encuentra ningun pedido enviado");
+            }else{
+                System.out.println(pedido);
+            }
+        }
     }
     public void eliminarPedido(){
         System.out.println("Indica el numero de pedido que se quiere eliminar.");

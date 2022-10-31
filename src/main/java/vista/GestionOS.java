@@ -8,7 +8,7 @@ public class GestionOS {
 
     public GestionOS() {
         controlador = new Controlador();
-        controlador.cargar();
+        System.out.println(controlador.cargar()); // Carga de datos preconfigurados
     }
     public void inicio() {
         boolean salir = false;
@@ -146,7 +146,7 @@ public class GestionOS {
 
         Scanner teclado = new Scanner(System.in);
 
-        System.out.println("Nombre:");
+        System.out.println("Email:");
         email = teclado.nextLine();
 
         System.out.println(controlador.mostrarCliente(email));

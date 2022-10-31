@@ -93,13 +93,21 @@ public class Datos{
 
 
     public String showCliente(String email){
+
+        Cliente_Premium cp = buscarClienteP(email);
+        Cliente_Estandar ce = buscarClienteE(email);
         try{
-            Cliente c = buscarCliente(email);
-            if(c.getEmail().equals(email)){
-                return "DATOS: " + c.getNombre() + " || " + c.getEmail() + " || " + c.getNif() + " || " + c.getDomicilio() +"\n";
+            if(cp.getEmail().equals(email)){
+                return "DATOS: " + cp.getNombre() + " || " + cp.getEmail() + " || " + cp.getNif() + " || " + cp.getDomicilio() + "|| Tipo: Premium" + "\n";
             }
-        }catch(Exception e){
-            return "El cliente no existe";
+        }catch(Exception e){}
+
+        try{
+            if(ce.getEmail().equals(email)){
+                return "DATOS: " + ce.getNombre() + " || " + ce.getEmail() + " || " + ce.getNif() + " || " + ce.getDomicilio() + "|| Tipo: Estándar"+"\n";
+            }
+        } catch (Exception e){
+            return "-------------------------------" + "\n"+ " El Cliente no existe." + "\n" + "-------------------------------";
         }
         return null;
     }

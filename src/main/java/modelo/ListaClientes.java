@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class ListaClientes extends Lista<Cliente>{
     ArrayList<Cliente_Premium> clientesP;
+
     ArrayList<Cliente_Estandar> clientesE;
 
     ListaClientes(){

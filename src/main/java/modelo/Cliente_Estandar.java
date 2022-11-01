@@ -9,6 +9,8 @@ public class Cliente_Estandar extends Cliente{
 
         }
 
+        public  Cliente_Estandar(){
+        }
         public int getNumCliente() {
             return numCliente;
         }

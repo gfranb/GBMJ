@@ -1,22 +1,25 @@
 package modelo;
 
 public class Cliente_Premium extends Cliente{
-        private float descuento;
+        private double descuento;
 
-        public Cliente_Premium(float descuento, String nif, String nombre, String domicilio, String email ) {
+        public Cliente_Premium(double descuento, String nif, String nombre, String domicilio, String email) {
             super(nif, nombre, domicilio, email);
             this.descuento = descuento;
         }
 
-        public float getDescuento() {
+        public Cliente_Premium(){}
+
+        public double getDescuento() {
             return descuento;
         }
 
-        public void setDescuento(float descuento) {
+        public void setDescuento(double descuento) {
             this.descuento = descuento;
         }
 
         @Override
         public String toString() {
-            return "Cliente_Premium(" + super.toString() + "descuento=" + descuento + '}';
+            return "Cliente_Premium(" + super.toString() + "descuento=" + descuento + ')';
+        }
 }

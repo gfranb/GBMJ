@@ -21,17 +21,6 @@ public class GestionOS {
             opcio = pedirOpcion();
             switch (opcio) {
                 case '1':
-<<<<<<<<< Temporary merge branch 1
-
-                    char op;
-                    boolean salir2= false;
-                    do{
-                        System.out.println("1. Mostrar Articulo");
-                        System.out.println("2. Anadir Articulo");
-                        op = pedirOpcion();
-                        controlador.gestionarArticulos(op);
-                    }while(salir2);
-=========
                     gestionArticulo();
                     break;
                 case '2':
@@ -118,7 +107,6 @@ public class GestionOS {
                     break;
                 case '2':
                     MostrarCliente();
->>>>>>>>> Temporary merge branch 2
                     break;
                 case '0':
                     salir = true;
@@ -181,9 +169,6 @@ public class GestionOS {
                     mostrarPedido();
                     break;
                 case '3':
-<<<<<<<<< Temporary merge branch 1
-                    controlador.gestionarPedidos();
-=========
                     eliminarPedido();
                     break;
                 case '0':
@@ -222,7 +207,6 @@ public class GestionOS {
                     break;
                 case '2':
                     pedidosEnviados();
->>>>>>>>> Temporary merge branch 2
                     break;
                 case '0':
                     salir = true;
@@ -251,7 +235,7 @@ public class GestionOS {
     }
     public void pedidosEnviados(){
         System.out.println("Quieres filtrar por cliente? S/N");
-        if(teclado.nextLine().charAt(0) == 'S'){
+        if(teclado.nextLine().charAt(0) == 'S' || teclado.nextLine().charAt(0) == 's'){
             System.out.println("Indica el email del cliente que deseas buscar");
             String email = teclado.nextLine();
             String pedido = controlador.mostrarPedidosEnviados(email);
@@ -281,7 +265,7 @@ public class GestionOS {
     }
     public String mostrarCatalogo(){
         System.out.println(controlador.showCatalogo());
-        System.out.println("Indica el ID de pedido");
+        System.out.println("Indica el codigo del producto");
         String id = teclado.nextLine();
         return id;
     }
@@ -289,13 +273,9 @@ public class GestionOS {
     char pedirOpcion() {
         String resp;
         System.out.println("Elige una opción (1,2,3 o 0): ");
-<<<<<<<<< Temporary merge branch 1
-<<<<<<<<< Temporary merge branch 1
-=========
+
         System.out.println("Elige una opción (1,2,3 o 0):");
->>>>>>>>> Temporary merge branch 2
-=========
->>>>>>>>> Temporary merge branch 2
+
                 resp = teclado.nextLine();
         if (resp.isEmpty()) {
             resp = " ";
@@ -303,7 +283,3 @@ public class GestionOS {
         return resp.charAt(0);
     }
 }
-<<<<<<<<< Temporary merge branch 1
-=========
-
->>>>>>>>> Temporary merge branch 2

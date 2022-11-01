@@ -3,6 +3,7 @@ package modelo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -18,7 +19,8 @@ public class Datos{
     public String mostrarArticulos(String c) {
         for (Articulo a : listaArticulos.lista) {
             if(a.getCodigo().equals(c)){
-                return a.toString();
+                return "----------------------------------------------------" + "\n" + " || " + "Código: "+ a.getCodigo() + " || " + "Descripción: "+ a.getDescripcion() +
+                        " || " + "Precio: "+ a.getPrecio() + " || "+ " Precio de envío: " + a.getgEnvio() + " || " + " Tiempo de preparación: " + a.getpEnvio() + " || "+ "\n";
             }
         }
         return null;
@@ -72,22 +74,40 @@ public class Datos{
         Cliente_Premium Cp = buscarClienteP(email);
         Cliente_Estandar Ce = buscarClienteE(email);
 
-        if(Cp.getEmail().equals(email)){
-            return Cp;
-        }
-        if(Ce.getEmail().equals(email)){
-            return Ce;
-        }
-        return null;
-    }
-    public String showCliente(String email){
         try{
-            Cliente c = buscarCliente(email);
-            if(c.getNif().equals(email)){
-                return c.toString();
+            if(Ce.getEmail().equals(email)){
+                return Ce;
             }
-        }catch(Exception e){
-            return "El cliente no existe";
+        }
+        catch (Exception e){}
+
+        try{
+        if(Cp.getEmail().equals(email)) {
+            return Cp;
+        }}catch (Exception e){
+
+        }
+         return null;
+
+        }
+
+
+    public String showCliente(String email){
+
+        Cliente_Premium cp = buscarClienteP(email);
+        Cliente_Estandar ce = buscarClienteE(email);
+        try{
+            if(cp.getEmail().equals(email)){
+                return "DATOS: " + cp.getNombre() + " || " + cp.getEmail() + " || " + cp.getNif() + " || " + cp.getDomicilio() + "|| Tipo: Premium" + "\n";
+            }
+        }catch(Exception e){}
+
+        try{
+            if(ce.getEmail().equals(email)){
+                return "DATOS: " + ce.getNombre() + " || " + ce.getEmail() + " || " + ce.getNif() + " || " + ce.getDomicilio() + "|| Tipo: Estándar"+"\n";
+            }
+        } catch (Exception e){
+            return "-------------------------------" + "\n"+ " El Cliente no existe." + "\n" + "-------------------------------";
         }
         return null;
     }
@@ -96,8 +116,9 @@ public class Datos{
             case '1':
                 // Cliente Premium
                 Cliente_Premium cP = buscarClienteP(email);
+                Cliente_Estandar _cE = buscarClienteE(email);
 
-                if(cP.getEmail() == null){
+                if(cP.getEmail() == null && _cE.getEmail() == null){
                     cP.setDomicilio(domicilio);
                     cP.setEmail(email);
                     cP.setNif(nif);
@@ -111,8 +132,9 @@ public class Datos{
 
             case '2':
                 // Cliente Estandar
+                Cliente_Premium _cP = buscarClienteP(email);
                 Cliente_Estandar cE = buscarClienteE(email);
-                if(cE.getEmail() == null){
+                if(cE.getEmail() == null && _cP.getEmail() == null){
                     cE.setDomicilio(domicilio);
                     cE.setEmail(email);
                     cE.setNif(nif);
@@ -141,7 +163,9 @@ public class Datos{
     public String catalogo(){
         String c = "";
         for (int i = 0; i < listaArticulos.getSize();i++) {
-            c += i +"- " + listaArticulos.getArticulos().get(i).toString() + "\n";
+            c += i +" - " + " || Código: " + listaArticulos.getArticulos().get(i).getCodigo() + " || Descripción: " + listaArticulos.getArticulos().get(i).getDescripcion() +
+                " || Gastos de envío: " +  listaArticulos.getArticulos().get(i).getgEnvio() + " || Precio: " + listaArticulos.getArticulos().get(i).getPrecio() +
+                    " || Tiempo de preparación: " + listaArticulos.getArticulos().get(i).getpEnvio() + "\n";
         }
         return c;
     }
@@ -185,7 +209,21 @@ public class Datos{
         return 0;
     }
     public boolean estadoPedido(Pedido p){
-        if(ChronoUnit.MINUTES.between(p.getFecha(),LocalDate.now())>p.getArticulo().getpEnvio()){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR,p.getFecha().getYear());
+        calendar.set(Calendar.MONTH,p.getFecha().getMonthValue());
+        calendar.set(Calendar.MONTH,p.getFecha().getDayOfMonth());
+        calendar.add(Calendar.MINUTE,p.getArticulo().getpEnvio());
+        Date fechaPedido = calendar.getTime();
+
+        calendar.set(Calendar.YEAR,LocalDate.now().getYear());
+        calendar.set(Calendar.MONTH,LocalDate.now().getYear());
+        calendar.set(Calendar.MONTH,LocalDate.now().getYear());
+
+        Date fechaActual = calendar.getTime();
+
+        if(fechaActual.compareTo(fechaActual) > 0){
             return true;
         }
         return false;
@@ -195,7 +233,8 @@ public class Datos{
         for(Pedido p : listaPedidos.getArrayList()){
             if(p.getCliente().getEmail().equals(email)){
                 if(!estadoPedido(p)){
-                    c = c + p.toString() + "\n";
+                    c = c + " Cliente: " + p.getCliente().getEmail() + "\n "+ " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() +" || Cant: " + p.getCantidad() + " || Coste: "
+                            +  p.getPrecioP()  + "\n";
                 }
             }
         }
@@ -205,7 +244,8 @@ public class Datos{
         String c = "";
         for(Pedido p : listaPedidos.getArrayList()){
             if(!estadoPedido(p)){
-                c = c + p.toString() + "\n";
+                c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant:  " + p.getCantidad() + " || Coste: "
+                        +  p.getPrecioP()  + "\n";
             }
         }
         return c;
@@ -215,7 +255,8 @@ public class Datos{
         for(Pedido p : listaPedidos.getArrayList()){
             if(p.getCliente().getEmail().equals(email)){
                 if(estadoPedido(p)){
-                    c = c + p.toString() + "\n";
+                    c = c + " Cliente: " + p.getCliente().getEmail() + "\n "+ " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant: " + p.getCantidad() + " || Coste: "
+                            +  p.getPrecioP()  + "\n";
                 }
             }
         }
@@ -225,7 +266,8 @@ public class Datos{
         String c = "";
         for(Pedido p : listaPedidos.getArrayList()){
             if(estadoPedido(p)){
-                c = c + p.toString() + "\n";
+                c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant:  " + p.getCantidad() + " || Coste: "
+                        +  p.getPrecioP()  + "\n";
             }
         }
         return c;

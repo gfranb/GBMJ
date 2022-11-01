@@ -8,8 +8,5 @@ public class OnlineStore {
         gestion.inicio();
     }
 
-<<<<<<<<< Temporary merge branch 1:src/vista/OnlineStore.java
+
 }
-=========
-}
->>>>>>>>> Temporary merge branch 2:src/controlador/OnlineStore.java

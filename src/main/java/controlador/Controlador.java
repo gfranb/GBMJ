@@ -1,5 +1,6 @@
 package controlador;
 
+import java.sql.SQLException;
 import java.util.List;
 import modelo.Datos;
 import vista.*;
@@ -8,6 +9,7 @@ public class Controlador {
     public Controlador() {
         datos = new Datos ();
     }
+
     public boolean anadirArticulo(String codigo, String descripcion, float precio, float gEnvio, int pEnvio){
          return datos.addArticulo(codigo,descripcion,precio,gEnvio,pEnvio);
     }

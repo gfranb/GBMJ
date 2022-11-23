@@ -235,7 +235,7 @@ public class GestionOS {
     }
     public void pedidosEnviados(){
         System.out.println("Quieres filtrar por cliente? S/N");
-        if(teclado.nextLine().charAt(0) == 'S'){
+        if(teclado.nextLine().charAt(0) == 'S' || teclado.nextLine().charAt(0) == 's'){
             System.out.println("Indica el email del cliente que deseas buscar");
             String email = teclado.nextLine();
             String pedido = controlador.mostrarPedidosEnviados(email);
@@ -265,7 +265,7 @@ public class GestionOS {
     }
     public String mostrarCatalogo(){
         System.out.println(controlador.showCatalogo());
-        System.out.println("Indica el ID de pedido");
+        System.out.println("Indica el codigo del producto");
         String id = teclado.nextLine();
         return id;
     }
@@ -273,6 +273,9 @@ public class GestionOS {
     char pedirOpcion() {
         String resp;
         System.out.println("Elige una opción (1,2,3 o 0): ");
+
+        System.out.println("Elige una opción (1,2,3 o 0):");
+
                 resp = teclado.nextLine();
         if (resp.isEmpty()) {
             resp = " ";
@@ -280,4 +283,3 @@ public class GestionOS {
         return resp.charAt(0);
     }
 }
-

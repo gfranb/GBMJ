@@ -1,8 +1,6 @@
 package modelo;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -11,6 +9,7 @@ public class Datos{
     private ListaArticulos listaArticulos;
     private ListaClientes listaClientes;
     private ListaPedidos listaPedidos;
+
     public Datos() {
         listaArticulos = new ListaArticulos();
         listaClientes = new ListaClientes();
@@ -90,8 +89,6 @@ public class Datos{
          return null;
 
         }
-
-
     public String showCliente(String email){
 
         Cliente_Premium cp = buscarClienteP(email);
@@ -223,10 +220,11 @@ public class Datos{
 
         Date fechaActual = calendar.getTime();
 
-        if(fechaActual.compareTo(fechaActual) > 0){
+        if(fechaActual.compareTo(fechaPedido) > 0){
             return true;
         }
         return false;
+
     }
     public String buscarPPCliente(String email){
         String c = "";

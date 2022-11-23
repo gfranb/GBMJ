@@ -8,7 +8,7 @@ public class GestionOS {
 
     public GestionOS() {
         controlador = new Controlador();
-        controlador.cargar();
+        System.out.println(controlador.cargar()); // Carga de datos preconfigurados
     }
     public void inicio() {
         boolean salir = false;
@@ -189,7 +189,8 @@ public class GestionOS {
                 System.out.println("El cliente no existe, procedemos a crearlo");
                 AnadirCliente();
         }else{
-            System.out.println("El pedido a sido creado con el numero: " + nPedido);
+            System.out.println("-----------------------------------------------------------------"+ "\n"
+                    + "El pedido a sido creado con el numero: " + nPedido + "\n"+ "-----------------------------------------------------------------");
         }
     }
     public void mostrarPedido(){
@@ -219,14 +220,14 @@ public class GestionOS {
             String email = teclado.nextLine();
             String pedido = controlador.mostrarPedidosPendientes(email);
             if(pedido == ""){
-                System.out.println("No se encuentra ningun pedido pendiente para el cliente: "+ email);
+                System.out.println("No se encuentra ningún pedido pendiente para el cliente: "+ email);
             }else{
                 System.out.println(pedido);
             }
         }else{
             String pedido = controlador.mostrarPedidosPendientes();
             if(pedido == ""){
-                System.out.println("No se encuentra ningun pedido pendiente");
+                System.out.println("No se encuentra ningún pedido pendiente");
             }else{
                 System.out.println(pedido);
             }
@@ -239,14 +240,14 @@ public class GestionOS {
             String email = teclado.nextLine();
             String pedido = controlador.mostrarPedidosEnviados(email);
             if(pedido == ""){
-                System.out.println("No se encuentra ningun pedido enviado para el cliente: "+ email);
+                System.out.println("-----------------------------------------------" + "\n" +"No se encuentra ningun pedido enviado para el cliente: "+ email +"\n" + "-----------------------------------------------");
             }else{
                 System.out.println(pedido);
             }
         }else{
             String pedido = controlador.mostrarPedidosEnviados();
             if(pedido == ""){
-                System.out.println("No se encuentra ningun pedido enviado");
+                System.out.println("-----------------------------------------------" + "\n" + "No se encuentra ningun pedido enviado" + "\n" + "-----------------------------------------------") ;
             }else{
                 System.out.println(pedido);
             }
@@ -256,9 +257,9 @@ public class GestionOS {
         System.out.println("Indica el numero de pedido que se quiere eliminar.");
         int nPedido = teclado.nextInt();
         if(controlador.eliminarPedido(nPedido)){
-            System.out.println("Pedido N: " + nPedido + " eliminado correctamente.");
+            System.out.println("-----------------------------------------------"+"\n" + "Pedido N: " + nPedido + " eliminado correctamente." + "\n" + "-----------------------------------------------");
         }else{
-            System.out.println("Pedido N: " + nPedido + " no existe.");
+            System.out.println("-----------------------------------------------" + "\n" + "Pedido N: " + nPedido + " no existe." + "\n"+ "-----------------------------------------------");
         }
 
     }

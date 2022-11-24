@@ -26,7 +26,7 @@ public class Controlador {
     public String mostrarCliente(String email){
         return datos.showCliente(email);
     }
-    public String showCatalogo(){
+    public String showCatalogo() throws Exception {
         return datos.catalogo();
     }
     public int crearPedido(String email, String idArticulo, int cantidadArticulo) throws Exception {

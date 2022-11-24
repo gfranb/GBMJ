@@ -9,14 +9,13 @@ import java.util.Date;
 import java.util.Random;
 
 public class Datos{
-    private ListaArticulos listaArticulos;
+
     private ListaClientes listaClientes;
     private ListaPedidos listaPedidos;
 
     DAOArticulo daoArticulo;
 
     public Datos() {
-        listaArticulos = new ListaArticulos();
         listaClientes = new ListaClientes();
         listaPedidos = new ListaPedidos();
         daoArticulo = new ArticuloDAOImpl();
@@ -149,8 +148,9 @@ public class Datos{
 
         return _p;
     }
-    public String catalogo(){
+    public String catalogo() throws Exception {
         String c = "";
+        ListaArticulos listaArticulos = new ListaArticulos(daoArticulo.mostrar());
         for (int i = 0; i < listaArticulos.getSize();i++) {
             c += i +" - " + " || Código: " + listaArticulos.getArticulos().get(i).getCodigo() + " || Descripción: " + listaArticulos.getArticulos().get(i).getDescripcion() +
                 " || Gastos de envío: " +  listaArticulos.getArticulos().get(i).getgEnvio() + " || Precio: " + listaArticulos.getArticulos().get(i).getPrecio() +

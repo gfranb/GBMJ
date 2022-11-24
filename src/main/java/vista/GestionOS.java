@@ -263,7 +263,7 @@ public class GestionOS {
         }
 
     }
-    public String mostrarCatalogo(){
+    public String mostrarCatalogo() throws Exception {
         System.out.println(controlador.showCatalogo());
         System.out.println("Indica el codigo del producto");
         String id = teclado.nextLine();

@@ -15,7 +15,6 @@ class ControladorTest {
         Controlador controlador = new Controlador();
         assertEquals(true, controlador.anadirArticulo("B2","Ejemplo de descripción de producto ",4,3,10));
     }
-
     @Test
     void crearCliente() {
         Controlador controlador = new Controlador();
@@ -38,5 +37,11 @@ class ControladorTest {
         Controlador controlador = new Controlador();
         String a = "test";
         assertEquals(a.getClass(), controlador.mostrarArticulo("A2").getClass());
+    }
+    @Test
+    void catalogo() throws Exception {
+        Controlador controlador = new Controlador();
+        String a = "test";
+        assertEquals(a.getClass(), controlador.showCatalogo().getClass());
     }
 }

@@ -9,8 +9,11 @@ public class ListaArticulos extends Lista<Articulo>{
         super();
     }
 
+    ListaArticulos(ArrayList<Articulo> articulos){
+        super(articulos);
+    }
+
     public ArrayList<Articulo> getArticulos() {
         return lista;
     }
-
 }

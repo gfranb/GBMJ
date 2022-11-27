@@ -2,6 +2,8 @@ package modelo;
 
 import dao.ArticuloDAOImpl;
 import dao.DAOArticulo;
+import dao.DAOPedido;
+import dao.PedidoDAOImpl;
 
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -11,13 +13,13 @@ import java.util.Random;
 public class Datos{
 
     private ListaClientes listaClientes;
-    private ListaPedidos listaPedidos;
 
     DAOArticulo daoArticulo;
+    DAOPedido daoPedido;
 
     public Datos() {
         listaClientes = new ListaClientes();
-        listaPedidos = new ListaPedidos();
+        daoPedido = new PedidoDAOImpl();
         daoArticulo = new ArticuloDAOImpl();
     }
 
@@ -139,7 +141,7 @@ public class Datos{
     public Pedido buscarPedido(int nPedido){
         Pedido _p = new Pedido();
         try{
-            for(Pedido p : listaPedidos.lista) {
+            for(Pedido p : daoPedido.buscarpedido(p)) {
                 if (p.getnPedido() == nPedido) {
                     return p;//
                 }
@@ -158,7 +160,7 @@ public class Datos{
         }
         return c;
     }
-    private int generateNorder(){
+    public int generateNorder(){
         Random rand = new Random();
         int nPedido;
         do{
@@ -169,7 +171,7 @@ public class Datos{
     public boolean eliminarPedido(int n){
         Pedido p = buscarPedido(n);
         if(p != null && !estadoPedido(p)){
-            listaPedidos.borrar(p);
+            daoPedido.borrar(p);
             return true;
         }else{
             return false;
@@ -186,14 +188,14 @@ public class Datos{
                     Articulo a = daoArticulo.buscar(idArticulo);
                     float p = a.getPrecio()*cantidad+a.getgEnvio();
                     Pedido pedido = new Pedido(Ce,a,generateNorder(),cantidad,p);
-                    listaPedidos.add(pedido);
+                    daoPedido.add(pedido);
                     return pedido.getnPedido();
             }
             if(Cp.getEmail() != null){
                 Articulo a = daoArticulo.buscar(idArticulo);
                 double p = a.getPrecio()*cantidad+(a.getgEnvio()*0.20);
                 Pedido pedido = new Pedido(Cp,a,generateNorder(),cantidad,p);
-                listaPedidos.add(pedido);
+                daoPedido.add(pedido);
                 return pedido.getnPedido();
             }
         }
@@ -222,7 +224,7 @@ public class Datos{
     }
     public String buscarPPCliente(String email){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
+        for(Pedido p : daoPedido.getArrayList()){
             if(p.getCliente().getEmail().equals(email)){
                 if(!estadoPedido(p)){
                     c = c + " Cliente: " + p.getCliente().getEmail() + "\n "+ " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() +" || Cant: " + p.getCantidad() + " || Coste: "
@@ -234,7 +236,7 @@ public class Datos{
     }
     public String buscarPP(){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
+        for(Pedido p : daoPedido.getArrayList()){
             if(!estadoPedido(p)){
                 c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant:  " + p.getCantidad() + " || Coste: "
                         +  p.getPrecioP()  + "\n";
@@ -244,7 +246,7 @@ public class Datos{
     }
     public String buscarPECliente(String email){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
+        for(Pedido p : daoPedido.getArrayList()){
             if(p.getCliente().getEmail().equals(email)){
                 if(estadoPedido(p)){
                     c = c + " Cliente: " + p.getCliente().getEmail() + "\n "+ " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant: " + p.getCantidad() + " || Coste: "
@@ -256,7 +258,7 @@ public class Datos{
     }
     public String buscarPE(){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
+        for(Pedido p : daoPedido.getArrayList()){
             if(estadoPedido(p)){
                 c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant:  " + p.getCantidad() + " || Coste: "
                         +  p.getPrecioP()  + "\n";

@@ -1,5 +1,8 @@
 package modelo;
 
+import dao.ArticuloDAOImpl;
+import dao.DAOArticulo;
+
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,39 +13,28 @@ public class Datos{
     private ListaClientes listaClientes;
     private ListaPedidos listaPedidos;
 
+    DAOArticulo daoArticulo;
+
     public Datos() {
         listaArticulos = new ListaArticulos();
         listaClientes = new ListaClientes();
         listaPedidos = new ListaPedidos();
+        daoArticulo = new ArticuloDAOImpl();
     }
-    public String mostrarArticulos(String c) {
-        for (Articulo a : listaArticulos.lista) {
-            if(a.getCodigo().equals(c)){
+
+    public String mostrarArticulos(String c) throws Exception {
+        Articulo a = daoArticulo.buscar(c);
                 return "----------------------------------------------------" + "\n" + " || " + "Código: "+ a.getCodigo() + " || " + "Descripción: "+ a.getDescripcion() +
                         " || " + "Precio: "+ a.getPrecio() + " || "+ " Precio de envío: " + a.getgEnvio() + " || " + " Tiempo de preparación: " + a.getpEnvio() + " || "+ "\n";
-            }
-        }
-        return null;
-    }
-    public Articulo getArticulo(String idCodigo) {
-        int cont = 0;
-        Articulo sArticulo = new Articulo();
-        for (Articulo articulo : listaArticulos.lista) {
-            if (articulo.getCodigo().equals(idCodigo)) {
-                return listaArticulos.getAt(cont);
-            }
-            cont++;
-        }
-        return sArticulo;
     }
     public boolean addArticulo(String c, String d, float p, float gE, int pE) {
         Articulo a = new Articulo(c, d, p, gE, pE);
-        if (listaArticulos.getArrayList().contains(a)) {
-            return false; //El articulo ya existe.
-        } else {
-            listaArticulos.add(a);
+        try{
+            daoArticulo.registrar(a);
+            return true;
+        }catch (Exception e){
+            return false;
         }
-        return true;//El articulo ha sido anadido correctamente.
     }
     public Cliente_Premium buscarClienteP(String email){
 
@@ -183,7 +175,7 @@ public class Datos{
             return false;
         }
     }
-    public int crearPedido(String email, String idArticulo, int cantidad){
+    public int crearPedido(String email, String idArticulo, int cantidad) throws Exception {
         Cliente_Estandar Ce = buscarClienteE(email);
         Cliente_Premium Cp = buscarClienteP(email);
 
@@ -191,14 +183,16 @@ public class Datos{
             return -1;
         }else{
             if(Ce.getEmail() != null){
-                    float p = getArticulo(idArticulo).getPrecio()*cantidad+getArticulo(idArticulo).getgEnvio();
-                    Pedido pedido = new Pedido(Ce,getArticulo(idArticulo),generateNorder(),cantidad,p);
+                    Articulo a = daoArticulo.buscar(idArticulo);
+                    float p = a.getPrecio()*cantidad+a.getgEnvio();
+                    Pedido pedido = new Pedido(Ce,a,generateNorder(),cantidad,p);
                     listaPedidos.add(pedido);
                     return pedido.getnPedido();
             }
             if(Cp.getEmail() != null){
-                double p = getArticulo(idArticulo).getPrecio()*cantidad+(getArticulo(idArticulo).getgEnvio()*0.20);
-                Pedido pedido = new Pedido(Cp,getArticulo(idArticulo),generateNorder(),cantidad,p);
+                Articulo a = daoArticulo.buscar(idArticulo);
+                double p = a.getPrecio()*cantidad+(a.getgEnvio()*0.20);
+                Pedido pedido = new Pedido(Cp,a,generateNorder(),cantidad,p);
                 listaPedidos.add(pedido);
                 return pedido.getnPedido();
             }

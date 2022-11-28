@@ -19,7 +19,6 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
     DAOArticulo daoArticulo = new ArticuloDAOImpl();
     DAOCliente_Premium daoCliente_premium = new Cliente_PremiumDAOImpl();
     DAOCliente_Estandar daoCliente_estandar = new Cliente_EstandardDAOImpl();
-    Datos datos = new Datos();
 
     public boolean registrar(Pedido pedido) throws Exception {
         try {
@@ -68,9 +67,14 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                     Articulo a = daoArticulo.buscar(rs.getString(4));
                     p.setArticulo(a);
 
+                    Cliente_Estandar cE = daoCliente_estandar.buscar(rs.getString(6));
+                    Cliente_Premium cP = daoCliente_premium.buscar(rs.getString(6));
 
-                    p.setCliente(datos.buscarCliente(rs.getString(6)));
-
+                    if(cP.equals(null)){
+                        p.setCliente(cE);
+                    }else{
+                        p.setCliente(cP);
+                    }
                     p.setPrecioP(rs.getDouble(5));
                 }
             }
@@ -107,7 +111,14 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                     Articulo a = daoArticulo.buscar(rs.getString(4));
                     p.setArticulo(a);
 
-                    p.setCliente(datos.buscarCliente(rs.getString(6)));
+                    Cliente_Estandar cE = daoCliente_estandar.buscar(rs.getString(6));
+                    Cliente_Premium cP = daoCliente_premium.buscar(rs.getString(6));
+
+                    if(cP.equals(null)){
+                        p.setCliente(cE);
+                    }else{
+                        p.setCliente(cP);
+                    }
                     listap.add(p);
                 }
             }
@@ -146,8 +157,6 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
 
             while (rs.next()) {// Mostrar pedido?
 
-
-
                     p.setnPedido(rs.getInt(1));
 
                     p.setCantidad(rs.getInt(2));
@@ -159,7 +168,14 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                     Articulo a = daoArticulo.buscar(rs.getString(4));
                     p.setArticulo(a);
 
-                    p.setCliente(datos.buscarCliente(rs.getString(6)));
+                    Cliente_Estandar cE = daoCliente_estandar.buscar(rs.getString(6));
+                    Cliente_Premium cP = daoCliente_premium.buscar(rs.getString(6));
+
+                    if(cP.equals(null)){
+                        p.setCliente(cE);
+                    }else{
+                        p.setCliente(cP);
+                    }
                     listap.add(p);
 
             }

@@ -2,9 +2,8 @@ package modelo;
 
 public class Cliente_Premium extends Cliente{
         private double descuento;
-
-        public Cliente_Premium(double descuento, String nif, String nombre, String domicilio, String email) {
-            super(nif, nombre, domicilio, email);
+        public Cliente_Premium(double descuento, String nif, String nombre, String domicilio, String email, char tipo) {
+            super(nombre, domicilio, nif, email);
             this.descuento = descuento;
         }
 

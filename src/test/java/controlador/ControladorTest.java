@@ -15,7 +15,7 @@ class ControladorTest {
         assertEquals(true, controlador.anadirArticulo("B2","Ejemplo de descripción de producto ",4,3,10));
     }
     @Test
-    void crearCliente() {
+    void crearCliente() throws Exception {
         Controlador controlador = new Controlador();
         assertEquals(true, controlador.crearCliente("78", "jose@gamil.com", "mayor 3 Valencia", "45678934D", '1'));
     }

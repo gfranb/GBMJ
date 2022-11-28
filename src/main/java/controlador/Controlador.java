@@ -20,6 +20,9 @@ public class Controlador {
             return "El articulo no existe";
         }
     }
+    public boolean crearCliente (String nombre, String domicilio, String nif, String email, char tipo) throws Exception{
+        return datos.addCliente(nombre, domicilio, nif, email, tipo);
+    }
 
     public String mostrarCliente(String email){
         return datos.showCliente(email);

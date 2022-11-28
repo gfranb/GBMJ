@@ -1,13 +1,13 @@
 package modelo;
 
-public class Cliente {
+public abstract class Cliente {
 
     protected String nombre;
     protected String domicilio;
     protected String nif;
     protected String email;
 
-    public Cliente(String nombre, String domicilio, String nif, String email, char t){
+    public Cliente(String nombre, String domicilio,String nif, String email){
         this.nombre = nombre;
         this.domicilio = domicilio;
         this.nif = nif;

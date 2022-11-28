@@ -1,0 +1,17 @@
+modelo\Lista.class
+modelo\Cliente_Estandar.class
+dao\DAOPedido.class
+controlador\OnlineStore.class
+dao\Cliente_EstandardDAOImpl.class
+vista\GestionOS.class
+modelo\ListaClientes.class
+dao\Conexion.class
+modelo\Cliente.class
+modelo\Pedido.class
+dao\DAOCliente_Premium.class
+modelo\ListaPedidos.class
+dao\DAOArticulo.class
+dao\DAOCliente_Estandar.class
+modelo\Articulo.class
+modelo\Datos.class
+modelo\Cliente_Premium.class

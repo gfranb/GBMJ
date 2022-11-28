@@ -4,6 +4,7 @@ import modelo.Articulo;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
@@ -44,6 +45,30 @@ public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
                 }
             }
             return articulo;
+        }catch (Exception e){
+            return null;
+        } finally {
+            this.cerrar();
+        }
+    }
+
+    @Override
+    public ArrayList<Articulo> mostrar() throws Exception {
+        ArrayList<Articulo> articulos = new ArrayList<Articulo>();
+        try {
+            this.conectar();
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM articulo");
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                    Articulo articulo = new Articulo();
+                    articulo.setCodigo(rs.getString(1));
+                    articulo.setDescripcion(rs.getString(2));
+                    articulo.setPrecio(rs.getFloat(3));
+                    articulo.setgEnvio(rs.getFloat(4));
+                    articulo.setpEnvio(rs.getInt(5));
+                    articulos.add(articulo);
+            }
+            return articulos;
         }catch (Exception e){
             return null;
         } finally {

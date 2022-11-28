@@ -7,7 +7,7 @@ public class Cliente {
     protected String nif;
     protected String email;
 
-    public Cliente(String nombre, String domicilio,String nif, String email){
+    public Cliente(String nombre, String domicilio, String nif, String email, char t){
         this.nombre = nombre;
         this.domicilio = domicilio;
         this.nif = nif;

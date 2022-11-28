@@ -4,7 +4,6 @@ import modelo.Cliente_Premium;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Objects;
 
 public class Cliente_PremiumDAOImpl extends Conexion implements DAOCliente_Premium{
 

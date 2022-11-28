@@ -4,14 +4,8 @@ import modelo.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.chrono.ChronoLocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.sql.Timestamp;
-
-
 
 
 public class PedidoDAOImpl extends Conexion implements DAOPedido {

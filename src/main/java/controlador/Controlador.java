@@ -20,9 +20,7 @@ public class Controlador {
             return "El articulo no existe";
         }
     }
-    public boolean crearCliente(String n, String e, String d, String nif, char t){
-        return datos.addCliente(n,d,nif,e,t);
-    }
+
     public String mostrarCliente(String email){
         return datos.showCliente(email);
     }
@@ -61,4 +59,5 @@ public class Controlador {
         return "\n" + "|| ---------|| Carga de datos realizada ||---------------|| " +
                 "\n";
     }
+
 }

@@ -3,9 +3,9 @@ package modelo;
 public class Cliente_Estandar extends Cliente{
         private int numCliente;
 
-        public Cliente_Estandar(int numCliente, String nif, String nombre, String domicilio, String email) {
-            super(nif, nombre, domicilio, email);
-            this.numCliente = numCliente;
+        public Cliente_Estandar( int nCliente, String nombre, String domicilio,String nif, String email) {
+            super(nombre, domicilio,nif, email);
+            this.numCliente = nCliente;
 
         }
 

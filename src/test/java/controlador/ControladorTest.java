@@ -1,10 +1,11 @@
 package controlador;
-import com.mysql.cj.xdevapi.Type;
 import dao.ArticuloDAOImpl;
+import dao.Cliente_EstandardDAOImpl;
 import dao.DAOArticulo;
+import dao.DAOCliente_Estandar;
 import modelo.Articulo;
+import modelo.Cliente_Estandar;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ControladorTest {
@@ -42,5 +43,19 @@ class ControladorTest {
         Controlador controlador = new Controlador();
         String a = "test";
         assertEquals(a.getClass(), controlador.showCatalogo().getClass());
+    }
+    @Test
+    void crearCEbd() throws Exception{
+        Cliente_Estandar cE= new Cliente_Estandar(321,"julian", "Los Palos, 167. 08756", "536543D","julian@gmail.com");
+        DAOCliente_Estandar daoCE = new Cliente_EstandardDAOImpl();
+        assertEquals(true, daoCE.registrar(cE));
+    }
+    @Test
+    void buscarCEbd() throws Exception{
+        Cliente_Estandar cE= new Cliente_Estandar();
+        String email = "julian@gmail.com";
+        DAOCliente_Estandar daoCE = new Cliente_EstandardDAOImpl();
+        System.out.println(daoCE.buscar(email));
+        assertEquals(cE.getClass(), daoCE.buscar(email).getClass());
     }
 }

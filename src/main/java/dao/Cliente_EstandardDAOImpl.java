@@ -11,13 +11,18 @@ public class Cliente_EstandardDAOImpl extends Conexion implements DAOCliente_Est
     public boolean registrar(Cliente_Estandar ce) throws Exception {
         try {
             this.conectar();
-            PreparedStatement st = connection.prepareStatement("INSERT INTO cliente_estandard(nombre,domicilio,nif,email) VALUES(?,?,?,?)");
-            st.setString(1, ce.getNombre());
-            st.setString(2, ce.getDomicilio());
-            st.setString(3, ce.getNif());
-            st.setString(4, ce.getEmail());
 
+            PreparedStatement st = connection.prepareStatement("INSERT INTO cliente(nombre,nif,domilicio,email) VALUES(?,?,?,?)");
+            st.setString(1, ce.getNombre());
+            st.setString(2, ce.getNif());
+            st.setString(3, ce.getDomicilio());
+            st.setString(4, ce.getEmail());
             st.executeUpdate();
+
+           PreparedStatement _st = connection.prepareStatement("INSERT INTO cliente_estandard(email) VALUES(?)");
+            _st.setString(1, ce.getEmail());
+            _st.executeUpdate();
+
             return true;
         } catch (Exception e) {
             throw e;
@@ -26,7 +31,6 @@ public class Cliente_EstandardDAOImpl extends Conexion implements DAOCliente_Est
         }
     }
 
-    @Override
     public Cliente_Estandar buscar(String email) throws Exception {
 
         try {
@@ -36,11 +40,22 @@ public class Cliente_EstandardDAOImpl extends Conexion implements DAOCliente_Est
             ResultSet rs = st.executeQuery();
             Cliente_Estandar ce = new Cliente_Estandar();
             while (rs.next()) {
-                if (rs.getString(4).equals(email)) {
-                    ce.setNombre(rs.getString(1));
-                    ce.setDomicilio(rs.getString(2));
-                    ce.setNif(rs.getString(3));
-                    ce.setEmail(rs.getString(4));
+                if (rs.getString(1).equals(email)) {
+                    this.cerrar();
+                    this.conectar();
+
+                    PreparedStatement _st = connection.prepareStatement("SELECT * FROM cliente WHERE email=?");
+                    _st.setString(1, email);
+                    ResultSet _rs = _st.executeQuery();
+
+                    while(_rs.next()){
+                            ce.setNombre(_rs.getString(1));
+                            ce.setNif(_rs.getString(2));
+                            ce.setDomicilio(_rs.getString(3));
+                            ce.setEmail(_rs.getString(4));
+                            return ce;
+                    }
+
                 }
             }
             return ce;

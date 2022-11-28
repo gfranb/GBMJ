@@ -93,7 +93,7 @@ public class GestionOS {
         System.out.println(controlador.mostrarArticulo(codigo));
 
     }
-    public void gestionClientes(){
+    public void gestionClientes() throws Exception {
         boolean salir = false;
         char opcio;
         while(!salir){
@@ -113,7 +113,7 @@ public class GestionOS {
             }
         }
     }
-    public void AnadirCliente(){
+    public void AnadirCliente() throws Exception {
         String nombre, email, domicilio,nif;
         char tipo;
 

@@ -1,10 +1,8 @@
 package controlador;
-import dao.ArticuloDAOImpl;
-import dao.Cliente_EstandardDAOImpl;
-import dao.DAOArticulo;
-import dao.DAOCliente_Estandar;
+import dao.*;
 import modelo.Articulo;
 import modelo.Cliente_Estandar;
+import modelo.Cliente_Premium;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -57,5 +55,20 @@ class ControladorTest {
         DAOCliente_Estandar daoCE = new Cliente_EstandardDAOImpl();
         System.out.println(daoCE.buscar(email));
         assertEquals(cE.getClass(), daoCE.buscar(email).getClass());
+    }
+
+    @Test
+    void crearCPbd() throws Exception{
+        Cliente_Premium cP= new Cliente_Premium(0.10,"gianfranco", "Los Palos, 300. 08756", "131233D","gianfranco@gmail.com");
+        DAOCliente_Premium daoCP = new Cliente_PremiumDAOImpl();
+        assertEquals(true, daoCP.registrar(cP));
+    }
+    @Test
+    void buscarCPbd() throws Exception{
+        Cliente_Premium cP= new Cliente_Premium();
+        String email = "gianfranco@gmail.com";
+        DAOCliente_Premium daoCP = new Cliente_PremiumDAOImpl();
+        System.out.println(daoCP.buscar(email));
+        assertEquals(cP.getClass(), daoCP.buscar(email).getClass());
     }
 }

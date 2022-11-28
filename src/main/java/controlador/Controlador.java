@@ -1,5 +1,6 @@
 package controlador;
 
+import java.sql.SQLException;
 import java.util.List;
 import modelo.Datos;
 import vista.*;
@@ -8,7 +9,8 @@ public class Controlador {
     public Controlador() {
         datos = new Datos ();
     }
-    public boolean anadirArticulo(String codigo, String descripcion, float precio, float gEnvio, int pEnvio){
+
+    public boolean anadirArticulo(String codigo, String descripcion, float precio, float gEnvio, int pEnvio) throws Exception{
          return datos.addArticulo(codigo,descripcion,precio,gEnvio,pEnvio);
     }
     public String mostrarArticulo(String codigo){
@@ -24,10 +26,10 @@ public class Controlador {
     public String mostrarCliente(String email){
         return datos.showCliente(email);
     }
-    public String showCatalogo(){
+    public String showCatalogo() throws Exception {
         return datos.catalogo();
     }
-    public int crearPedido(String email, String idArticulo, int cantidadArticulo){
+    public int crearPedido(String email, String idArticulo, int cantidadArticulo) throws Exception {
         return datos.crearPedido(email,idArticulo,cantidadArticulo);
     }
     public boolean eliminarPedido(int n){
@@ -45,18 +47,13 @@ public class Controlador {
     public String mostrarPedidosPendientes(){
         return datos.buscarPP();
     }
-    public String cargar(){
+    public String cargar() throws Exception {
 
             // Clientes
             datos.addCliente("jose", "Alcázabar, 35. 07560", "2354761R","jose@gmail.com",'1');
             datos.addCliente("julian", "Los Palos, 167. 08756", "536543D","julian@gmail.com",'2');
             datos.addCliente("maria", "Real Camino, 35. 07987", "987654T","maria@gmail.com",'1');
             datos.addCliente("rosana", "B.Lull. 09870", "126509Y","rosana@gmail.com",'2');
-            // Artículos del Catálogo.
-            datos.addArticulo("A234","Ejemplo de descripción de producto ",4,3,10);
-            datos.addArticulo("A674","Ejemplo de descripción de producto ",60,10,5);
-            datos.addArticulo("B987","Ejemplo de descripción de producto ",7,15,1);
-            datos.addArticulo("C204","Ejemplo de descripción de producto ",55,10,9);
             // Pedido
             datos.crearPedido("jose@gmail.com","A234",2);
             datos.crearPedido("maria@gmail.com","B987",1);

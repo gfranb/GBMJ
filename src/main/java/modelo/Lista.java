@@ -8,6 +8,10 @@ public class Lista<T> {
     public Lista() {
         lista = new ArrayList<T>();
     }
+
+    public Lista(ArrayList<T> a) {
+        lista = a;
+    }
     public int getSize() {
         return lista.size();
     }
@@ -20,6 +24,9 @@ public class Lista<T> {
     }
     public T getAt(int position) {
         return lista.get(position);
+    }
+    public void addLista(ArrayList<T> a){
+        lista = a;
     }
     public void clear() {
         lista.clear();

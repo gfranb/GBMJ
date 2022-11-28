@@ -1,49 +1,41 @@
 package modelo;
 
+import dao.ArticuloDAOImpl;
+import dao.DAOArticulo;
+import dao.DAOPedido;
+import dao.PedidoDAOImpl;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
 public class Datos{
-    private ListaArticulos listaArticulos;
+
     private ListaClientes listaClientes;
-    private ListaPedidos listaPedidos;
+
+    DAOArticulo daoArticulo;
+    DAOPedido daoPedido;
+
     public Datos() {
-        listaArticulos = new ListaArticulos();
         listaClientes = new ListaClientes();
-        listaPedidos = new ListaPedidos();
+        daoPedido = new PedidoDAOImpl();
+        daoArticulo = new ArticuloDAOImpl();
     }
-    public String mostrarArticulos(String c) {
-        for (Articulo a : listaArticulos.lista) {
-            if(a.getCodigo().equals(c)){
+
+    public String mostrarArticulos(String c) throws Exception {
+        Articulo a = daoArticulo.buscar(c);
                 return "----------------------------------------------------" + "\n" + " || " + "Código: "+ a.getCodigo() + " || " + "Descripción: "+ a.getDescripcion() +
                         " || " + "Precio: "+ a.getPrecio() + " || "+ " Precio de envío: " + a.getgEnvio() + " || " + " Tiempo de preparación: " + a.getpEnvio() + " || "+ "\n";
-            }
-        }
-        return null;
-    }
-    public Articulo getArticulo(String idCodigo) {
-        int cont = 0;
-        Articulo sArticulo = new Articulo();
-        for (Articulo articulo : listaArticulos.lista) {
-            if (articulo.getCodigo().equals(idCodigo)) {
-                return listaArticulos.getAt(cont);
-            }
-            cont++;
-        }
-        return sArticulo;
     }
     public boolean addArticulo(String c, String d, float p, float gE, int pE) {
         Articulo a = new Articulo(c, d, p, gE, pE);
-        if (listaArticulos.getArrayList().contains(a)) {
-            return false; //El articulo ya existe.
-        } else {
-            listaArticulos.add(a);
+        try{
+            daoArticulo.registrar(a);
+            return true;
+        }catch (Exception e){
+            return false;
         }
-        return true;//El articulo ha sido anadido correctamente.
     }
     public Cliente_Premium buscarClienteP(String email){
 
@@ -90,8 +82,6 @@ public class Datos{
          return null;
 
         }
-
-
     public String showCliente(String email){
 
         Cliente_Premium cp = buscarClienteP(email);
@@ -151,7 +141,7 @@ public class Datos{
     public Pedido buscarPedido(int nPedido){
         Pedido _p = new Pedido();
         try{
-            for(Pedido p : listaPedidos.lista) {
+            for(Pedido p : daoPedido.buscarpedido(p)) {
                 if (p.getnPedido() == nPedido) {
                     return p;//
                 }
@@ -160,8 +150,9 @@ public class Datos{
 
         return _p;
     }
-    public String catalogo(){
+    public String catalogo() throws Exception {
         String c = "";
+        ListaArticulos listaArticulos = new ListaArticulos(daoArticulo.mostrar());
         for (int i = 0; i < listaArticulos.getSize();i++) {
             c += i +" - " + " || Código: " + listaArticulos.getArticulos().get(i).getCodigo() + " || Descripción: " + listaArticulos.getArticulos().get(i).getDescripcion() +
                 " || Gastos de envío: " +  listaArticulos.getArticulos().get(i).getgEnvio() + " || Precio: " + listaArticulos.getArticulos().get(i).getPrecio() +
@@ -169,7 +160,7 @@ public class Datos{
         }
         return c;
     }
-    private int generateNorder(){
+    public int generateNorder(){
         Random rand = new Random();
         int nPedido;
         do{
@@ -180,13 +171,13 @@ public class Datos{
     public boolean eliminarPedido(int n){
         Pedido p = buscarPedido(n);
         if(p != null && !estadoPedido(p)){
-            listaPedidos.borrar(p);
+            daoPedido.borrar(p);
             return true;
         }else{
             return false;
         }
     }
-    public int crearPedido(String email, String idArticulo, int cantidad){
+    public int crearPedido(String email, String idArticulo, int cantidad) throws Exception {
         Cliente_Estandar Ce = buscarClienteE(email);
         Cliente_Premium Cp = buscarClienteP(email);
 
@@ -194,15 +185,17 @@ public class Datos{
             return -1;
         }else{
             if(Ce.getEmail() != null){
-                    float p = getArticulo(idArticulo).getPrecio()*cantidad+getArticulo(idArticulo).getgEnvio();
-                    Pedido pedido = new Pedido(Ce,getArticulo(idArticulo),generateNorder(),cantidad,p);
-                    listaPedidos.add(pedido);
+                    Articulo a = daoArticulo.buscar(idArticulo);
+                    float p = a.getPrecio()*cantidad+a.getgEnvio();
+                    Pedido pedido = new Pedido(Ce,a,generateNorder(),cantidad,p);
+                    daoPedido.add(pedido);
                     return pedido.getnPedido();
             }
             if(Cp.getEmail() != null){
-                double p = getArticulo(idArticulo).getPrecio()*cantidad+(getArticulo(idArticulo).getgEnvio()*0.20);
-                Pedido pedido = new Pedido(Cp,getArticulo(idArticulo),generateNorder(),cantidad,p);
-                listaPedidos.add(pedido);
+                Articulo a = daoArticulo.buscar(idArticulo);
+                double p = a.getPrecio()*cantidad+(a.getgEnvio()*0.20);
+                Pedido pedido = new Pedido(Cp,a,generateNorder(),cantidad,p);
+                daoPedido.add(pedido);
                 return pedido.getnPedido();
             }
         }
@@ -223,14 +216,15 @@ public class Datos{
 
         Date fechaActual = calendar.getTime();
 
-        if(fechaActual.compareTo(fechaActual) > 0){
+        if(fechaActual.compareTo(fechaPedido) > 0){
             return true;
         }
         return false;
+
     }
     public String buscarPPCliente(String email){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
+        for(Pedido p : daoPedido.getArrayList()){
             if(p.getCliente().getEmail().equals(email)){
                 if(!estadoPedido(p)){
                     c = c + " Cliente: " + p.getCliente().getEmail() + "\n "+ " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() +" || Cant: " + p.getCantidad() + " || Coste: "
@@ -242,7 +236,7 @@ public class Datos{
     }
     public String buscarPP(){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
+        for(Pedido p : daoPedido.getArrayList()){
             if(!estadoPedido(p)){
                 c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant:  " + p.getCantidad() + " || Coste: "
                         +  p.getPrecioP()  + "\n";
@@ -252,7 +246,7 @@ public class Datos{
     }
     public String buscarPECliente(String email){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
+        for(Pedido p : daoPedido.getArrayList()){
             if(p.getCliente().getEmail().equals(email)){
                 if(estadoPedido(p)){
                     c = c + " Cliente: " + p.getCliente().getEmail() + "\n "+ " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant: " + p.getCantidad() + " || Coste: "
@@ -264,7 +258,7 @@ public class Datos{
     }
     public String buscarPE(){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
+        for(Pedido p : daoPedido.getArrayList()){
             if(estadoPedido(p)){
                 c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant:  " + p.getCantidad() + " || Coste: "
                         +  p.getPrecioP()  + "\n";

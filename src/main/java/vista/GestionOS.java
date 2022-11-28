@@ -6,11 +6,11 @@ public class GestionOS {
     private Controlador controlador;
     Scanner teclado = new Scanner(System.in);
 
-    public GestionOS() {
+    public GestionOS() throws Exception {
         controlador = new Controlador();
         System.out.println(controlador.cargar()); // Carga de datos preconfigurados
     }
-    public void inicio() {
+    public void inicio() throws Exception {
         boolean salir = false;
         char opcio;
         do {
@@ -35,7 +35,7 @@ public class GestionOS {
         } while (!salir);
     }
 
-    public void gestionArticulo(){
+    public void gestionArticulo() throws Exception {
         boolean salir = false;
         char opcio;
         while(!salir){
@@ -55,7 +55,7 @@ public class GestionOS {
             }
         }
     }
-    public void AnadirArticulo() {
+    public void AnadirArticulo() throws Exception {
         String codigo, descripcion;
         float precio, gEnvio;
         int pEnvio;
@@ -152,7 +152,7 @@ public class GestionOS {
         System.out.println(controlador.mostrarCliente(email));
 
     }
-    public void gestionPedidos(){
+    public void gestionPedidos() throws Exception {
         boolean salir = false;
         char opcio;
         do{
@@ -176,7 +176,7 @@ public class GestionOS {
             }
         }while(!salir);
     }
-    public void anadirPedido(){
+    public void anadirPedido() throws Exception {
 
         System.out.println("Indica tu correo electronico");
         String email = teclado.nextLine();
@@ -263,7 +263,7 @@ public class GestionOS {
         }
 
     }
-    public String mostrarCatalogo(){
+    public String mostrarCatalogo() throws Exception {
         System.out.println(controlador.showCatalogo());
         System.out.println("Indica el codigo del producto");
         String id = teclado.nextLine();

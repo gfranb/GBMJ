@@ -1,92 +1,174 @@
 package dao;
 
+import modelo.*;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.sql.Timestamp;
 
-import modelo.Datos;
-import modelo.Pedido;
 
-public class PedidoDAOImpl extends Conexion implements DAOPedido{
 
-    public boolean registrarPedido(Pedido pedido) throws Exception {
+
+public class PedidoDAOImpl extends Conexion implements DAOPedido {
+
+    DAOArticulo daoArticulo = new ArticuloDAOImpl();
+    DAOCliente_Premium daoCliente_premium = new Cliente_PremiumDAOImpl();
+    DAOCliente_Estandar daoCliente_estandar = new Cliente_EstandardDAOImpl();
+    Datos datos = new Datos();
+
+    public boolean registrar(Pedido pedido) throws Exception {
         try {
             this.conectar();
-            PreparedStatement st = connection.prepareStatement("INSERT INTO PEDIDO(nPedido,Cantidad,fecha,codigo,email) VALUES(?,?,?,?,?)");
-            st.setInt(1,pedido.getnPedido());
+            PreparedStatement st = connection.prepareStatement("INSERT INTO PEDIDO(nPedido,Cantidad,fecha,codigo,precio,email) VALUES(?,?,?,?,?,?)");
+            st.setInt(1, pedido.getnPedido());
             st.setInt(2, pedido.getCantidad());
-            st.setDate(3, pedido.getFecha());
-            st.setString(4, pedido.getArticulo());
-            st.setString(5, pedido.getCliente());
+
+            Date date = Date.valueOf(pedido.getFecha()); // Conversion a Date
+            st.setDate(3, date);
+
+            st.setString(4, pedido.getArticulo().getCodigo());
+            st.setDouble(5, pedido.getPrecioP());
+            st.setString(6, pedido.getCliente().getEmail());
             st.executeUpdate();
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw e;
         } finally {
             this.cerrar();
         }
     }
 
-    public Pedido buscarpedido(int nPedido) throws Exception{
+    public Pedido buscar(int nPedido) throws Exception {
 
-        try{
+        try {
             this.conectar();
-            PreparedStatement st= connection.prepareStatement("SELECT * FROM PEDIDO WHERE nPedido = ?");
-            st.setInt(1,nPedido);
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM PEDIDO WHERE nPedido = ?");
+            st.setInt(1, nPedido);
             ResultSet rs = st.executeQuery();
+
             Pedido p = new Pedido();
-            while (rs.next()){
-                if (rs.getInt(1) == (nPedido)){
+
+            while (rs.next()) {
+                if (rs.getInt(1) == (nPedido)) {
+
                     p.setnPedido(rs.getInt(1));
+
                     p.setCantidad(rs.getInt(2));
-                    p.getFecha(rs.getTimestamp(3));
-                    p.setArticulo(rs.getString(4));
-                    p.setCliente(rs.getString(6));
+
+                    java.sql.Date sqlDate = rs.getDate(3);
+                    LocalDate localDate = sqlDate.toLocalDate();
+
+                    p.setFecha(localDate);
+
+                    Articulo a = daoArticulo.buscar(rs.getString(4));
+                    p.setArticulo(a);
+
+
+                    p.setCliente(datos.buscarCliente(rs.getString(6)));
+
                     p.setPrecioP(rs.getDouble(5));
                 }
             }
-        }catch (Exception e){
-            return null;
-        }finally{
-            this.cerrar();
-        }
-    }
-    public Pedido buscarpedidocliente(String emil) throws Exception{
-    try {
-        this.conectar();
-        PreparedStatement st = connection.prepareStatement("SELECT * FROM PEDIDO WHERE email=?");
-        st.setString(1, email);
-        ResultSet rs = st.executeQuery();
-        Pedido pedido = new Pedido();
-        while(rs.next()){// Mostrar pedido?
-            if(rs.getString(1).equals(email){
-                pedido.setnPedido(rs.getInt(1));
-                pedido.setCantidad(rs.getInt(2));
-                pedido.getFecha(rs.getTimestamp(3));
-                pedido.setArticulo(rs.getString(4));
-                pedido.setCliente(rs.getString(6));
-            }
-        }
-        return pedido;
-    }catch (Exception e){
-        return null;
-    } finally {
-        this.cerrar();
-    }
-
-}
-
-    public Pedido eliminarpedido (Pedido pedido) throws Exception{
-        try{
-            this.conectar();
-            PreparedStatement st = connection.prepareStatement("DELETE FROM PEDIDO WHERE nPedido = ?");
-            st.setString(1,nPedido);
-            ResultSet rs = st.executeQuery();
-        } catch (Exception e){
+            return p;
+        } catch (Exception e) {
             return null;
         } finally {
             this.cerrar();
         }
+    }
+
+    public ListaPedidos buscarpedidocliente(String email) throws Exception {
+        try {
+            this.conectar();
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM PEDIDO WHERE email=?");
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+
+            Pedido p = new Pedido();
+            ListaPedidos listap = new ListaPedidos();
+
+            while (rs.next()) {// Mostrar pedido?
+
+                if (rs.getString(1).equals(email)) {
+
+                    p.setnPedido(rs.getInt(1));
+
+                    p.setCantidad(rs.getInt(2));
+
+                    java.sql.Date sqlDate = rs.getDate(3);
+                    LocalDate localDate = sqlDate.toLocalDate();
+                    p.setFecha(localDate);
+
+                    Articulo a = daoArticulo.buscar(rs.getString(4));
+                    p.setArticulo(a);
+
+                    p.setCliente(datos.buscarCliente(rs.getString(6)));
+                    listap.add(p);
+                }
+            }
+            return listap;
+        } catch (Exception e) {
+            return null;
+        } finally {
+            this.cerrar();
+        }
+
+    }
+
+    public boolean eliminarpedido(String nPedido) throws Exception {
+        try {
+            this.conectar();
+            PreparedStatement st = connection.prepareStatement("DELETE FROM PEDIDO WHERE nPedido = ?");
+            st.setString(1, nPedido);
+            ResultSet rs = st.executeQuery();
+            return true;
+        } catch (Exception e) {
+            return false;
+        } finally {
+            this.cerrar();
+        }
+
+    }
+
+    public ListaPedidos buscarpedidos() throws Exception {
+        try {
+            this.conectar();
+            PreparedStatement st = connection.prepareStatement("SELECT * FROM PEDIDO");
+            ResultSet rs = st.executeQuery();
+
+            Pedido p = new Pedido();
+            ListaPedidos listap = new ListaPedidos();
+
+            while (rs.next()) {// Mostrar pedido?
+
+
+
+                    p.setnPedido(rs.getInt(1));
+
+                    p.setCantidad(rs.getInt(2));
+
+                    java.sql.Date sqlDate = rs.getDate(3);
+                    LocalDate localDate = sqlDate.toLocalDate();
+                    p.setFecha(localDate);
+
+                    Articulo a = daoArticulo.buscar(rs.getString(4));
+                    p.setArticulo(a);
+
+                    p.setCliente(datos.buscarCliente(rs.getString(6)));
+                    listap.add(p);
+
+            }
+            return listap;
+        } catch (Exception e) {
+            return null;
+        } finally {
+            this.cerrar();
+        }
+
     }
 }

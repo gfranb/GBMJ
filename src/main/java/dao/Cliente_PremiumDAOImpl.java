@@ -9,13 +9,19 @@ import java.util.Objects;
 public class Cliente_PremiumDAOImpl extends Conexion implements DAOCliente_Premium{
 
     @Override
-    public boolean registrar(Cliente_Premium cliente_premium) throws Exception {
+    public boolean registrar(Cliente_Premium cp) throws Exception {
         try {
             this.conectar();
-            PreparedStatement st = connection.prepareStatement("INSERT INTO cliente_premium(email) VALUES(?,?)");
-            st.setString(2, cliente_premium.getEmail());
+            PreparedStatement st = connection.prepareStatement("INSERT INTO cliente_premium(nombre,domicilio,nif,email,descuento) VALUES(?,?,?,?,?)");
+
+            st.setString(1, cp.getNombre());
+            st.setString(2, cp.getDomicilio());
+            st.setString(3, cp.getNif());
+            st.setDouble(5, cp.getDescuento());
+            st.setString(4, cp.getEmail());
 
             st.executeUpdate();
+
             return true;
         } catch (Exception e) {
             throw e;
@@ -25,21 +31,26 @@ public class Cliente_PremiumDAOImpl extends Conexion implements DAOCliente_Premi
     }
 
     @Override
-    public Cliente_Premium buscar(String id) throws Exception {
+    public Cliente_Premium buscar(String email) throws Exception {
 
         try {
             this.conectar();
             PreparedStatement st = connection.prepareStatement("SELECT * FROM cliente_premium WHERE email=?");
-            st.setString(2, id);
+            st.setString(1, email);
             ResultSet rs = st.executeQuery();
-            Cliente_Premium cliente_premium = new Cliente_Premium();
+
+            Cliente_Premium cp = new Cliente_Premium();
+
             while (rs.next()) {
-                if (rs.getString(2).equals(id)) {
-                    cliente_premium.setEmail(rs.getString(2));
-                    cliente_premium.setDescuento(rs.getDouble(1));
+                if (rs.getString(4).equals(email)) {
+                    cp.setNombre(rs.getString(1));
+                    cp.setDomicilio(rs.getString(2));
+                    cp.setNif(rs.getString(3));
+                    cp.setEmail(rs.getString(4));
+                    cp.setDescuento(rs.getDouble(5));
                 }
             }
-            return cliente_premium;
+            return cp;
         } catch (Exception e) {
             return null;
         } finally {

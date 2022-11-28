@@ -9,16 +9,19 @@ import java.util.Random;
 
 public class Datos{
 
+
     DAOArticulo daoArticulo;
-    DAOCliente daoCliente;
-    DAOCliente_Estandar daoCliente_estandar;
+    DAOPedido daoPedido;
     DAOCliente_Premium daoCliente_premium;
+    DAOCliente_Estandar daoCliente_estandar;
 
     public Datos() {
+
+        daoPedido = new PedidoDAOImpl();
         daoArticulo = new ArticuloDAOImpl();
-        daoCliente = new ClienteDAOImpl();
-        daoCliente_estandar = new Cliente_EstandardDAOImpl();
         daoCliente_premium = new Cliente_PremiumDAOImpl();
+        daoCliente_estandar = new Cliente_EstandardDAOImpl();
+
     }
 
     public String mostrarArticulos(String c) throws Exception {
@@ -35,20 +38,51 @@ public class Datos{
             return false;
         }
     }
-    public String buscarClienteP(String email) throws Exception {
-        Cliente_Premium a = daoCliente_premium.buscar(email);
-        return "----------------------------------------------------" + "\n" + " || " + "Email: "+ a.getEmail() + " || " + "Descuento: "+ a.getDescuento() + "\n";
+    public Cliente_Premium buscarClienteP(String email){
+
+        try{
+
+            Cliente_Premium C = daoCliente_premium.buscar(email);
+            return C;
+
+        }catch(Exception e){}
+        Cliente_Premium C = new Cliente_Premium();
+        return C;
     }
+    public Cliente_Estandar buscarClienteE(String email){
 
-    public String buscarClienteE(String email) throws Exception {
-        Cliente_Estandar a = daoCliente_estandar.buscar(email);
-        return "----------------------------------------------------" + "\n" + " || " + " || " + "Email: "+ a.getEmail() + "\n";
+        try{
+            Cliente_Estandar C = daoCliente_estandar.buscar(email);
+            return C;
+            } catch (Exception ex) {}
+
+        Cliente_Estandar C = new Cliente_Estandar();
+        return C;
     }
+    public Cliente buscarCliente(String email){
+        Cliente_Premium Cp = buscarClienteP(email);
+        Cliente_Estandar Ce = buscarClienteE(email);
 
-    public String showCliente(String email) throws Exception {
+        try{
+            if(Ce.getEmail().equals(email)){
+                return Ce;
+            }
+        }
+        catch (Exception e){}
 
-        Cliente_Premium cp = daoCliente_premium.buscar(email);
-        Cliente_Estandar ce = daoCliente_estandar.buscar(email);
+        try{
+        if(Cp.getEmail().equals(email)) {
+            return Cp;
+        }}catch (Exception e){
+
+        }
+         return null;
+
+        }
+    public String showCliente(String email){
+
+        Cliente_Premium cp = buscarClienteP(email);
+        Cliente_Estandar ce = buscarClienteE(email);
         try{
             if(cp.getEmail().equals(email)){
                 return "DATOS: " + cp.getNombre() + " || " + cp.getEmail() + " || " + cp.getNif() + " || " + cp.getDomicilio() + "|| Tipo: Premium" + "\n";
@@ -64,30 +98,60 @@ public class Datos{
         }
         return null;
     }
-    public boolean addCliente(String email, String domicilio, String nombre, String nif) {
-        Cliente c = new Cliente(email, domicilio, nombre, nif);
-        try {
-            daoCliente.registrar(c);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
+    public boolean addCliente(String nombre, String domicilio, String nif, String email, char tipo) throws Exception {
+        switch (tipo){
+            case '1':
+                // Cliente Premium
+                Cliente_Premium cP = buscarClienteP(email);
+                Cliente_Estandar _cE = buscarClienteE(email);
 
-    public Pedido buscarPedido(int nPedido){
-        Pedido _p = new Pedido();
-        try{
-            for(Pedido p : listaPedidos.lista) {
-                if (p.getnPedido() == nPedido) {
-                    return p;//
+                if(cP.getEmail() == null && _cE.getEmail() == null){
+                    cP.setDomicilio(domicilio);
+                    cP.setEmail(email);
+                    cP.setNif(nif);
+                    cP.setNombre(nombre);
+                    cP.setDescuento(0.20);
+                    try {
+                        daoCliente_premium.registrar(cP);
+                    }catch(Exception e){}
+
+                    return true;
+                }else{
+                    return false;
                 }
-            }
+
+            case '2':
+                // Cliente Estandar
+                Cliente_Premium _cP = buscarClienteP(email);
+                Cliente_Estandar cE = buscarClienteE(email);
+                if(cE.getEmail() == null && _cP.getEmail() == null){
+                    cE.setDomicilio(domicilio);
+                    cE.setEmail(email);
+                    cE.setNif(nif);
+                    cE.setNombre(nombre);
+
+                    try {
+                        daoCliente_estandar.registrar(cE);
+                    }catch(Exception e){}
+                    return true;
+
+                }else{
+                    return false;
+                }
+        }
+        return true;
+    }
+    public Pedido buscarPedido(int nPedido){
+        Pedido p = new Pedido();
+        try{
+            p = daoPedido.buscar(nPedido);
         }catch (Exception e){}
 
-        return _p;
+        return p;
     }
-    public String catalogo(){
+    public String catalogo() throws Exception {
         String c = "";
+        ListaArticulos listaArticulos = new ListaArticulos(daoArticulo.mostrar());
         for (int i = 0; i < listaArticulos.getSize();i++) {
             c += i +" - " + " || Código: " + listaArticulos.getArticulos().get(i).getCodigo() + " || Descripción: " + listaArticulos.getArticulos().get(i).getDescripcion() +
                 " || Gastos de envío: " +  listaArticulos.getArticulos().get(i).getgEnvio() + " || Precio: " + listaArticulos.getArticulos().get(i).getPrecio() +
@@ -95,7 +159,7 @@ public class Datos{
         }
         return c;
     }
-    private int generateNorder(){
+    public int generateNorder(){
         Random rand = new Random();
         int nPedido;
         do{
@@ -106,7 +170,11 @@ public class Datos{
     public boolean eliminarPedido(int n){
         Pedido p = buscarPedido(n);
         if(p != null && !estadoPedido(p)){
-            listaPedidos.borrar(p);
+
+            try {
+                daoPedido.eliminarpedido(Integer.toString(p.getnPedido()));
+            } catch (Exception e) {}
+
             return true;
         }else{
             return false;
@@ -123,14 +191,14 @@ public class Datos{
                     Articulo a = daoArticulo.buscar(idArticulo);
                     float p = a.getPrecio()*cantidad+a.getgEnvio();
                     Pedido pedido = new Pedido(Ce,a,generateNorder(),cantidad,p);
-                    listaPedidos.add(pedido);
+                    daoPedido.registrar(pedido);
                     return pedido.getnPedido();
             }
             if(Cp.getEmail() != null){
                 Articulo a = daoArticulo.buscar(idArticulo);
                 double p = a.getPrecio()*cantidad+(a.getgEnvio()*0.20);
                 Pedido pedido = new Pedido(Cp,a,generateNorder(),cantidad,p);
-                listaPedidos.add(pedido);
+                daoPedido.registrar(pedido);
                 return pedido.getnPedido();
             }
         }
@@ -159,46 +227,74 @@ public class Datos{
     }
     public String buscarPPCliente(String email){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
-            if(p.getCliente().getEmail().equals(email)){
-                if(!estadoPedido(p)){
-                    c = c + " Cliente: " + p.getCliente().getEmail() + "\n "+ " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() +" || Cant: " + p.getCantidad() + " || Coste: "
-                            +  p.getPrecioP()  + "\n";
-                }
+
+
+
+        try {
+           ListaPedidos listaPedidos = new ListaPedidos();
+            listaPedidos = daoPedido.buscarpedidocliente(email);
+
+            for(Pedido p : listaPedidos.getArrayList()) {
+
+                    if (!estadoPedido(p)) {
+                        c = c + " Cliente: " + p.getCliente().getEmail() + "\n " + " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo().getCodigo() + " || Cant: " + p.getCantidad() + " || Coste: "
+                                + p.getPrecioP() + "\n";
+                    }
             }
-        }
+        } catch (Exception e) {}
+
         return c;
     }
+
     public String buscarPP(){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
+
+        try {
+            ListaPedidos listaPedidos = new ListaPedidos();
+            listaPedidos = daoPedido.buscarpedidos();
+
+        for(Pedido p : listaPedidos.getArrayList()) {
             if(!estadoPedido(p)){
                 c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant:  " + p.getCantidad() + " || Coste: "
                         +  p.getPrecioP()  + "\n";
             }
         }
+        } catch (Exception e) {}
         return c;
     }
     public String buscarPECliente(String email){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
-            if(p.getCliente().getEmail().equals(email)){
-                if(estadoPedido(p)){
-                    c = c + " Cliente: " + p.getCliente().getEmail() + "\n "+ " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant: " + p.getCantidad() + " || Coste: "
-                            +  p.getPrecioP()  + "\n";
+
+
+        try {
+            ListaPedidos listaPedidos = new ListaPedidos();
+            listaPedidos = daoPedido.buscarpedidocliente(email);
+
+            for(Pedido p : listaPedidos.getArrayList()) {
+
+                if (estadoPedido(p)) {
+                    c = c + " Cliente: " + p.getCliente().getEmail() + "\n " + " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo().getCodigo() + " || Cant: " + p.getCantidad() + " || Coste: "
+                            + p.getPrecioP() + "\n";
                 }
             }
-        }
+        } catch (Exception e) {}
+
         return c;
     }
     public String buscarPE(){
         String c = "";
-        for(Pedido p : listaPedidos.getArrayList()){
-            if(estadoPedido(p)){
-                c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant:  " + p.getCantidad() + " || Coste: "
-                        +  p.getPrecioP()  + "\n";
+
+        try {
+            ListaPedidos listaPedidos = new ListaPedidos();
+            listaPedidos = daoPedido.buscarpedidos();
+
+            for(Pedido p : listaPedidos.getArrayList()) {
+                if(estadoPedido(p)){
+                    c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant:  " + p.getCantidad() + " || Coste: "
+                            +  p.getPrecioP()  + "\n";
+                }
             }
-        }
+        } catch (Exception e) {}
         return c;
     }
 

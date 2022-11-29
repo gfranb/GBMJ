@@ -11,7 +11,6 @@ public class Pedido {
     private Articulo articulo;
     private int cantidad;
     private LocalDate fecha;
-
     private double precioP;
 
     public Pedido(){}

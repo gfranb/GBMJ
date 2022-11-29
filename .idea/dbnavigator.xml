@@ -19,6 +19,10 @@
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="ed508797-1414-4956-adbb-ff9d8a094acf" dataset="gbmj_db.cliente" active-filter-id="" />
+    <filter-actions connection-id="ed508797-1414-4956-adbb-ff9d8a094acf" dataset="gbmj_db.cliente_estandard" active-filter-id="" />
+  </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
   </component>

@@ -8,9 +8,8 @@ public class Conexion {
 
     protected Connection connection;
     private String uname = "root";
-    private String password = "root";
-    private String url = "jdbc:mysql://localhost:3306/gbmj_db";
-    private final String JDBC_DRIVER = "org.mysql.jdbc.Driver";
+    private String url = "jdbc:mysql://localhost:3306/mysql";
+    private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 
     public Conexion(){
         this.connection = null;
@@ -19,7 +18,7 @@ public class Conexion {
     public void conectar() throws Exception {
 
         try {
-            this.connection = DriverManager.getConnection(url,uname,password);
+            this.connection = DriverManager.getConnection(url);
             //Class.forName(JDBC_DRIVER);
             this.connection.setAutoCommit(true);
         }catch (Exception e){

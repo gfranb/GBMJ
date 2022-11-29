@@ -17,9 +17,7 @@
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="ed508797-1414-4956-adbb-ff9d8a094acf" object-ref="schemas/gbmj_db/tables/articulo" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />

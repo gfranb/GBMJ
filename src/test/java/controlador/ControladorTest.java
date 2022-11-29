@@ -56,7 +56,6 @@ class ControladorTest {
         System.out.println(daoCE.buscar(email));
         assertEquals(cE.getClass(), daoCE.buscar(email).getClass());
     }
-
     @Test
     void crearCPbd() throws Exception{
         Cliente_Premium cP= new Cliente_Premium(0.10,"gianfranco", "Los Palos, 300. 08756", "131233D","gianfranco@gmail.com");

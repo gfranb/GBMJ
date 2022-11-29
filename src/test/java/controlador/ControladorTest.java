@@ -59,7 +59,6 @@ class ControladorTest {
         DAOCliente_Estandar daoCE = new Cliente_EstandardDAOImpl();
         assertEquals(cE.getClass(), daoCE.buscar(email).getClass());
     }
-
     @Test
     void crearCPbd() throws Exception{
         Cliente_Premium cP= new Cliente_Premium(0.10,"gianfran","Los Palos, 300. 08756", "131233D","gianfranco@gmail.com");
@@ -83,10 +82,11 @@ class ControladorTest {
         assertEquals(true, daoPedido.registrar(p));
 
     }
-    
     @Test
-    void buscarPedido(){
-
+    void buscarPedido() throws Exception {
+        Pedido p = new Pedido();
+        DAOPedido daoPedido= new PedidoDAOImpl();
+        assertEquals(p.getClass(), daoPedido.buscar(12).getClass());
     }
 
 }

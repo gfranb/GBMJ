@@ -69,7 +69,7 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                     Cliente_Estandar cE = daoCliente_estandar.buscar(rs.getString(6));
                     Cliente_Premium cP = daoCliente_premium.buscar(rs.getString(6));
 
-                    if(cP.equals(null)){
+                    if(cP.getEmail() == null){
                         p.setCliente(cE);
                     }else{
                         p.setCliente(cP);

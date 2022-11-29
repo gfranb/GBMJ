@@ -3,7 +3,11 @@ import dao.*;
 import modelo.Articulo;
 import modelo.Cliente_Estandar;
 import modelo.Cliente_Premium;
+import modelo.Pedido;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ControladorTest {
@@ -59,7 +63,7 @@ class ControladorTest {
 
     @Test
     void crearCPbd() throws Exception{
-        Cliente_Premium cP= new Cliente_Premium(0.10,"gianfranco", "Los Palos, 300. 08756", "131233D","gianfranco@gmail.com");
+        Cliente_Premium cP= new Cliente_Premium(0.10,"gianfran","Los Palos, 300. 08756", "131233D","gianfranco@gmail.com");
         DAOCliente_Premium daoCP = new Cliente_PremiumDAOImpl();
         assertEquals(true, daoCP.registrar(cP));
     }
@@ -71,4 +75,12 @@ class ControladorTest {
         System.out.println(daoCP.buscar(email));
         assertEquals(cP.getClass(), daoCP.buscar(email).getClass());
     }
+
+    @Test
+    void crearpedido() throws Exception{
+
+    }
+    @Test
+    void buscarPedido(){}
+
 }

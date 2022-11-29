@@ -15,7 +15,7 @@ public class Pedido {
     private double precioP;
 
     public Pedido(){}
-    Pedido(Cliente C, Articulo A, int nPedido, int cantidad, double p){
+    public Pedido(Cliente C, Articulo A, int nPedido, int cantidad, double p){
 
         this.articulo = A;
         this.nPedido = nPedido;

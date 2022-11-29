@@ -17,10 +17,9 @@ public class Controlador {
             return "El articulo no existe";
         }
     }
-    public boolean crearCliente (String nombre, String domicilio, String nif, String email, char tipo) throws Exception{
-        return datos.addCliente(nombre, domicilio, nif, email, tipo);
+    public boolean crearCliente(String n, String e, String d, String nif, char t) throws Exception {
+        return datos.addCliente(n,d,nif,e,t);
     }
-
     public String mostrarCliente(String email){
         return datos.showCliente(email);
     }
@@ -59,5 +58,4 @@ public class Controlador {
         return "\n" + "|| ---------|| Carga de datos realizada ||---------------|| " +
                 "\n";
     }
-
 }

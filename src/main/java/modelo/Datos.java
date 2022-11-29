@@ -9,7 +9,6 @@ import java.util.Random;
 
 public class Datos{
 
-
     DAOArticulo daoArticulo;
     DAOPedido daoPedido;
     DAOCliente_Premium daoCliente_premium;

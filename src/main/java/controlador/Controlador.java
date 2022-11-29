@@ -1,9 +1,6 @@
 package controlador;
 
-import java.sql.SQLException;
-import java.util.List;
 import modelo.Datos;
-import vista.*;
 public class Controlador {
     private Datos datos;
     public Controlador() {

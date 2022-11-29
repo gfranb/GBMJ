@@ -1,5 +1,5 @@
 package controlador;
-import com.mysql.cj.xdevapi.Type;
+
 import dao.ArticuloDAOImpl;
 import dao.DAOArticulo;
 import modelo.Articulo;

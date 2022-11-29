@@ -39,6 +39,7 @@ public class Cliente_EstandardDAOImpl extends Conexion implements DAOCliente_Est
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             Cliente_Estandar ce = new Cliente_Estandar();
+
             while (rs.next()) {
                 if (rs.getString(1).equals(email)) {
                     this.cerrar();

@@ -134,7 +134,7 @@ public class GestionOS {
         System.out.println("Tipo de cliente: 1 Premium || 2 Estandart");
         tipo = teclado.next().charAt(0);
 
-        if(controlador.crearCliente(nombre,email,domicilio,nif,tipo)){
+        if(controlador.crearCliente(nombre,domicilio,nif,email,tipo)){
             System.out.println("Cliente creado correctamente");
         }else{
             System.out.println("El cliente ya existe");

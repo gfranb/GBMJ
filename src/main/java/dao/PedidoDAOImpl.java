@@ -18,8 +18,8 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
 
         try {
             this.conectar();
-            PreparedStatement st = connection.prepareStatement("INSERT INTO pedido(nPedido,cantidad,fecha,codigo,precio,email) VALUES(?,?,?,?,?,?)");
-            st.setInt(1, pedido.getnPedido());
+            PreparedStatement st = connection.prepareStatement("INSERT INTO pedido VALUE (?,?,?,?,?,?)");
+            st.setString(1, Integer.toString(pedido.getnPedido()));
             st.setInt(2, pedido.getCantidad());
 
             LocalDate locald = pedido.getFecha();

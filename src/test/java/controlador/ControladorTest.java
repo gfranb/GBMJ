@@ -6,8 +6,6 @@ import modelo.Cliente_Premium;
 import modelo.Pedido;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ControladorTest {

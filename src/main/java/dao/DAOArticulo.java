@@ -3,7 +3,6 @@ package dao;
 import modelo.Articulo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface DAOArticulo {
 

@@ -1,11 +1,12 @@
 package dao;
 
-import modelo.*;
+import dao.modelo.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 public class PedidoDAOImpl extends Conexion implements DAOPedido {
@@ -71,7 +72,7 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
 
                     if(cP.getEmail() == null){
                         p.setCliente(cE);
-                    } else {
+                    }else{
                         p.setCliente(cP);
                     }
                     p.setPrecioP(rs.getDouble(5));
@@ -92,13 +93,12 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
 
-            Pedido p = new Pedido();
+
             ListaPedidos listap = new ListaPedidos();
 
             while (rs.next()) {// Mostrar pedido?
-
-                if (rs.getString(1).equals(email)) {
-
+                Pedido p = new Pedido();
+                if (rs.getString(6).equals(email)) {
                     p.setnPedido(rs.getInt(1));
 
                     p.setCantidad(rs.getInt(2));
@@ -113,9 +113,9 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                     Cliente_Estandar cE = daoCliente_estandar.buscar(rs.getString(6));
                     Cliente_Premium cP = daoCliente_premium.buscar(rs.getString(6));
 
-                    if (cP.equals(null)) {
+                    if(cP.getEmail() == null){
                         p.setCliente(cE);
-                    } else {
+                    }else{
                         p.setCliente(cP);
                     }
                     listap.add(p);
@@ -127,7 +127,6 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
         } finally {
             this.cerrar();
         }
-
     }
 
     public boolean eliminarpedido(String nPedido) throws Exception {
@@ -156,26 +155,26 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
 
             while (rs.next()) {// Mostrar pedido?
 
-                p.setnPedido(rs.getInt(1));
+                    p.setnPedido(rs.getInt(1));
 
-                p.setCantidad(rs.getInt(2));
+                    p.setCantidad(rs.getInt(2));
 
-                java.sql.Date sqlDate = rs.getDate(3);
-                LocalDate localDate = sqlDate.toLocalDate();
-                p.setFecha(localDate);
+                    java.sql.Date sqlDate = rs.getDate(3);
+                    LocalDate localDate = sqlDate.toLocalDate();
+                    p.setFecha(localDate);
 
-                Articulo a = daoArticulo.buscar(rs.getString(4));
-                p.setArticulo(a);
+                    Articulo a = daoArticulo.buscar(rs.getString(4));
+                    p.setArticulo(a);
 
-                Cliente_Estandar cE = daoCliente_estandar.buscar(rs.getString(6));
-                Cliente_Premium cP = daoCliente_premium.buscar(rs.getString(6));
+                    Cliente_Estandar cE = daoCliente_estandar.buscar(rs.getString(6));
+                    Cliente_Premium cP = daoCliente_premium.buscar(rs.getString(6));
 
-                if (cP.equals(null)) {
-                    p.setCliente(cE);
-                } else {
-                    p.setCliente(cP);
-                }
-                listap.add(p);
+                    if(cP.equals(null)){
+                        p.setCliente(cE);
+                    }else{
+                        p.setCliente(cP);
+                    }
+                    listap.add(p);
 
             }
             return listap;

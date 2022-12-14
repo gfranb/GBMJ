@@ -1,6 +1,6 @@
 package dao;
 
-import modelo.Articulo;
+import dao.modelo.Articulo;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

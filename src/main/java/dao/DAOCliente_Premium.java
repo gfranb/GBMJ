@@ -1,6 +1,6 @@
 package dao;
 
-import modelo.Cliente_Premium;
+import dao.modelo.Cliente_Premium;
 
 public interface DAOCliente_Premium {
 

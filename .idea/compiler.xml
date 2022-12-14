@@ -11,6 +11,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="FP.058-GBMJ" target="18" />
+      <module name="GBMJ" target="18" />
     </bytecodeTargetLevel>
   </component>
 </project>

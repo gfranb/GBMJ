@@ -1,7 +1,7 @@
 package dao;
 
-import modelo.ListaPedidos;
-import modelo.Pedido;
+import dao.modelo.ListaPedidos;
+import dao.modelo.Pedido;
 
 public interface DAOPedido {
     public boolean registrar(Pedido pedido) throws Exception;

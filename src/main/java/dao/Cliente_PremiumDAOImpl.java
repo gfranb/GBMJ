@@ -1,7 +1,6 @@
 package dao;
 
-import modelo.Cliente_Estandar;
-import modelo.Cliente_Premium;
+import dao.modelo.Cliente_Premium;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +12,7 @@ public class Cliente_PremiumDAOImpl extends Conexion implements DAOCliente_Premi
         try {
             this.conectar();
 
+            System.out.println(cp);
             PreparedStatement st = connection.prepareStatement("INSERT INTO CLIENTE(nombre,nif,domilicio,email) VALUES(?,?,?,?)");
             st.setString(1, cp.getNombre());
             st.setString(2, cp.getNif());

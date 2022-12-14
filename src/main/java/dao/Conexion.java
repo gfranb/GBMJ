@@ -8,8 +8,8 @@ public class Conexion {
 
     protected Connection connection;
     private String uname = "root";
-    private String password = "1234";
-    private String url = "jdbc:mysql://localhost:3306/gbmj_db";
+    private String password = "0512";
+    private String url = "jdbc:mysql://localhost:3306/mysql";
     private final String JDBC_DRIVER = "org.mysql.jdbc.Driver";
 
     public Conexion(){

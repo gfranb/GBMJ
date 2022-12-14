@@ -1,6 +1,6 @@
 package dao;
 
-import dao.modelo.Cliente_Estandar;
+import modelo.Cliente_Estandar;
 
 public interface DAOCliente_Estandar {
 

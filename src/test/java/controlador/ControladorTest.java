@@ -1,6 +1,6 @@
 package controlador;
 import dao.*;
-import dao.modelo.*;
+import modelo.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

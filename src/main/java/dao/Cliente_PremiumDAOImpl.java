@@ -1,6 +1,6 @@
 package dao;
 
-import dao.modelo.Cliente_Premium;
+import modelo.Cliente_Premium;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

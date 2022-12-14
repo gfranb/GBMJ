@@ -1,6 +1,6 @@
 package dao;
 
-import dao.modelo.Articulo;
+import modelo.Articulo;
 
 import java.util.ArrayList;
 

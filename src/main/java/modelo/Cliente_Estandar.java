@@ -1,4 +1,4 @@
-package dao.modelo;
+package modelo;
 
 public class Cliente_Estandar extends Cliente{
         private int numCliente;

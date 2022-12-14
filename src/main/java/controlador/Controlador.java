@@ -1,6 +1,6 @@
 package controlador;
 
-import dao.modelo.Datos;
+import modelo.Datos;
 public class Controlador {
     private final Datos datos;
     public Controlador() {

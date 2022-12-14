@@ -2,7 +2,6 @@ package modelo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Pedido {
 
@@ -11,11 +10,10 @@ public class Pedido {
     private Articulo articulo;
     private int cantidad;
     private LocalDate fecha;
-
     private double precioP;
 
     public Pedido(){}
-    Pedido(Cliente C, Articulo A, int nPedido, int cantidad, double p){
+    public Pedido(Cliente C, Articulo A, int nPedido, int cantidad, double p){
 
         this.articulo = A;
         this.nPedido = nPedido;

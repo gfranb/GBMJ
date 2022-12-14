@@ -1,6 +1,6 @@
 package modelo;
 
-public class Cliente {
+public abstract class Cliente {
 
     protected String nombre;
     protected String domicilio;

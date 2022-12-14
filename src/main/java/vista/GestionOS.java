@@ -93,7 +93,7 @@ public class GestionOS {
         System.out.println(controlador.mostrarArticulo(codigo));
 
     }
-    public void gestionClientes(){
+    public void gestionClientes() throws Exception {
         boolean salir = false;
         char opcio;
         while(!salir){
@@ -113,7 +113,7 @@ public class GestionOS {
             }
         }
     }
-    public void AnadirCliente(){
+    public void AnadirCliente() throws Exception {
         String nombre, email, domicilio,nif;
         char tipo;
 
@@ -134,7 +134,7 @@ public class GestionOS {
         System.out.println("Tipo de cliente: 1 Premium || 2 Estandart");
         tipo = teclado.next().charAt(0);
 
-        if(controlador.crearCliente(nombre,email,domicilio,nif,tipo)){
+        if(controlador.crearCliente(nombre,domicilio,nif,email,tipo)){
             System.out.println("Cliente creado correctamente");
         }else{
             System.out.println("El cliente ya existe");

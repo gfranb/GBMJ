@@ -9,7 +9,6 @@ import java.util.Random;
 
 public class Datos{
 
-
     DAOArticulo daoArticulo;
     DAOPedido daoPedido;
     DAOCliente_Premium daoCliente_premium;
@@ -23,6 +22,7 @@ public class Datos{
         daoCliente_estandar = new Cliente_EstandardDAOImpl();
 
     }
+
 
     public String mostrarArticulos(String c) throws Exception {
         Articulo a = daoArticulo.buscar(c);
@@ -98,7 +98,7 @@ public class Datos{
         }
         return null;
     }
-    public boolean addCliente(String nombre, String domicilio, String nif, String email, char tipo) throws Exception {
+    public boolean addCliente(String nombre, String nif, String email, String domicilio, char tipo) throws Exception {
         switch (tipo){
             case '1':
                 // Cliente Premium
@@ -113,7 +113,9 @@ public class Datos{
                     cP.setDescuento(0.20);
                     try {
                         daoCliente_premium.registrar(cP);
-                    }catch(Exception e){}
+                    }catch(Exception e){
+
+                    }
 
                     return true;
                 }else{
@@ -264,8 +266,6 @@ public class Datos{
     }
     public String buscarPECliente(String email){
         String c = "";
-
-
         try {
             ListaPedidos listaPedidos = new ListaPedidos();
             listaPedidos = daoPedido.buscarpedidocliente(email);

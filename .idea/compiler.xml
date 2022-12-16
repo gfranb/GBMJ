@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="FP.058-GBMJ" target="18" />
+      <module name="FP.058-GBMJ" target="1.8" />
       <module name="GBMJ" target="18" />
     </bytecodeTargetLevel>
   </component>

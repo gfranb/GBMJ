@@ -247,7 +247,6 @@ public class Datos{
 
         return c;
     }
-
     public String buscarPP(){
         String c = "";
 

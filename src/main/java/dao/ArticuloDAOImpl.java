@@ -68,9 +68,9 @@ public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
 
     @Override
     public ArrayList<Articulo> mostrar() throws Exception {
-        ArrayList<Articulo> articulos = new ArrayList<Articulo>();
         try {
-            this.conectar();
+            ArrayList<Articulo> articulos= new ArrayList<>(manager.createQuery("SELECT * FROM articulo").getResultList());
+            /*this.conectar();
             PreparedStatement st = connection.prepareStatement("SELECT * FROM articulo");
             ResultSet rs = st.executeQuery();
             while(rs.next()){
@@ -82,6 +82,8 @@ public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
                     articulo.setpEnvio(rs.getInt(5));
                     articulos.add(articulo);
             }
+            */
+
             return articulos;
         }catch (Exception e){
             return null;

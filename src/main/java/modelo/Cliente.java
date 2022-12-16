@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table (name = "cliente")
+@Table (name = "cliente",schema = "GBMJ_DB",catalog = "")
 public abstract class Cliente {
 
     @Basic

@@ -1,11 +1,9 @@
 package modelo;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 
-@Entity (name = "cliente_premium")
+@Entity
+@Table(name = "cliente_premium",schema = "GBMJ_DB",catalog = "")
 @PrimaryKeyJoinColumn(referencedColumnName = "email")
 public class Cliente_Premium extends Cliente{
     @Basic

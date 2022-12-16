@@ -3,8 +3,10 @@ package modelo;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
-@Entity(name = "cliente_estandard")
+@Entity
+@Table(name = "cliente_estandard",schema = "GBMJ_DB",catalog = "")
 @PrimaryKeyJoinColumn(referencedColumnName = "email")
 public class Cliente_Estandar extends Cliente{
 

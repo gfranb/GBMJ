@@ -23,7 +23,6 @@ public class Datos{
 
     }
 
-
     public String mostrarArticulos(String c) throws Exception {
         Articulo a = daoArticulo.buscar(c);
                 return "----------------------------------------------------" + "\n" + " || " + "Código: "+ a.getCodigo() + " || " + "Descripción: "+ a.getDescripcion() +

@@ -3,20 +3,4 @@
     "-//Hibernate/Hibernate Configuration DTD//EN"
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="connection.url">jdbc:mysql://localhost:3306</property>
-    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-    <property name="connection.username">root</property>
-    <property name="connection.password">Martina17.</property>
-    <mapping class="src.main.ArticuloEntity"/>
-      <mapping class="src.main.ClienteEntity"/>
-      <mapping class="src.main.ClienteEstandardEntity"/>
-      <mapping class="src.main.ClientePremiumEntity"/>
-      <mapping class="src.main.PedidoEntity"/>
-      <!-- <property name="connection.username"/> -->
-    <!-- <property name="connection.password"/> -->
-
-    <!-- DB schema will be updated if needed -->
-    <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
-  </session-factory>
 </hibernate-configuration>

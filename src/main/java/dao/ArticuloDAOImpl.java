@@ -1,13 +1,20 @@
 package dao;
 
 import modelo.Articulo;
+import org.hibernate.HibernateException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
 
+    private static EntityManagerFactory emf;
+    private static EntityManager manager;
     @Override
     public boolean registrar(Articulo articulo) throws Exception {
         try {
@@ -20,8 +27,9 @@ public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
             st.setInt(5, articulo.getpEnvio());
             st.executeUpdate();
             return true;
-        }catch (Exception e){
-            throw e;
+        }catch (HibernateException e){
+            e.printStackTrace();
+            return false;
         } finally {
             this.cerrar();
         }
@@ -29,6 +37,11 @@ public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
     @Override
     public Articulo buscar(String id) throws Exception {
         try {
+            emf = Persistence.createEntityManagerFactory("Persistencia");
+            manager = emf.createEntityManager();
+            Articulo articulo = new Articulo();
+            return manager.find(Articulo.class,id);
+            /*
             this.conectar();
             PreparedStatement st = connection.prepareStatement("SELECT * FROM articulo WHERE codigo=?");
             st.setString(1, id);
@@ -44,7 +57,9 @@ public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
                 }
             }
             return articulo;
+            */
         }catch (Exception e){
+            e.printStackTrace();
             return null;
         } finally {
             this.cerrar();

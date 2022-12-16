@@ -6,7 +6,6 @@ public class Cliente_Estandar extends Cliente{
         public Cliente_Estandar( int nCliente, String nombre, String domicilio,String nif, String email) {
             super(nombre, domicilio,nif, email);
             this.numCliente = nCliente;
-
         }
 
         public  Cliente_Estandar(){

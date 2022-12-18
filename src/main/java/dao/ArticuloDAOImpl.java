@@ -18,6 +18,13 @@ public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
     @Override
     public boolean registrar(Articulo articulo) throws Exception {
         try {
+            emf = Persistence.createEntityManagerFactory("Persistencia");
+            manager = emf.createEntityManager();
+
+            manager.getTransaction().begin();
+            manager.persist(articulo);
+            manager.getTransaction().commit();
+            /*
             this.conectar();
             PreparedStatement st = connection.prepareStatement("INSERT INTO articulo(codigo,descripcion,precio,gEnvio,pEnvio) VALUES(?,?,?,?,?)");
             st.setString(1, articulo.getCodigo());
@@ -25,9 +32,9 @@ public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
             st.setFloat(3, articulo.getPrecio());
             st.setFloat(4, articulo.getgEnvio());
             st.setInt(5, articulo.getpEnvio());
-            st.executeUpdate();
+            st.executeUpdate();*/
             return true;
-        }catch (HibernateException e){
+        }catch (Exception e){
             e.printStackTrace();
             return false;
         } finally {
@@ -68,9 +75,15 @@ public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
 
     @Override
     public ArrayList<Articulo> mostrar() throws Exception {
-        ArrayList<Articulo> articulos = new ArrayList<Articulo>();
         try {
-            this.conectar();
+            emf = Persistence.createEntityManagerFactory("Persistencia");
+            manager = emf.createEntityManager();
+            List<Articulo> sa = (List<Articulo>) manager.createQuery("FROM articulo").getResultList();
+            ArrayList<Articulo> articulos = new ArrayList<>();
+            for(Articulo a : sa){
+                articulos.add(a);
+            }
+            /*this.conectar();
             PreparedStatement st = connection.prepareStatement("SELECT * FROM articulo");
             ResultSet rs = st.executeQuery();
             while(rs.next()){
@@ -82,8 +95,10 @@ public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
                     articulo.setpEnvio(rs.getInt(5));
                     articulos.add(articulo);
             }
+            */
             return articulos;
         }catch (Exception e){
+            e.printStackTrace();
             return null;
         } finally {
             this.cerrar();

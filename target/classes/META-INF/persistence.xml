@@ -6,6 +6,7 @@
 
     <persistence-unit name="Persistencia">
 
+        <!-- List of Models for mapping -->
         <class>modelo.Articulo</class>
 
         <properties>

@@ -60,7 +60,7 @@ public class Datos{
         return C;
     }
     public Cliente buscarCliente(String email){
-        Cliente_Premium Cp = buscarClienteP(email);
+        Cliente_Premium cP = buscarClienteP(email);
         Cliente_Estandar Ce = buscarClienteE(email);
 
         try{
@@ -71,8 +71,8 @@ public class Datos{
         catch (Exception e){}
 
         try{
-        if(Cp.getEmail().equals(email)) {
-            return Cp;
+        if(cP.getEmail().equals(email)) {
+            return cP;
         }}catch (Exception e){
 
         }

@@ -12,7 +12,7 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="064b92f3-90eb-49ff-a4a6-4c31ca760fcb">
+    <connection id="1c87a511-a28d-400c-a4a4-f96f3e5194ea">
       <console name="GBMJ" type="STANDARD" schema="mysql" session="Main" />
     </connection>
   </component>
@@ -20,8 +20,9 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="ed508797-1414-4956-adbb-ff9d8a094acf" dataset="gbmj_db.cliente" active-filter-id="" />
-    <filter-actions connection-id="ed508797-1414-4956-adbb-ff9d8a094acf" dataset="gbmj_db.cliente_estandard" active-filter-id="" />
+    <filter-actions connection-id="1c87a511-a28d-400c-a4a4-f96f3e5194ea" dataset="gbmj_db.articulo" active-filter-id="9c55faf5-5187-4f71-b896-651c546e8935">
+      <filter id="9c55faf5-5187-4f71-b896-651c546e8935" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND" />
+    </filter-actions>
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -41,9 +42,14 @@
     <last-used-operator value="EQUAL" />
     <filters />
   </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces>
+      <mapping database-type="MYSQL" interface-id="f4df2a53-65c2-465e-adf3-5281b1203101" />
+    </recently-used-interfaces>
+  </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="064b92f3-90eb-49ff-a4a6-4c31ca760fcb" active="true" signed="true">
+      <connection id="1c87a511-a28d-400c-a4a4-f96f3e5194ea" active="true" signed="true">
         <database>
           <name value="GBMJ" />
           <description value="" />
@@ -54,7 +60,7 @@
           <driver-library value="" />
           <driver value="" />
           <url-type value="DATABASE" />
-          <host value="localhost" />
+          <host value="127.0.0.1" />
           <port value="3306" />
           <database value="mysql" />
           <type value="USER_PASSWORD" />
@@ -96,7 +102,7 @@
           <max-connection-pool-size value="7" />
           <alternative-statement-delimiter value="" />
         </details>
-        <object-filters hide-empty-schemas="true" hide-pseudo-columns="false">
+        <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
           <object-type-filter>
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />
@@ -445,7 +451,9 @@
         <prompt-execution value="false" />
       </statement-execution>
       <script-execution>
-        <command-line-interfaces />
+        <command-line-interfaces>
+          <value id="f4df2a53-65c2-465e-adf3-5281b1203101" name="MySQL client" executable-path="$USER_HOME$/Downloads/Base de Datos.sql" database-type="MYSQL" />
+        </command-line-interfaces>
         <execution-timeout value="300" />
       </script-execution>
       <method-execution>

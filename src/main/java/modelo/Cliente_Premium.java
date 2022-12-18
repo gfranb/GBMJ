@@ -15,6 +15,7 @@ public class Cliente_Premium extends Cliente{
 
     public Cliente_Premium(){}
 
+
         public double getDescuento() {
             return descuento;
         }

@@ -1,10 +1,24 @@
 package modelo;
 
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table (name = "cliente",schema = "GBMJ_DB",catalog = "")
 public abstract class Cliente {
 
+    @Basic
+    @Column(name = "nombre")
     protected String nombre;
+    @Basic
+    @Column(name= "domicilio")
     protected String domicilio;
+    @Basic
+    @Column(name = "nif",unique = true)
     protected String nif;
+
+    @Id
+    @Column(name= "email",unique = true)
     protected String email;
 
     public Cliente(String nombre, String domicilio,String nif, String email){

@@ -1,6 +1,13 @@
 package modelo;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "cliente_premium",schema = "GBMJ_DB",catalog = "")
+@PrimaryKeyJoinColumn(referencedColumnName = "email")
 public class Cliente_Premium extends Cliente{
+    @Basic
+    @Column(name="descuento")
         private double descuento;
 
     public Cliente_Premium(double descuento, String nombre, String domicilio,String nif, String email) {

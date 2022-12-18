@@ -8,7 +8,6 @@ public class GestionOS {
 
     public GestionOS() throws Exception {
         controlador = new Controlador();
-        System.out.println(controlador.cargar()); // Carga de datos preconfigurados
     }
     public void inicio() throws Exception {
         boolean salir = false;

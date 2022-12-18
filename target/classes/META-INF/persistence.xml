@@ -6,7 +6,11 @@
 
     <persistence-unit name="Persistencia">
 
+        <!-- List of Models for mapping -->
         <class>modelo.Articulo</class>
+        <class>modelo.Cliente</class>
+        <class>modelo.Cliente_Estandar</class>
+        <class>modelo.Cliente_Premium</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

@@ -103,8 +103,14 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
     }
 
     @Override
-    public ListaPedidos buscarpedidocliente(String email) throws Exception {
-        try {
+    public Pedido buscarpedidocliente(String email) throws Exception {
+
+            try {
+                emf = Persistence.createEntityManagerFactory("Persistencia");
+                manager = emf.createEntityManager();
+                Pedido pedido = new Pedido();
+                return manager.find(Pedido.class,email);
+                /*
             this.conectar();
             PreparedStatement st = connection.prepareStatement("SELECT * FROM PEDIDO WHERE email=?");
             st.setString(1, email);
@@ -139,12 +145,14 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                 }
             }
             return listap;
-        } catch (Exception e) {
-            return null;
-        } finally {
-            this.cerrar();
+                 */
+            }catch (Exception e){
+                e.printStackTrace();
+                return null;
+            } finally {
+                this.cerrar();
+            }
         }
-    }
 
     @Override
     public boolean eliminarpedido(String nPedido) throws Exception {
@@ -165,6 +173,11 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
     @Override
     public ListaPedidos buscarpedidos() throws Exception {
         try {
+                emf = Persistence.createEntityManagerFactory("Persistencia");
+                manager = emf.createEntityManager();
+                ListaPedidos listaPedidos = new ListaPedidos();
+                return manager.find(ListaPedidos.class);
+                /*
             this.conectar();
             PreparedStatement st = connection.prepareStatement("SELECT * FROM PEDIDO");
             ResultSet rs = st.executeQuery();
@@ -197,11 +210,12 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
 
             }
             return listap;
-        } catch (Exception e) {
+                 */
+        }catch (Exception e){
+            e.printStackTrace();
             return null;
         } finally {
             this.cerrar();
         }
-
     }
 }

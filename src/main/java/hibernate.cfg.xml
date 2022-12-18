@@ -23,7 +23,7 @@
         </property>
 
         <property name = "hibernate.connection.password">
-            root
+            0512
         </property>
 
         <!-- List of XML mapping files -->

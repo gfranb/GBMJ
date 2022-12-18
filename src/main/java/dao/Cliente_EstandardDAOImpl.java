@@ -1,15 +1,31 @@
 package dao;
 
 import modelo.Cliente_Estandar;
+import modelo.Cliente_Premium;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class Cliente_EstandardDAOImpl extends Conexion implements DAOCliente_Estandar{
 
+    private static EntityManagerFactory emf;
+
+    private static EntityManager manager;
     @Override
     public boolean registrar(Cliente_Estandar ce) throws Exception {
         try {
+
+            emf = Persistence.createEntityManagerFactory("Persistencia");
+            manager = emf.createEntityManager();
+
+            manager.getTransaction().begin();
+            manager.persist(ce);
+            manager.getTransaction().commit();
+
+            /*
             this.conectar();
 
             PreparedStatement st = connection.prepareStatement("INSERT INTO cliente(nombre,nif,domilicio,email) VALUES(?,?,?,?)");
@@ -22,10 +38,13 @@ public class Cliente_EstandardDAOImpl extends Conexion implements DAOCliente_Est
            PreparedStatement _st = connection.prepareStatement("INSERT INTO cliente_estandard(email) VALUES(?)");
             _st.setString(1, ce.getEmail());
             _st.executeUpdate();
-
+*/
             return true;
         } catch (Exception e) {
-            throw e;
+
+            e.printStackTrace();
+            return false;
+            //throw e;
         } finally {
             this.cerrar();
         }
@@ -34,6 +53,14 @@ public class Cliente_EstandardDAOImpl extends Conexion implements DAOCliente_Est
     public Cliente_Estandar buscar(String email) throws Exception {
 
         try {
+
+            emf = Persistence.createEntityManagerFactory("Persistencia");
+            manager = emf.createEntityManager();
+            Cliente_Estandar ce = new Cliente_Estandar();
+            return manager.find(Cliente_Estandar.class,email);
+
+
+            /*
             this.conectar();
             PreparedStatement st = connection.prepareStatement("SELECT * FROM cliente_estandard WHERE email=?");
             st.setString(1, email);
@@ -60,6 +87,8 @@ public class Cliente_EstandardDAOImpl extends Conexion implements DAOCliente_Est
                 }
             }
             return ce;
+
+             */
         } catch (Exception e) {
             return null;
         } finally {

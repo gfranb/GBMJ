@@ -162,12 +162,12 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
             st.setString(1, nPedido);
             ResultSet rs = st.executeQuery();
             return true;
-        } catch (Exception e) {
+        }catch (HibernateException e){
+            e.printStackTrace();
             return false;
         } finally {
             this.cerrar();
         }
-
     }
 
     @Override
@@ -176,7 +176,7 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                 emf = Persistence.createEntityManagerFactory("Persistencia");
                 manager = emf.createEntityManager();
                 ListaPedidos listaPedidos = new ListaPedidos();
-                return manager.find(ListaPedidos.class);
+                return manager.find(ListaPedidos.class,listaPedidos);
                 /*
             this.conectar();
             PreparedStatement st = connection.prepareStatement("SELECT * FROM PEDIDO");

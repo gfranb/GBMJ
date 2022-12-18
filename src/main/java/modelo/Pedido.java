@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "pedido")
-public class Pedido {
+public class Pedido extends ListaPedidos {
     @Id
     @Column(name = "nPedido", unique = true)
     private int nPedido;

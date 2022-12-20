@@ -1,5 +1,12 @@
 package modelo;
 
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "cliente_premium")
+@PrimaryKeyJoinColumn(referencedColumnName = "email")
 public class Cliente_Premium extends Cliente{
         private double descuento;
 

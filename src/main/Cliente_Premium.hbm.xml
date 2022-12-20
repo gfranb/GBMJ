@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC '-//Hibernate/Hibernate Mapping DTD 3.0//EN' 'http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd'>
+
+<hibernate-mapping>
+
+    <union-subclass name="modelo.Cliente_Premium">
+        <property name="email" type="string" column="email"/>
+        <property name="descuento" type="double" column="descuento"/>
+    </union-subclass>
+
+</hibernate-mapping>

@@ -8,7 +8,6 @@ public class GestionOS {
 
     public GestionOS() throws Exception {
         controlador = new Controlador();
-        System.out.println(controlador.cargar()); // Carga de datos preconfigurados
     }
     public void inicio() throws Exception {
         boolean salir = false;
@@ -177,7 +176,6 @@ public class GestionOS {
         }while(!salir);
     }
     public void anadirPedido() throws Exception {
-
         System.out.println("Indica tu correo electronico");
         String email = teclado.nextLine();
         String idArticulo = mostrarCatalogo();
@@ -253,7 +251,7 @@ public class GestionOS {
             }
         }
     }
-    public void eliminarPedido(){
+    public void eliminarPedido() throws Exception {
         System.out.println("Indica el numero de pedido que se quiere eliminar.");
         int nPedido = teclado.nextInt();
         if(controlador.eliminarPedido(nPedido)){

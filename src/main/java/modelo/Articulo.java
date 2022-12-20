@@ -1,11 +1,24 @@
 package modelo;
 
-public class Articulo {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity(name = "articulo")
+@Table(name = "articulo")
+public class Articulo{
+
+    @Id
+    @Column(name = "codigo", unique = true)
     private String codigo;
+    @Column(name = "descripcion")
     private String descripcion;
+    @Column(name = "precio")
     private float precio;
+    @Column(name = "gEnvio")
     private float gEnvio;
+    @Column(name = "pEnvio")
     private int pEnvio; //Tiempo de preparacion de envio.
 
     public Articulo(String c, String d, float p, float gE, int pE){
@@ -18,9 +31,8 @@ public class Articulo {
     public Articulo(){
 
     }
-
     @Override
-    public String toString() {
+    public String toString(){
         return "modelo.Articulo{" +
                 "codigo='" + codigo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
@@ -29,7 +41,6 @@ public class Articulo {
                 ", pEnvio=" + pEnvio +
                 '}';
     }
-
     public float getgEnvio() {
         return gEnvio;
     }
@@ -69,4 +80,5 @@ public class Articulo {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
 }

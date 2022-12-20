@@ -1,13 +1,23 @@
 package modelo;
 
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table (name = "cliente")
 public abstract class Cliente {
 
+    @Column(name = "nombre")
     protected String nombre;
+    @Column(name = "domicilio")
     protected String domicilio;
+    @Column(name = "nif", unique = true)
     protected String nif;
+    @Id
+    @Column(name = "email", unique = true)
     protected String email;
 
-    public Cliente(String nombre, String domicilio,String nif, String email){
+    public Cliente(String nombre,String domicilio,String nif, String email){
         this.nombre = nombre;
         this.domicilio = domicilio;
         this.nif = nif;

@@ -7,7 +7,7 @@
 
         <id name ="nPedido" type="int" column="nPedido"/>
         <property name="cantidad" type="int" column="cantidad"/>
-        <property name="fecha" type="LocalDate" column="fecha"/>
+        <property name="fecha" type="date" column="fecha"/>
         <property name="precioP" type="double" column="precio"/>
 
     </class>

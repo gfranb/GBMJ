@@ -2,7 +2,10 @@ package modelo;
 
 import dao.*;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -101,40 +104,36 @@ public class Datos{
         switch (tipo){
             case '1':
                 // Cliente Premium
-                Cliente_Premium cP = buscarClienteP(email);
-                Cliente_Estandar _cE = buscarClienteE(email);
-
-                if(cP.getEmail() == null && _cE.getEmail() == null){
-                    cP.setDomicilio(domicilio);
-                    cP.setEmail(email);
-                    cP.setNif(nif);
-                    cP.setNombre(nombre);
-                    cP.setDescuento(0.20);
+                if(buscarClienteP(email) == null && buscarClienteE(email) == null){
+                        Cliente_Premium _cp = new Cliente_Premium();
+                        _cp.setDomicilio(domicilio);
+                        _cp.setEmail(email);
+                        _cp.setNif(nif);
+                        _cp.setNombre(nombre);
+                        _cp.setDescuento(0.20);
                     try {
-                        daoCliente_premium.registrar(cP);
+                        daoCliente_premium.registrar(_cp);
                     }catch(Exception e){
-
+                        return false;
                     }
                     return true;
                 }else{
                     return false;
                 }
-
             case '2':
                 // Cliente Estandar
-                Cliente_Premium _cP = buscarClienteP(email);
-                Cliente_Estandar cE = buscarClienteE(email);
-                if(cE.getEmail() == null && _cP.getEmail() == null){
-                    cE.setDomicilio(domicilio);
-                    cE.setEmail(email);
-                    cE.setNif(nif);
-                    cE.setNombre(nombre);
-
+                if(buscarClienteP(email) == null  && buscarClienteE(email) == null){
+                    Cliente_Estandar _cE = new Cliente_Estandar();
+                    _cE.setDomicilio(domicilio);
+                    _cE.setEmail(email);
+                    _cE.setNif(nif);
+                    _cE.setNombre(nombre);
                     try {
-                        daoCliente_estandar.registrar(cE);
-                    }catch(Exception e){}
+                        daoCliente_estandar.registrar(_cE);
+                    }catch(Exception e){
+                        return false;
+                    }
                     return true;
-
                 }else{
                     return false;
                 }
@@ -142,12 +141,11 @@ public class Datos{
         return true;
     }
     public Pedido buscarPedido(int nPedido){
-        Pedido p = new Pedido();
         try{
-            p = daoPedido.buscar(nPedido);
+            Pedido p = daoPedido.buscar(nPedido);
+            return p;
         }catch (Exception e){}
-
-        return p;
+        return null;
     }
     public String catalogo() throws Exception {
         String c = "";
@@ -164,17 +162,15 @@ public class Datos{
         int nPedido;
         do{
             nPedido = rand.nextInt(100);
-        }while(buscarPedido(nPedido).getnPedido() == nPedido);
+        }while(buscarPedido(nPedido) != null);
         return nPedido;
     }
     public boolean eliminarPedido(int n) throws Exception {
         Pedido p = buscarPedido(n);
         if(p != null && !estadoPedido(p)){
-
             try {
-                daoPedido.eliminarpedido(Integer.toString(p.getnPedido()));
+                daoPedido.eliminarpedido(p);
             } catch (Exception e) {}
-
             return true;
         }else{
             return false;
@@ -184,17 +180,17 @@ public class Datos{
         Cliente_Estandar Ce = buscarClienteE(email);
         Cliente_Premium Cp = buscarClienteP(email);
 
-        if(Ce.getEmail() == null && Cp.getEmail() == null){
+        if(Ce== null && Cp == null){
             return -1;
         }else{
-            if(Ce.getEmail() != null){
+            if(Ce!= null){
                     Articulo a = daoArticulo.buscar(idArticulo);
                     float p = a.getPrecio()*cantidad+a.getgEnvio();
                     Pedido pedido = new Pedido(Ce,a,generateNorder(),cantidad,p);
                     daoPedido.registrar(pedido);
                     return pedido.getnPedido();
             }
-            if(Cp.getEmail() != null){
+            if(Cp!= null){
                 Articulo a = daoArticulo.buscar(idArticulo);
                 double p = a.getPrecio()*cantidad+(a.getgEnvio()*0.20);
                 Pedido pedido = new Pedido(Cp,a,generateNorder(),cantidad,p);
@@ -209,15 +205,14 @@ public class Datos{
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR,p.getFecha().getYear());
         calendar.set(Calendar.MONTH,p.getFecha().getMonthValue());
-        calendar.set(Calendar.MONTH,p.getFecha().getDayOfMonth());
+        calendar.set(Calendar.DAY_OF_MONTH,p.getFecha().getDayOfMonth());
         calendar.add(Calendar.MINUTE,daoArticulo.buscar(p.getArticulo()).getpEnvio());
         Date fechaPedido = calendar.getTime();
 
-        calendar.set(Calendar.YEAR,LocalDate.now().getYear());
-        calendar.set(Calendar.MONTH,LocalDate.now().getYear());
-        calendar.set(Calendar.MONTH,LocalDate.now().getYear());
-
-        Date fechaActual = calendar.getTime();
+        ZoneId z = ZoneId.of( "Europe/Paris" );
+        ZonedDateTime zdt = LocalDate.now().atStartOfDay(z);
+        Instant instant = zdt.toInstant();
+        Date fechaActual = Date.from(instant);
 
         if(fechaActual.compareTo(fechaPedido) > 0){
             return true;
@@ -246,8 +241,7 @@ public class Datos{
         String c = "";
 
         try {
-            ListaPedidos listaPedidos = new ListaPedidos();
-            listaPedidos = daoPedido.buscarpedidos();
+            ListaPedidos listaPedidos = daoPedido.buscarpedidos();
 
         for(Pedido p : listaPedidos.getArrayList()) {
             if(!estadoPedido(p)){
@@ -255,6 +249,7 @@ public class Datos{
                         +  p.getPrecioP()  + "\n";
             }
         }
+            return c;
         } catch (Exception e) {}
         return c;
     }
@@ -278,8 +273,7 @@ public class Datos{
         String c = "";
 
         try {
-            ListaPedidos listaPedidos = new ListaPedidos();
-            listaPedidos = daoPedido.buscarpedidos();
+            ListaPedidos listaPedidos = daoPedido.buscarpedidos();
 
             for(Pedido p : listaPedidos.getArrayList()) {
                 if(estadoPedido(p)){
@@ -287,6 +281,7 @@ public class Datos{
                             +  p.getPrecioP()  + "\n";
                 }
             }
+            return c;
         } catch (Exception e) {}
         return c;
     }

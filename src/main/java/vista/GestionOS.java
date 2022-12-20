@@ -213,7 +213,8 @@ public class GestionOS {
     }
     public void pedidosPendientes(){
         System.out.println("Quieres filtrar por cliente? S/N");
-        if(teclado.nextLine().charAt(0) == 'S'){
+        char a = teclado.nextLine().charAt(0);
+        if(a == 'S'||a == 's'){
             System.out.println("Indica el email del cliente que deseas buscar");
             String email = teclado.nextLine();
             String pedido = controlador.mostrarPedidosPendientes(email);
@@ -233,7 +234,8 @@ public class GestionOS {
     }
     public void pedidosEnviados(){
         System.out.println("Quieres filtrar por cliente? S/N");
-        if(teclado.nextLine().charAt(0) == 'S' || teclado.nextLine().charAt(0) == 's'){
+        char a = teclado.nextLine().charAt(0);
+        if( a == 'S' || a == 's'){
             System.out.println("Indica el email del cliente que deseas buscar");
             String email = teclado.nextLine();
             String pedido = controlador.mostrarPedidosEnviados(email);
@@ -242,7 +244,7 @@ public class GestionOS {
             }else{
                 System.out.println(pedido);
             }
-        }else{
+        }else if(a == 'N' || a == 'n'){
             String pedido = controlador.mostrarPedidosEnviados();
             if(pedido == ""){
                 System.out.println("-----------------------------------------------" + "\n" + "No se encuentra ningun pedido enviado" + "\n" + "-----------------------------------------------") ;

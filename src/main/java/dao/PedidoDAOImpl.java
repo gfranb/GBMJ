@@ -44,8 +44,8 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
         try {
             emf = Persistence.createEntityManagerFactory("Persistencia");
             manager = emf.createEntityManager();
-            Pedido pedido = new Pedido();
-            return manager.find(Pedido.class,nPedido);
+            Pedido p = manager.find(Pedido.class,nPedido);
+            return p;
         }catch (Exception e){
             e.printStackTrace();
             return null;
@@ -77,18 +77,18 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
     }
 
     @Override
-    public boolean eliminarpedido(String nPedido) throws Exception {
+    public boolean eliminarpedido(Pedido p) throws Exception {
         try {
-            this.conectar();
-            PreparedStatement st = connection.prepareStatement("DELETE FROM PEDIDO WHERE nPedido = ?");
-            st.setString(1, nPedido);
-            ResultSet rs = st.executeQuery();
+            emf = Persistence.createEntityManagerFactory("Persistencia");
+            manager = emf.createEntityManager();
+            Pedido _p = manager.find(Pedido.class,p.getnPedido());
+            manager.getTransaction().begin();
+            manager.remove(_p);
+            manager.getTransaction().commit();
             return true;
         }catch (HibernateException e){
             e.printStackTrace();
             return false;
-        } finally {
-            this.cerrar();
         }
     }
 
@@ -98,7 +98,12 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
             emf = Persistence.createEntityManagerFactory("Persistencia");
             manager = emf.createEntityManager();
             ListaPedidos listaPedidos = new ListaPedidos();
-            return manager.find(ListaPedidos.class,listaPedidos);
+            List<Pedido> sa = (List<Pedido>) manager.createQuery("FROM pedido").getResultList();
+            ListaPedidos pedidos = new ListaPedidos();
+            for(Pedido p : sa){
+                    pedidos.add(p);
+            }
+            return pedidos;
         }catch (Exception e){
             e.printStackTrace();
             return null;

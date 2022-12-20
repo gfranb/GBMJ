@@ -1,14 +1,12 @@
 package dao;
 
 import modelo.Articulo;
-import org.hibernate.HibernateException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
 

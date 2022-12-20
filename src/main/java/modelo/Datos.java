@@ -228,8 +228,6 @@ public class Datos{
     public String buscarPPCliente(String email){
         String c = "";
 
-
-
         try {
            ListaPedidos listaPedidos = new ListaPedidos();
             listaPedidos = daoPedido.buscarpedidocliente(email);
@@ -263,8 +261,7 @@ public class Datos{
     public String buscarPECliente(String email){
         String c = "";
         try {
-            ListaPedidos listaPedidos = new ListaPedidos();
-            listaPedidos = daoPedido.buscarpedidocliente(email);
+            ListaPedidos listaPedidos = daoPedido.buscarpedidocliente(email);
 
             for(Pedido p : listaPedidos.getArrayList()) {
 

@@ -8,6 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PedidoDAOImpl extends Conexion implements DAOPedido {
 
@@ -53,13 +55,19 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
     }
 
     @Override
-    public Pedido buscarpedidocliente(String email) throws Exception {
+    public ListaPedidos buscarpedidocliente(String email) throws Exception {
 
         try {
             emf = Persistence.createEntityManagerFactory("Persistencia");
             manager = emf.createEntityManager();
-            Pedido pedido = new Pedido();
-            return manager.find(Pedido.class,email);
+            List<Pedido> sa = (List<Pedido>) manager.createQuery("FROM pedido").getResultList();
+            ListaPedidos pedidos = new ListaPedidos();
+            for(Pedido p : sa){
+                if(p.getCliente().equals(email)){
+                    pedidos.add(p);
+                }
+            }
+            return pedidos;
         }catch (Exception e){
             e.printStackTrace();
             return null;

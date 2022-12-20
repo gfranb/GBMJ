@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "pedido")
 @Table(name = "pedido")
 public class Pedido extends ListaPedidos {
     @Id

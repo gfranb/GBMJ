@@ -91,7 +91,5 @@ class ControladorTest {
         for(Pedido p : daoPedido.buscarpedidocliente(c).getArrayList()){
             assertEquals(c,p.getCliente());
         }
-
     }
-
 }

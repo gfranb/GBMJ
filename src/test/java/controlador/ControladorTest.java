@@ -53,7 +53,8 @@ class ControladorTest {
         Cliente_Estandar cE= new Cliente_Estandar();
         String email = "julian@gmail.com";
         DAOCliente_Estandar daoCE = new Cliente_EstandardDAOImpl();
-        assertEquals(cE.getClass(), daoCE.buscar(email).getClass());
+        assertEquals(email, daoCE.buscar(email).getEmail());
+
     }
     @Test
     void crearCPbd() throws Exception{
@@ -63,7 +64,6 @@ class ControladorTest {
     }
     @Test
     void buscarCPbd() throws Exception{
-        Cliente_Premium cP= new Cliente_Premium();
         String email = "barto@gmail.com";
         DAOCliente_Premium daoCP = new Cliente_PremiumDAOImpl();
         assertEquals("barto@gmail.com", daoCP.buscar(email).getEmail());
@@ -86,7 +86,7 @@ class ControladorTest {
     }
     @Test
     void buscarpedidocliente() throws Exception {
-        String c = "maria@gmail.com";
+        String c = "barto@gmail.com";
         ListaPedidos p = new ListaPedidos();
         DAOPedido daoPedido= new PedidoDAOImpl();
         assertEquals(p.getClass(), daoPedido.buscarpedidocliente(c).getClass());

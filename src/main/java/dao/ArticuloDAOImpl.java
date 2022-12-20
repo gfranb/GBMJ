@@ -9,7 +9,6 @@ import javax.persistence.Persistence;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ArticuloDAOImpl extends Conexion implements DAOArticulo{
 

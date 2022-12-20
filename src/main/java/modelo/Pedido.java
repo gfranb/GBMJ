@@ -1,15 +1,28 @@
 package modelo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Pedido {
 
+@Entity
+@Table(name = "pedido")
+public class Pedido extends ListaPedidos {
+    @Id
+    @Column(name = "nPedido", unique = true)
     private int nPedido;
+    @Column(name = "cliente")
     private Cliente cliente;
+    @Column(name = "articulo")
     private Articulo articulo;
+    @Column(name = "cantidad")
     private int cantidad;
+    @Column(name = "fecha")
     private LocalDate fecha;
+    @Column(name = "preciP")
     private double precioP;
 
     public Pedido(){}
@@ -63,6 +76,7 @@ public class Pedido {
     public void setPrecioP(double precioP) {
         this.precioP = precioP;
     }
+
     @Override
     public String toString() {
         return "modelo.Pedido{" +

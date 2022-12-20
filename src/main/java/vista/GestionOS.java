@@ -188,7 +188,7 @@ public class GestionOS {
                 AnadirCliente();
         }else{
             System.out.println("-----------------------------------------------------------------"+ "\n"
-                    + "El pedido a sido creado con el numero: " + nPedido + "\n"+ "-----------------------------------------------------------------");
+                    + "El pedido ha sido creado con el numero: " + nPedido + "\n"+ "-----------------------------------------------------------------");
         }
     }
     public void mostrarPedido(){

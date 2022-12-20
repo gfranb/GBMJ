@@ -1,19 +1,27 @@
 package dao;
 
 import modelo.*;
+import org.hibernate.HibernateException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Date;
 import java.time.LocalDate;
 
 
 public class PedidoDAOImpl extends Conexion implements DAOPedido {
 
+    private static EntityManagerFactory emf;
+    private static EntityManager manager;
+
     DAOArticulo daoArticulo = new ArticuloDAOImpl();
     DAOCliente_Premium daoCliente_premium = new Cliente_PremiumDAOImpl();
     DAOCliente_Estandar daoCliente_estandar = new Cliente_EstandardDAOImpl();
 
+    @Override
     public boolean registrar(Pedido pedido) throws Exception {
 
         try {
@@ -34,16 +42,23 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
 
             return true;
 
-        } catch (Exception e) {
-            throw e;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            return false;
         } finally {
             this.cerrar();
         }
     }
 
+    @Override
     public Pedido buscar(int nPedido) throws Exception {
 
         try {
+            emf = Persistence.createEntityManagerFactory("Persistencia");
+            manager = emf.createEntityManager();
+            Pedido pedido = new Pedido();
+            return manager.find(Pedido.class,nPedido);
+            /*
             this.conectar();
             PreparedStatement st = connection.prepareStatement("SELECT * FROM PEDIDO WHERE nPedido = ?");
             st.setInt(1, nPedido);
@@ -78,15 +93,24 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                 }
             }
             return p;
-        } catch (Exception e) {
+             */
+        }catch (Exception e){
+            e.printStackTrace();
             return null;
         } finally {
             this.cerrar();
         }
     }
 
-    public ListaPedidos buscarpedidocliente(String email) throws Exception {
-        try {
+    @Override
+    public Pedido buscarpedidocliente(String email) throws Exception {
+
+            try {
+                emf = Persistence.createEntityManagerFactory("Persistencia");
+                manager = emf.createEntityManager();
+                Pedido pedido = new Pedido();
+                return manager.find(Pedido.class,email);
+                /*
             this.conectar();
             PreparedStatement st = connection.prepareStatement("SELECT * FROM PEDIDO WHERE email=?");
             st.setString(1, email);
@@ -121,13 +145,16 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                 }
             }
             return listap;
-        } catch (Exception e) {
-            return null;
-        } finally {
-            this.cerrar();
+                 */
+            }catch (Exception e){
+                e.printStackTrace();
+                return null;
+            } finally {
+                this.cerrar();
+            }
         }
-    }
 
+    @Override
     public boolean eliminarpedido(String nPedido) throws Exception {
         try {
             this.conectar();
@@ -135,16 +162,22 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
             st.setString(1, nPedido);
             ResultSet rs = st.executeQuery();
             return true;
-        } catch (Exception e) {
+        }catch (HibernateException e){
+            e.printStackTrace();
             return false;
         } finally {
             this.cerrar();
         }
-
     }
 
+    @Override
     public ListaPedidos buscarpedidos() throws Exception {
         try {
+                emf = Persistence.createEntityManagerFactory("Persistencia");
+                manager = emf.createEntityManager();
+                ListaPedidos listaPedidos = new ListaPedidos();
+                return manager.find(ListaPedidos.class,listaPedidos);
+                /*
             this.conectar();
             PreparedStatement st = connection.prepareStatement("SELECT * FROM PEDIDO");
             ResultSet rs = st.executeQuery();
@@ -177,11 +210,12 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
 
             }
             return listap;
-        } catch (Exception e) {
+                 */
+        }catch (Exception e){
+            e.printStackTrace();
             return null;
         } finally {
             this.cerrar();
         }
-
     }
 }

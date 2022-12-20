@@ -67,7 +67,7 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                     pedidos.add(p);
                 }
             }
-            return pedidos;
+            return pedido;
         }catch (Exception e){
             e.printStackTrace();
             return null;

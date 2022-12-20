@@ -44,7 +44,7 @@ class ControladorTest {
     }
     @Test
     void crearCEbd() throws Exception{
-        Cliente_Estandar cE= new Cliente_Estandar("jose","Las Palmas", "3454556", "julian@gmail.com");
+        Cliente_Estandar cE= new Cliente_Estandar(123,"gian", "Los Palos, 167. 08756", "536543D","gian@gmail.com");
         DAOCliente_Estandar daoCE = new Cliente_EstandardDAOImpl();
         assertTrue(daoCE.registrar(cE));
     }
@@ -71,7 +71,7 @@ class ControladorTest {
 
     @Test
     void crearpedido() throws Exception{
-        Cliente_Estandar cE= new Cliente_Estandar("julian", "Los Palos, 167. 08756", "536543D","julian@gmail.com");
+        Cliente_Estandar cE= new Cliente_Estandar(321,"julian", "Los Palos, 167. 08756", "536543D","julian@gmail.com");
         Articulo a = new Articulo("A","Ejemplo de descripción de producto ",4,3,10);
         Pedido p = new Pedido(cE,a,12,1,18.2);
         DAOPedido daoPedido= new PedidoDAOImpl();
@@ -82,14 +82,14 @@ class ControladorTest {
     void buscarPedido() throws Exception {
         Pedido p = new Pedido();
         DAOPedido daoPedido= new PedidoDAOImpl();
-        assertEquals(p.getClass(), daoPedido.buscar(12).getClass());
+        assertEquals(12, daoPedido.buscar(12).getnPedido());
     }
     @Test
     void buscarpedidocliente() throws Exception {
-        String c = "barto@gmail.com";
-        ListaPedidos p = new ListaPedidos();
+        String c = "julian@gmail.com";
         DAOPedido daoPedido= new PedidoDAOImpl();
-        assertEquals(p.getClass(), daoPedido.buscarpedidocliente(c).getClass());
+        for(Pedido p : daoPedido.buscarpedidocliente(c).getArrayList()){
+            assertEquals(c,p.getCliente());
+        }
     }
-
 }

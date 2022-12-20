@@ -17,7 +17,7 @@ public abstract class Cliente {
     @Column(name = "email", unique = true)
     protected String email;
 
-    public Cliente(String nombre, String domicilio,String nif, String email){
+    public Cliente(String nombre,String domicilio,String nif, String email){
         this.nombre = nombre;
         this.domicilio = domicilio;
         this.nif = nif;

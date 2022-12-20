@@ -3,10 +3,10 @@
 
 <hibernate-mapping>
 
-<union-subclass name="modelo.Cliente_Estandar">
+    <union-subclass name="modelo.Cliente_Estandar">
 
-    <property name="email" type="string" column="email"/>
+        <property name="email" type="string" column="email"/>
 
-</union-subclass>
+    </union-subclass>
 
 </hibernate-mapping>

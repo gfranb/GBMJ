@@ -28,7 +28,7 @@ class ControladorTest {
     void dbBuscarArticulo() throws Exception{
         DAOArticulo daoArticulo = new ArticuloDAOImpl();
         Articulo a = new Articulo();
-        assertEquals("A2",daoArticulo.buscar("A2").getCodigo());
+        assertEquals("A",daoArticulo.buscar("A").getCodigo());
     }
     @Test
     void mostrarArticulo() throws Exception{

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "articulo")
 @Table(name = "articulo")
 public class Articulo{
 
@@ -80,4 +80,5 @@ public class Articulo{
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
 }

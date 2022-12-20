@@ -176,7 +176,6 @@ public class GestionOS {
         }while(!salir);
     }
     public void anadirPedido() throws Exception {
-
         System.out.println("Indica tu correo electronico");
         String email = teclado.nextLine();
         String idArticulo = mostrarCatalogo();

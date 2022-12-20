@@ -1,4 +1,5 @@
 package controlador;
+
 import dao.*;
 import modelo.*;
 import org.junit.jupiter.api.Test;
@@ -57,7 +58,7 @@ class ControladorTest {
 
     }
     @Test
-    void crearCPbd() throws Exception{
+    void crearCPbd() throws Exception {
         Cliente_Premium cP= new Cliente_Premium(0.10,"barto","Los Palos, 300. 08756", "131233D","barto@gmail.com");
         DAOCliente_Premium daoCP = new Cliente_PremiumDAOImpl();
         assertTrue(daoCP.registrar(cP));

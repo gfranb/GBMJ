@@ -162,7 +162,7 @@ public class Datos{
         int nPedido;
         do{
             nPedido = rand.nextInt(100);
-        }while(buscarPedido(nPedido).getnPedido() == nPedido);
+        }while(buscarPedido(nPedido) != null);
         return nPedido;
     }
     public boolean eliminarPedido(int n) throws Exception {

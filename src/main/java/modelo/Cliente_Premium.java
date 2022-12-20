@@ -1,13 +1,13 @@
 package modelo;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "cliente_premium",schema = "GBMJ_DB",catalog = "")
+@Table(name = "cliente_premium")
 @PrimaryKeyJoinColumn(referencedColumnName = "email")
 public class Cliente_Premium extends Cliente{
-    @Basic
-    @Column(name="descuento")
         private double descuento;
 
     public Cliente_Premium(double descuento, String nombre, String domicilio,String nif, String email) {
@@ -21,7 +21,6 @@ public class Cliente_Premium extends Cliente{
     }
 
     public Cliente_Premium(){}
-
 
         public double getDescuento() {
             return descuento;

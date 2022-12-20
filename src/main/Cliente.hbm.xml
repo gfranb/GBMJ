@@ -4,10 +4,10 @@
 <hibernate-mapping>
     <class name="Cliente" table="cliente">
         <id name="email" type="string" column="email">
-            <generator class="idetity"/>
+            <generator class="identity"/>
         </id>
         <property name="nombre" type="string" column="descripcion" />
-        <property name="apellido" type="string" column="precio"/>
+        <property name="domicilio" type="string" column="domicilio"/>
         <property name="nif" type="string" column="gEnvio"/>
     </class>
 </hibernate-mapping>

@@ -30,6 +30,7 @@
         <mapping class="modelo.Cliente" resource = "src/main/Cliente.hbm.xml"/>
         <mapping class="modelo.Cliente_Estandar" resource = "src/main/Cliente_Estandard.hbm.xml"/>
         <mapping class="modelo.Cliente_Premium" resource = "src/main/Cliente_Premium.hbm.xml"/>
+        <mapping class="modelo.Pedido" resource = "src/main/Pedido.hbm.xml"/>
         <!-- Agregar al mapeo las otras clases -->
 
     </session-factory>

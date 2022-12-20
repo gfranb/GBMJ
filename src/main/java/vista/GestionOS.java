@@ -251,7 +251,7 @@ public class GestionOS {
             }
         }
     }
-    public void eliminarPedido(){
+    public void eliminarPedido() throws Exception {
         System.out.println("Indica el numero de pedido que se quiere eliminar.");
         int nPedido = teclado.nextInt();
         if(controlador.eliminarPedido(nPedido)){

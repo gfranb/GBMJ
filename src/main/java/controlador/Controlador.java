@@ -28,7 +28,7 @@ public class Controlador {
     public int crearPedido(String email, String idArticulo, int cantidadArticulo) throws Exception {
         return datos.crearPedido(email,idArticulo,cantidadArticulo);
     }
-    public boolean eliminarPedido(int n){
+    public boolean eliminarPedido(int n) throws Exception {
         return datos.eliminarPedido(n);
     }
     public String mostrarPedidosEnviados(){

@@ -5,7 +5,7 @@
 
     <class name="modelo.Articulo" table="articulo">
         <id name="codigo" type="string" column="codigo">
-            <generator class="idetity"/>
+            <generator class="identity"/>
         </id>
         <property name="descripcion" type="string" column="descripcion" />
         <property name="precio" type="float" column="precio"/>

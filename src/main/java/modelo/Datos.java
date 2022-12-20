@@ -59,7 +59,7 @@ public class Datos{
         return C;
     }
     public Cliente buscarCliente(String email){
-        Cliente_Premium cP = buscarClienteP(email);
+        Cliente_Premium Cp = buscarClienteP(email);
         Cliente_Estandar Ce = buscarClienteE(email);
 
         try{
@@ -70,8 +70,8 @@ public class Datos{
         catch (Exception e){}
 
         try{
-        if(cP.getEmail().equals(email)) {
-            return cP;
+        if(Cp.getEmail().equals(email)) {
+            return Cp;
         }}catch (Exception e){
 
         }
@@ -115,7 +115,6 @@ public class Datos{
                     }catch(Exception e){
 
                     }
-
                     return true;
                 }else{
                     return false;
@@ -168,7 +167,7 @@ public class Datos{
         }while(buscarPedido(nPedido).getnPedido() == nPedido);
         return nPedido;
     }
-    public boolean eliminarPedido(int n){
+    public boolean eliminarPedido(int n) throws Exception {
         Pedido p = buscarPedido(n);
         if(p != null && !estadoPedido(p)){
 
@@ -205,13 +204,13 @@ public class Datos{
         }
         return 0;
     }
-    public boolean estadoPedido(Pedido p){
+    public boolean estadoPedido(Pedido p) throws Exception {
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR,p.getFecha().getYear());
         calendar.set(Calendar.MONTH,p.getFecha().getMonthValue());
         calendar.set(Calendar.MONTH,p.getFecha().getDayOfMonth());
-        calendar.add(Calendar.MINUTE,p.getArticulo().getpEnvio());
+        calendar.add(Calendar.MINUTE,daoArticulo.buscar(p.getArticulo()).getpEnvio());
         Date fechaPedido = calendar.getTime();
 
         calendar.set(Calendar.YEAR,LocalDate.now().getYear());
@@ -229,16 +228,13 @@ public class Datos{
     public String buscarPPCliente(String email){
         String c = "";
 
-
-
         try {
            ListaPedidos listaPedidos = new ListaPedidos();
             listaPedidos = daoPedido.buscarpedidocliente(email);
 
             for(Pedido p : listaPedidos.getArrayList()) {
-
                     if (!estadoPedido(p)) {
-                        c = c + " Cliente: " + p.getCliente().getEmail() + "\n " + " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo().getCodigo() + " || Cant: " + p.getCantidad() + " || Coste: "
+                        c = c + " Cliente: " + p.getCliente() + "\n " + " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo() + " || Cant: " + p.getCantidad() + " || Coste: "
                                 + p.getPrecioP() + "\n";
                     }
             }
@@ -255,7 +251,7 @@ public class Datos{
 
         for(Pedido p : listaPedidos.getArrayList()) {
             if(!estadoPedido(p)){
-                c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant:  " + p.getCantidad() + " || Coste: "
+                c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo() + " || Cant:  " + p.getCantidad() + " || Coste: "
                         +  p.getPrecioP()  + "\n";
             }
         }
@@ -265,13 +261,12 @@ public class Datos{
     public String buscarPECliente(String email){
         String c = "";
         try {
-            Pedido listaPedidos = new Pedido();
-            listaPedidos = daoPedido.buscarpedidocliente(email);
+            ListaPedidos listaPedidos = daoPedido.buscarpedidocliente(email);
 
             for(Pedido p : listaPedidos.getArrayList()) {
 
                 if (estadoPedido(p)) {
-                    c = c + " Cliente: " + p.getCliente().getEmail() + "\n " + " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo().getCodigo() + " || Cant: " + p.getCantidad() + " || Coste: "
+                    c = c + " Cliente: " + p.getCliente() + "\n " + " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo() + " || Cant: " + p.getCantidad() + " || Coste: "
                             + p.getPrecioP() + "\n";
                 }
             }
@@ -288,7 +283,7 @@ public class Datos{
 
             for(Pedido p : listaPedidos.getArrayList()) {
                 if(estadoPedido(p)){
-                    c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo().getCodigo() + " || Cant:  " + p.getCantidad() + " || Coste: "
+                    c = c + " || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: "+  p.getArticulo() + " || Cant:  " + p.getCantidad() + " || Coste: "
                             +  p.getPrecioP()  + "\n";
                 }
             }

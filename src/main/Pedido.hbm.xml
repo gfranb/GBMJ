@@ -3,12 +3,12 @@
 
 <hibernate-mapping>
 
-<class name="modelo.Pedido" table="pedido" abstract="true">
+    <class name="modelo.Pedido" table="pedido" abstract="true">
 
-    <id name ="nPedido" type="int" column="nPedido"/>
-    <property name="cantidad" type="int" column="cantidad"/>
-    <property name="fecha" type="LocalDate" column="fecha"/>
-    <property name="precioP" type="double" column="precio"/>
+        <id name ="nPedido" type="int" column="nPedido"/>
+        <property name="cantidad" type="int" column="cantidad"/>
+        <property name="fecha" type="LocalDate" column="fecha"/>
+        <property name="precioP" type="double" column="precio"/>
 
-</class>
+    </class>
 </hibernate-mapping>

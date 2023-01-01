@@ -6,9 +6,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 public class Datos{
 
@@ -25,17 +23,23 @@ public class Datos{
         daoCliente_estandar = new Cliente_EstandardDAOImpl();
 
     }
-
-    public String mostrarArticulos(String c) throws Exception {
+    public ArrayList<String> mostrarArticulos(String c) throws Exception {
         Articulo a = daoArticulo.buscar(c);
-                return "----------------------------------------------------" + "\n" + " || " + "Código: "+ a.getCodigo() + " || " + "Descripción: "+ a.getDescripcion() +
-                        " || " + "Precio: "+ a.getPrecio() + " || "+ " Precio de envío: " + a.getgEnvio() + " || " + " Tiempo de preparación: " + a.getpEnvio() + " || "+ "\n";
+        ArrayList<String> datos = new ArrayList<>();
+        if(a != null){
+            datos.add(a.getDescripcion());
+            datos.add(Float.toString(a.getPrecio()));
+            datos.add(Float.toString(a.getgEnvio()));
+            datos.add(Integer.toString(a.getpEnvio()));
+            return datos;
+        }else{
+            return null;
+        }
     }
-    public boolean addArticulo(String c, String d, float p, float gE, int pE) {
+    public boolean addArticulo(String c, String d, float p, float gE, int pE) throws Exception{
         Articulo a = new Articulo(c, d, p, gE, pE);
         try{
-            daoArticulo.registrar(a);
-            return true;
+            return daoArticulo.registrar(a);
         }catch (Exception e){
             return false;
         }

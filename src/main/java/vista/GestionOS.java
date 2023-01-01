@@ -1,6 +1,8 @@
 package vista;
 
 import controlador.Controlador;
+import javafx.scene.control.Button;
+
 import java.util.Scanner;
 public class GestionOS {
     private Controlador controlador;

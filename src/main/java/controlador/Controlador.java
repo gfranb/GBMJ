@@ -1,19 +1,22 @@
 package controlador;
 
 import modelo.Datos;
+
+import java.util.ArrayList;
+
 public class Controlador {
     private final Datos datos;
     public Controlador() {
         datos = new Datos ();
     }
-    public boolean anadirArticulo(String codigo, String descripcion, float precio, float gEnvio, int pEnvio){
+    public boolean anadirArticulo(String codigo, String descripcion, float precio, float gEnvio, int pEnvio) throws Exception{
          return datos.addArticulo(codigo,descripcion,precio,gEnvio,pEnvio);
     }
-    public String mostrarArticulo(String codigo){
+    public ArrayList<String> mostrarArticulo(String codigo){
         try{
             return datos.mostrarArticulos(codigo);
         }catch(Exception e){
-            return "El articulo no existe";
+            return null;
         }
     }
     public boolean crearCliente(String n, String e, String d, String nif, char t) throws Exception {

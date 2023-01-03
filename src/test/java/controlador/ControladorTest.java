@@ -21,7 +21,7 @@ class ControladorTest {
     }
     @Test
     void dbRegistrarArticulo() throws Exception {
-        Articulo a = new Articulo("A","Ejemplo de descripción de producto ",4,3,10);
+        Articulo a = new Articulo("W","Ejemplo de descripción de producto ",4,3,10);
         DAOArticulo daoArticulo = new ArticuloDAOImpl();
         assertTrue(daoArticulo.registrar(a));
     }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.IGestionOS">
+   <children>
+      <VBox prefHeight="500.0" prefWidth="706.0">
+         <children>
+            <AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="300.0" layoutY="119.0" text="Bienvendio a Gestion OS" />
+                  <Button fx:id="btnArticulos" layoutX="308.0" layoutY="165.0" mnemonicParsing="false" onAction="#gestionArticulos" prefHeight="25.0" prefWidth="114.0" text="Gestion Articulos" />
+                  <Button layoutX="308.0" layoutY="266.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Gestion Pedidos" />
+                  <Button layoutX="308.0" layoutY="215.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Gestion Clientes" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>

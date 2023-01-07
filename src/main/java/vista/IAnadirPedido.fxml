@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.IAnadirPedido">
+    <children>
+        <Label layoutX="325.0" layoutY="63.0" text="Anadir Articulo" />
+        <Label layoutX="204.0" layoutY="126.0" text="Email" />
+        <Label layoutX="204.0" layoutY="166.0" text="Cod Articulo" />
+        <Label layoutX="204.0" layoutY="201.0" text="Cantidad" />
+        <TextField fx:id="inEmail" layoutX="310.0" layoutY="122.0" prefHeight="25.0" prefWidth="250.0" />
+        <TextField fx:id="inCodArt" layoutX="310.0" layoutY="162.0" prefHeight="25.0" prefWidth="250.0" />
+        <TextField fx:id="inCant" layoutX="310.0" layoutY="197.0" prefHeight="25.0" prefWidth="250.0" />
+        <Button fx:id="btnVolver" layoutX="435.0" layoutY="363.0" mnemonicParsing="false" onAction="#volverEscena" prefHeight="52.0" prefWidth="118.0" style="-fx-border-color: black; -fx-background-color: transparent; -fx-border-radius: 50;" text="Volver" />
+        <Button fx:id="btnAnadir" layoutX="207.0" layoutY="363.0" mnemonicParsing="false" onAction="#anadirPedido" prefHeight="52.0" prefWidth="118.0" style="-fx-border-radius: 50; -fx-border-color: green; -fx-background-color: transparent;" text="Anadir" />
+    </children>
+</AnchorPane>

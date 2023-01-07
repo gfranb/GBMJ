@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class IMostrarCliente {
 
@@ -40,27 +39,27 @@ public class IMostrarCliente {
     }
 
     @FXML
-    private <Char> void mostrarCliente() throws Exception{
+    private void mostrarCliente() throws Exception{
 
         controlador = new Controlador();
 
-        String e = inE.getText();
+        String email = inE.getText();
         Alert alert = new Alert(Alert.AlertType.NONE);
 
-        ArrayList<String> datos = controlador.mostrarCliente(e);
+        String datos = controlador.mostrarCliente(email);
         if(datos == null){
 
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setTitle("Estado de la solicitud");
-            alert.setContentText("El email " + e + " no es correcto. No se encontro ningun cliente.");
+            alert.setContentText("El email " + email + " no es correcto. No se encontro ningun cliente.");
             alert.show();
 
         }else{
-            outN.setText(datos.get(0));
-            outE.setText(datos.get(2));
-            outD.setText(datos.get(1));
-            outNif.setText(datos.get(3));
-            outT.setText(datos.get(4));
+            outN.setText(String.valueOf(datos.equals(0)));
+            outE.setText(String.valueOf(datos.equals(2)));
+            outD.setText(String.valueOf(datos.equals(1)));
+            outNif.setText(String.valueOf(datos.equals(3)));
+            outT.setText(String.valueOf(datos.equals(4)));
         }
 
     }

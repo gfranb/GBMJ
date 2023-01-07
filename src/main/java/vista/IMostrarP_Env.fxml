@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.IMostrarP_Env">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: white;">
+            <children>
+                <Label layoutX="312.0" layoutY="43.0" text="Enviados"> </Label>
+                <Button fx:id="btnVolver" layoutX="19.0" layoutY="17.0" mnemonicParsing="false" onAction="#volverEscena" prefHeight="52.0" prefWidth="118.0" style="-fx-border-color: black; -fx-background-color: transparent; -fx-border-radius: 50;" text="Volver" />
+                <Button fx:id="btnMostrar" layoutX="402.0" layoutY="36.0" mnemonicParsing="false" onAction="#mostrarPedidos" prefHeight="40.0" prefWidth="92.0" style="-fx-border-color: black; -fx-background-color: transparent; -fx-border-radius: 50;" text="Mostrar"/>
+                <AnchorPane layoutX="39.0" layoutY="123.0" prefHeight="299.0" prefWidth="606.0">
+                    <children>
+                        <Label fx:id="outSalida" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+</GridPane>

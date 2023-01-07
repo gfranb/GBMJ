@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class IMostrarCliente {
 
@@ -46,7 +47,7 @@ public class IMostrarCliente {
         String email = inE.getText();
         Alert alert = new Alert(Alert.AlertType.NONE);
 
-        String datos = controlador.mostrarCliente(email);
+        ArrayList<String> datos = controlador.mostrarCliente(email);
         if(datos == null){
 
             alert.setAlertType(Alert.AlertType.ERROR);
@@ -55,11 +56,11 @@ public class IMostrarCliente {
             alert.show();
 
         }else{
-            outN.setText(String.valueOf(datos.equals(0)));
-            outE.setText(String.valueOf(datos.equals(2)));
-            outD.setText(String.valueOf(datos.equals(1)));
-            outNif.setText(String.valueOf(datos.equals(3)));
-            outT.setText(String.valueOf(datos.equals(4)));
+            outN.setText(datos.get(0));
+            outE.setText(datos.get(1));
+            outD.setText(datos.get(3));
+            outNif.setText(datos.get(2));
+            outT.setText(datos.get(4));
         }
 
     }

@@ -19,10 +19,10 @@ public class Controlador {
             return null;
         }
     }
-    public boolean crearCliente(String n, String e, String d, String nif, char t) throws Exception {
-        return datos.addCliente(n,d,nif,e,t);
+    public boolean crearCliente(String nombre, String nif, String email, String direccion, char t) throws Exception {
+        return datos.addCliente(nombre,nif,email,direccion,t);
     }
-    public String mostrarCliente(String email){
+    public ArrayList<String> mostrarCliente(String email){
         return datos.showCliente(email);
     }
     public String showCatalogo() throws Exception {

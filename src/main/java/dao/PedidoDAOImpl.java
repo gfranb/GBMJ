@@ -54,7 +54,7 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
     }
 
     @Override
-    public Pedido buscarpedidocliente(String email) throws Exception {
+    public ListaPedidos buscarpedidocliente(String email) throws Exception {
 
         try {
             emf = Persistence.createEntityManagerFactory("Persistencia");
@@ -66,7 +66,7 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                     pedidos.add(p);
                 }
             }
-            return (Pedido) pedidos;
+            return pedidos;
         }catch (Exception e){
             e.printStackTrace();
             return null;

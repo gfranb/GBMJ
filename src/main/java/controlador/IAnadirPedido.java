@@ -55,7 +55,7 @@ public class IAnadirPedido {
         int cantidad = Integer.parseInt(inCant.getText());
 
         Alert alert = new Alert(Alert.AlertType.NONE);
-        if(controlador.crearPedido(email,codArticulo,cantidad) == 0){
+        if(controlador.crearPedido(email,codArticulo,cantidad) != 0){
 
             alert.setAlertType(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Estado de la solicitud");

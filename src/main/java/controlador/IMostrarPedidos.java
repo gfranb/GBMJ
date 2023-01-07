@@ -34,7 +34,7 @@ public class IMostrarPedidos {
     @FXML
     private void mostrarPendiente() throws Exception{
 
-        URL url = new File("./src/main/java/vista/IIMostrarP_Pend.fxml").toURI().toURL();
+        URL url = new File("./src/main/java/vista/IMostrarP_Pend.fxml").toURI().toURL();
         Parent root  = FXMLLoader.load(url);
 
         Stage window = (Stage) btnPendiente.getScene().getWindow();

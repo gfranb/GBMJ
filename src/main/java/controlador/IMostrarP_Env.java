@@ -42,11 +42,11 @@ public class IMostrarP_Env {
         Alert alert = new Alert(Alert.AlertType.NONE);
         String datos = controlador.mostrarPedidosEnviados();
 
-        if(datos == null){
+        if(datos.equals("")){
 
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setTitle("Estado de la solicitud");
-            alert.setContentText("Error: Fallo de solicitud");
+            alert.setContentText("Error: No hay ningun pedido enviado");
             alert.show();
 
         }else{

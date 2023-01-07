@@ -85,22 +85,36 @@ public class Datos{
          return null;
 
         }
-    public String showCliente(String email){
+    public ArrayList<String> showCliente(String email){
 
         Cliente_Premium cp = buscarClienteP(email);
         Cliente_Estandar ce = buscarClienteE(email);
         try{
             if(cp.getEmail().equals(email)){
-                return "DATOS: " + cp.getNombre() + " || " + cp.getEmail() + " || " + cp.getNif() + " || " + cp.getDomicilio() + "|| Tipo: Premium" + "\n";
+                ArrayList<String> datos = new ArrayList<>();
+                datos.add(cp.getNombre());
+                datos.add(cp.getEmail());
+                datos.add(cp.getNif());
+                datos.add(cp.getDomicilio());
+                datos.add("Premium");
+                return datos;
             }
-        }catch(Exception e){}
+        }catch(Exception e){
+
+        }
 
         try{
             if(ce.getEmail().equals(email)){
-                return "DATOS: " + ce.getNombre() + " || " + ce.getEmail() + " || " + ce.getNif() + " || " + ce.getDomicilio() + "|| Tipo: Estándar"+"\n";
+                ArrayList<String> datos = new ArrayList<>();
+                datos.add(ce.getNombre());
+                datos.add(ce.getEmail());
+                datos.add(ce.getNif());
+                datos.add(ce.getDomicilio());
+                datos.add("Estandard");
+                return datos;
             }
         } catch (Exception e){
-            return "-------------------------------" + "\n"+ " El Cliente no existe." + "\n" + "-------------------------------";
+            return null;
         }
         return null;
     }
@@ -233,7 +247,7 @@ public class Datos{
 
             for(Pedido p : listaPedidos.getArrayList()) {
                     if (!estadoPedido(p)) {
-                        c = c + " Cliente: " + p.getCliente() + "\n " + " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo() + " || Cant: " + p.getCantidad() + " || Coste: "
+                        c = c + "|| Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo() + " || Cant: " + p.getCantidad() + " || Coste: "
                                 + p.getPrecioP() + "\n";
                     }
             }
@@ -265,7 +279,7 @@ public class Datos{
             for(Pedido p : listaPedidos.getArrayList()) {
 
                 if (estadoPedido(p)) {
-                    c = c + " Cliente: " + p.getCliente() + "\n " + " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo() + " || Cant: " + p.getCantidad() + " || Coste: "
+                    c = c + "|| Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo() + " || Cant: " + p.getCantidad() + " || Coste: "
                             + p.getPrecioP() + "\n";
                 }
             }

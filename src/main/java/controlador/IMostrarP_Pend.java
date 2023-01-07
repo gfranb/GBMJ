@@ -17,6 +17,8 @@ public class IMostrarP_Pend {
 
     @FXML
     public Button btnVolver;
+    @FXML
+    public Button btnMostrar;
 
     @FXML
     public Label outSalida;

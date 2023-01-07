@@ -31,7 +31,7 @@ public class Articulo{
     public Articulo(){
 
     }
-    @Override
+    @Column(name = "descripcion")
     public String toString(){
         return "modelo.Articulo{" +
                 "codigo='" + codigo + '\'' +

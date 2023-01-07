@@ -30,4 +30,26 @@ public class IGestionOS {
         window.setScene(new Scene(root,700,500));
 
     }
+
+    @FXML
+    private void gestionClientes() throws Exception{
+
+        URL url = new File("./src/main/java/vista/IGestionClientes.fxml").toURI().toURL();
+        Parent root  = FXMLLoader.load(url);
+
+        Stage window = (Stage) btnClientes.getScene().getWindow();
+        window.setScene(new Scene(root,700,500));
+
+    }
+
+    @FXML
+    private void gestionPedidos() throws Exception{
+
+        URL url = new File("./src/main/java/vista/IGestionPedidos.fxml").toURI().toURL();
+        Parent root  = FXMLLoader.load(url);
+
+        Stage window = (Stage) btnPedidos.getScene().getWindow();
+        window.setScene(new Scene(root,700,500));
+
+    }
 }

@@ -2,7 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC '-//Hibernate/Hibernate Mapping DTD 3.0//EN' 'http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd'>
 
 <hibernate-mapping>
-    <class name="Articulo" table="articulo">
+
+    <class name="modelo.Articulo" table="articulo">
         <id name="codigo" type="string" column="codigo">
             <generator class="identity"/>
         </id>
@@ -11,4 +12,6 @@
         <property name="gEnvio" type="float" column="gEnvio"/>
         <property name="pEnvio" type="integer" column="pEnvio"/>
     </class>
+
+
 </hibernate-mapping>

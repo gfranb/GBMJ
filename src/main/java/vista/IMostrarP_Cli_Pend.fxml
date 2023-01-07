@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.IMostrarP_Cli_Pend">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <AnchorPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: white;">
+            <children>
+                <Label layoutX="256.0" layoutY="43.0" text="Pendientes por Cliente" />
+                <Button fx:id="btnVolver" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#volverEscena" prefHeight="52.0" prefWidth="118.0" style="-fx-border-color: black; -fx-background-color: transparent; -fx-border-radius: 50;" text="Volver" />
+                <Button fx:id="btnMostrar" layoutX="430.0" layoutY="59.0" mnemonicParsing="false" onAction="#mostrarPedidos" prefHeight="52.0" prefWidth="118.0" style="-fx-border-radius: 50; -fx-border-color: green; -fx-background-color: transparent;" text="Mostrar" />
+                <AnchorPane layoutX="14.0" layoutY="111.0" prefHeight="379.0" prefWidth="636.0">
+                    <children>
+                        <Label fx:id="outSalida" layoutX="6.0" layoutY="5.0" />
+                    </children>
+                </AnchorPane>
+                <Label layoutX="125.0" layoutY="76.0" text="Email" />
+                <TextField fx:id="inEmail" layoutX="166.0" layoutY="72.0" prefHeight="25.0" prefWidth="250.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</GridPane>

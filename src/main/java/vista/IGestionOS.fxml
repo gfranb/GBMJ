@@ -14,8 +14,8 @@
                <children>
                   <Label layoutX="300.0" layoutY="119.0" text="Bienvendio a Gestion OS" />
                   <Button fx:id="btnArticulos" layoutX="308.0" layoutY="165.0" mnemonicParsing="false" onAction="#gestionArticulos" prefHeight="25.0" prefWidth="114.0" text="Gestion Articulos" />
-                  <Button layoutX="308.0" layoutY="266.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Gestion Pedidos" />
-                  <Button layoutX="308.0" layoutY="215.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="114.0" text="Gestion Clientes" />
+                  <Button fx:id="btnPedidos" layoutX="308.0" layoutY="270.0" mnemonicParsing="false" onAction="#gestionPedidos" prefHeight="25.0" prefWidth="114.0" text="Gestion Pedidos" />
+                  <Button fx:id="btnClientes" layoutX="308.0" layoutY="215.0" mnemonicParsing="false" onAction="#gestionClientes" prefHeight="25.0" prefWidth="114.0" text="Gestion Clientes" />
                </children>
             </AnchorPane>
          </children>

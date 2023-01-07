@@ -8,7 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoDAOImpl extends Conexion implements DAOPedido {
@@ -55,7 +54,7 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
     }
 
     @Override
-    public ListaPedidos buscarpedidocliente(String email) throws Exception {
+    public Pedido buscarpedidocliente(String email) throws Exception {
 
         try {
             emf = Persistence.createEntityManagerFactory("Persistencia");
@@ -67,7 +66,7 @@ public class PedidoDAOImpl extends Conexion implements DAOPedido {
                     pedidos.add(p);
                 }
             }
-            return pedidos;
+            return (Pedido) pedidos;
         }catch (Exception e){
             e.printStackTrace();
             return null;

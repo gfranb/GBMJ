@@ -247,7 +247,7 @@ public class Datos{
 
             for(Pedido p : listaPedidos.getArrayList()) {
                     if (!estadoPedido(p)) {
-                        c = c + " Cliente: " + p.getCliente() + "\n " + " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo() + " || Cant: " + p.getCantidad() + " || Coste: "
+                        c = c + "|| Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo() + " || Cant: " + p.getCantidad() + " || Coste: "
                                 + p.getPrecioP() + "\n";
                     }
             }
@@ -279,7 +279,7 @@ public class Datos{
             for(Pedido p : listaPedidos.getArrayList()) {
 
                 if (estadoPedido(p)) {
-                    c = c + " Cliente: " + p.getCliente() + "\n " + " Datos del pedido || Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo() + " || Cant: " + p.getCantidad() + " || Coste: "
+                    c = c + "|| Cod: " + p.getnPedido() + " || Fecha: " + p.getFecha() + " || Art: " + p.getArticulo() + " || Cant: " + p.getCantidad() + " || Coste: "
                             + p.getPrecioP() + "\n";
                 }
             }

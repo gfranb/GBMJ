@@ -47,11 +47,11 @@ public class IMostrarP_Cli_Env {
         Alert alert = new Alert(Alert.AlertType.NONE);
 
         String datos = controlador.mostrarPedidosEnviados(email);
-        if(datos == null){
+        if(datos.equals("")){
 
             alert.setAlertType(Alert.AlertType.ERROR);
             alert.setTitle("Estado de la solicitud");
-            alert.setContentText("Error: fallo de solicitud");
+            alert.setContentText("Error: No hay ningun pedido enviado para el cliente " +email);
             alert.show();
 
         }else{

@@ -16,6 +16,8 @@ public class IGestionPedidos {
     @FXML
     public Button btnMostrar;
     @FXML
+    public Button btnEliminar;
+    @FXML
     public Button btnVolver;
     @FXML
     private void anadirPedido() throws Exception{
@@ -24,6 +26,16 @@ public class IGestionPedidos {
         Parent root  = FXMLLoader.load(url);
 
         Stage window = (Stage) btnAnadir.getScene().getWindow();
+        window.setScene(new Scene(root,700,500));
+
+    }
+    @FXML
+    private void eliminarPedido() throws Exception{
+
+        URL url = new File("./src/main/java/vista/IEliminarPedido.fxml").toURI().toURL();
+        Parent root  = FXMLLoader.load(url);
+
+        Stage window = (Stage) btnEliminar.getScene().getWindow();
         window.setScene(new Scene(root,700,500));
 
     }
